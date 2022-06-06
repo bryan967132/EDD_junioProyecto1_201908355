@@ -3,12 +3,15 @@
     --fontParrafo: 'Open Sans', sans-serif;
     
     --fontprimary: rgb(0, 88, 188);
+    --fontsecondary: rgb(0, 32, 70);
     --primary: #0078ff;
-    --secondary: #0077ffe0;
+    --secondary: #0058bc;
     --verde: #42b72a;
+    --verdeLog: #379d23;
+    --verdeLogB: #267816;
     --rojo: #C03425;
     --rojo1: #a5281b;
-    --gris: #bbbdbf;
+    --gris: #919395;
     --blanco: #fff;
     --negro: #000;
 }
@@ -36,29 +39,46 @@ body{
     justify-content: center;
 }
 .formLogin {
-    background-color: var(--gris);
+    background-color: var(--blanco);
+    display: grid;
     border-radius: 1rem;
-    padding-top: 5rem;
+    padding: 3rem;
 }
-input {
-    width: 100%;
-    outline: none;
+.formTitle {
+    text-align: center;
+}
+.formTitle label {
+    color: var(--fontprimary);
+    font-size: 3rem;
+}
+.input-text label {
+    color: var(--fontprimary);
+    font-size: 2rem;
 }
 .input-text {
+    padding-top: 2rem;
+}
+.input-text input {
+    color: var(--fontsecondary);
     width: 100%;
-    border: none;
-    padding: 1.5rem;
-    border-radius: .5rem;
     outline: none;
+    height: 3.5rem;
+    border-radius: 0.4rem;
+    border: var(--gris) solid 0.1rem;
 }
 .button-login {
     width: 100%;
-    padding: 1.5rem;
-	background: transparent;
+    padding-top: 3rem;
 }
-button {
+.button-login button {
     width: 100%;
+    height: 4rem;
+    border-radius: 0.4rem;
+    background-color: var(--verdeLog);
+    border: var(--verdeLogB) solid 0.2rem;
+    color: var(--blanco);
 }
-button:hover {
+.button-login button:hover {
 	cursor: pointer;
+    background-color: var(--verde);
 }
