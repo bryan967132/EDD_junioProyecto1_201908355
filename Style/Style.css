@@ -4,6 +4,7 @@
     
     --fontprimary: rgb(0, 88, 188);
     --fontsecondary: rgb(0, 32, 70);
+    --backDark: rgb(39, 39, 39);
     --primary: #0078ff;
     --secondary: #0058bc;
     --verde: #42b72a;
@@ -29,7 +30,7 @@ body{
 }
 @media (prefers-color-scheme: dark) {
     body { 
-        background: var(--primary); 
+        background: var(--backDark); 
     }
 }
 
@@ -53,7 +54,7 @@ body{
     text-align: center;
 }
 .formTitle label {
-    color: var(--fontprimary);
+    color: var(--primary);
     font-size: 3rem;
 }
 .input-text label {
