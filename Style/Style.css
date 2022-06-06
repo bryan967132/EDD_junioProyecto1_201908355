@@ -1,0 +1,64 @@
+:root{
+    --fontHeading: 'PT Sans', sans-serif;
+    --fontParrafo: 'Open Sans', sans-serif;
+    
+    --fontprimary: rgb(0, 88, 188);
+    --primary: #0078ff;
+    --secondary: #0077ffe0;
+    --verde: #42b72a;
+    --rojo: #C03425;
+    --rojo1: #a5281b;
+    --gris: #bbbdbf;
+    --blanco: #fff;
+    --negro: #000;
+}
+html{
+    box-sizing: border-box;
+    font-size: 62.5%;
+}
+*,*::before{
+    box-sizing: inherit;
+}
+body{
+    font-family: var(--fontParrafo);
+    font-size: 1.6rem;
+    line-height: 2;
+}
+
+/*GLOBALES*/
+.contentForm {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.formLogin {
+    background-color: var(--gris);
+    border-radius: 1rem;
+    padding-top: 5rem;
+}
+input {
+    width: 100%;
+    outline: none;
+}
+.input-text {
+    width: 100%;
+    border: none;
+    padding: 1.5rem;
+    border-radius: .5rem;
+    outline: none;
+}
+.button-login {
+    width: 100%;
+    padding: 1.5rem;
+	background: transparent;
+}
+button {
+    width: 100%;
+}
+button:hover {
+	cursor: pointer;
+}
