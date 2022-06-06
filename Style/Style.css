@@ -27,6 +27,11 @@ body{
     font-size: 1.6rem;
     line-height: 2;
 }
+@media (prefers-color-scheme: dark) {
+    body { 
+        background: var(--primary); 
+    }
+}
 
 /*GLOBALES*/
 .contentForm {
