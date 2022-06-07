@@ -99,6 +99,7 @@ h4{
 .button-login {
     width: 100%;
     padding-top: 3rem;
+    padding-bottom: 1rem;
 }
 .button-login button {
     width: 100%;
@@ -111,6 +112,12 @@ h4{
 .button-login button:hover {
 	cursor: pointer;
     background-color: var(--verde);
+}
+.vinculo {
+    display: block;
+    text-align: right;
+    font-size: 1.8rem;
+    color: var(--primary);
 }
 
 /*HOME*/
@@ -246,12 +253,8 @@ h4{
     }
 }
 /*inputs*/
-.dos-columnas{
-    padding: 2rem;
-}
 @media (min-width: 768px) {
     .dos-columnas{
-        padding: 2rem;
         display: grid;
         /*grid-template-columns: 50% 50%;
         grid-template-columns: repeat(2, 50%);
