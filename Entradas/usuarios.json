@@ -1,0 +1,38 @@
+[
+    {
+        "dpi": 3884144641925,
+        "nombre_completo": "William Leon",
+        "nombre_usuario": "Rhonda",
+        "correo": "rhondaleon@bitrex.com",
+        "rol": "Usuario",
+        "contrasenia": "veniam",
+        "telefono": "+502 (841) 537-2727"
+    },
+    {
+        "dpi": 5158445914766,
+        "nombre_completo": "Clarice Baird",
+        "nombre_usuario": "Booker",
+        "correo": "bookerbaird@bitrex.com",
+        "rol": "Administrador",
+        "contrasenia": "labore",
+        "telefono": "+502 (841) 424-3154"
+    },
+    {
+        "dpi": 4209796138857,
+        "nombre_completo": "Hawkins Graves",
+        "nombre_usuario": "Stokes",
+        "correo": "stokesgraves@bitrex.com",
+        "rol": "Usuario",
+        "contrasenia": "Lorem",
+        "telefono": "+502 (935) 532-2941"
+    },
+    {
+        "dpi": 9081494909953,
+        "nombre_completo": "Althea Erickson",
+        "nombre_usuario": "Josefa",
+        "correo": "josefaerickson@bitrex.com",
+        "rol": "Administrador",
+        "contrasenia": "dolore",
+        "telefono": "+502 (900) 538-3904"
+    }
+]

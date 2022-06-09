@@ -1,0 +1,26 @@
+[
+    {
+        "dpi": 5561641099809,
+        "nombre_autor": "Miller Mcclain",
+        "correo": "millermcclain@bitrex.com",
+        "telefono": "+502 (963) 523-2143",
+        "direccion": "995 Herzl Street, Nicholson, Mississippi, 8329",
+        "biografia": "Lorem ipsumdolor sit amet consectetur adipiscing elit, turpis felis dapibus arcu varius ante rhoncus, torquent habitasse purus leo scelerisque nisi. Purus duis dapibus sapien magna vitae lobortis ullamcorper accumsan convallis, sem ultricies senectus mattis velit aliquet lectus tempor, aptent faucibus at mi fermentum venenatis orci interdum. Rhoncus duis nisi enim molestie fusce tortor tristique parturient velit suscipit lectus, maecenas justo nibh dis venenatis neque mauris cubilia augue facilisis ad, arcu erat iaculis ligula nunc viverra vel volutpat consequat nulla."
+    },
+    {
+        "dpi": 1011950845912,
+        "nombre_autor": "Kari Andrews",
+        "correo": "kariandrews@bitrex.com",
+        "telefono": "+502 (932) 588-2002",
+        "direccion": "696 Cheever Place, Jeff, Wyoming, 2038",
+        "biografia": "Nec magnis malesuada convallis mus, ac orci ornare eu placerat, urna nam risus. Odio est taciti dapibus molestie blandit purus vehicula enim mattis, fames sapien sollicitudin facilisi erat velit donec vivamus ultrices risus, condimentum morbi arcu vitae praesent posuere mus lacinia. Pellentesque class nunc iaculis natoque sapien neque cursus suspendisse vulputate, eleifend eget platea eros nec sem gravida volutpat cras, aliquam fermentum et ultrices lacinia imperdiet feugiat morbi."
+    },
+    {
+        "dpi": 6846663249654,
+        "nombre_autor": "Riggs Simon",
+        "correo": "riggssimon@bitrex.com",
+        "telefono": "+502 (941) 579-2302",
+        "direccion": "584 Seigel Street, Townsend, Federated States Of Micronesia, 3141",
+        "biografia": "Tristique malesuada id lobortis odio tortor ac turpis, purus felis diam aptent elementum mattis quis mus, duis congue justo varius quam donec. Et himenaeos est sollicitudin diam urna nibh quis, commodo in magna quisque ad cubilia, eget vel massa at cras libero. Magna elementum accumsan ac gravida non nascetur tellus fusce, ligula vivamus et suspendisse hac eget donec fermentum nisl, penatibus parturient habitant tortor diam faucibus sociis."
+    }
+]
