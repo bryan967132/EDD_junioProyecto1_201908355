@@ -26,6 +26,12 @@
             <div id="libros"></div>
             <div id="topcom"></div>
         </div>
-        <script></script>
+        <script src="./Js/Init.js"></script>
+        <script>
+            if(window.localStorage.getItem('inicializado') == true)
+                console.log('inicializado')
+            else
+                console.log('no inicializado')
+        </script>
     </body>
 </html>
