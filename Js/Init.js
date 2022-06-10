@@ -1,4 +1,38 @@
 function init() {
+    class Libro {
+        constructor(isbn,nombre_autor,nombre_libro,cantidad,fila,columna,paginas,categoria) {
+            this.isbn = isbn
+            this.nombre_autor = nombre_autor
+            this.nombre_libro = nombre_libro
+            this.cantidad = cantidad
+            this.fila = fila
+            this.columna = columna
+            this.paginas = paginas
+            this.categoria = categoria
+        }
+    }
+    class Autor {
+        constructor(dpi,nombre_autor,correo,telefono,direccion,biografia) {
+            this.dpi = dpi
+            this.nombre_autor = nombre_autor
+            this.correo = correo
+            this.telefono = telefono
+            this.direccion = direccion
+            this.biografia = biografia
+        }
+    }
+    class Usuario {
+        constructor(dpi,nombre_completo,nombre_usuario,correo,rol,contrasenia,telefono,compras) {
+            this.dpi = dpi
+            this.nombre_completo = nombre_completo
+            this.nombre_usuario = nombre_usuario
+            this.correo = correo
+            this.rol = rol
+            this.contrasenia = contrasenia
+            this.telefono = telefono
+            this.compras = compras
+        }
+    }
     class NodoS {
         constructor(indice,objeto) {
             this.indice = indice
