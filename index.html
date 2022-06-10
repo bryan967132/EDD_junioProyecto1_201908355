@@ -28,10 +28,13 @@
         </div>
         <script src="./Js/Init.js"></script>
         <script>
-            if(window.localStorage.getItem('inicializado') == true)
+            //init()
+            if(window.localStorage.getItem('inicializado') == 'true') {
                 console.log('inicializado')
-            else
+            }else {
+                init()
                 console.log('no inicializado')
+            }
         </script>
     </body>
 </html>

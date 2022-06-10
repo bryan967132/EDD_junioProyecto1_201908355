@@ -1,9 +1,17 @@
 function init() {
-    class Nodo {
+    class NodoS {
         constructor(indice,objeto) {
             this.indice = indice
             this.objeto = objeto
             this.siguiente = null
+        }
+    }
+    class NodoD {
+        constructor(indice,objeto) {
+            this.indice = indice
+            this.objeto = objeto
+            this.siguiente = null
+            this.anterior = null
         }
     }
     class ListaSimple {
@@ -13,7 +21,7 @@ function init() {
         }
         add(nuevo) {
             if(!this.primero) {
-                this.primero = new Nodo(this.indice,nuevo)
+                this.primero = new NodoS(this.indice,nuevo)
                 this.indice ++
                 return
             }
@@ -21,7 +29,7 @@ function init() {
             while(actual.siguiente) {
                 actual = actual.siguiente
             }
-            actual.siguiente = new Nodo(this.indice,nuevo)
+            actual.siguiente = new NodoS(this.indice,nuevo)
             this.indice ++
         }
         printList() {
@@ -31,16 +39,59 @@ function init() {
                 actual = actual.siguiente
             }
         }
+        getSize() {
+            return this.indice
+        }
     }
     class ListaDoble {
         constructor() {
-            
+            this.indice = 0
+            this.primero = null
+            this.ultimo = null
+        }
+        add(nuevo) {
+            if(!this.primero) {
+                this.primero = new NodoD(this.indice,nuevo)
+                this.ultimo = this.primero
+                this.indice ++
+                return
+            }
+            this.ultimo.siguiente = new NodoD(this.indice,nuevo)
+            this.ultimo.siguiente.anterior = this.ultimo
+            this.ultimo = this.ultimo.siguiente
+            this.indice ++
+        }
+        getSize() {
+            return this.indice
         }
     }
     class ListaDobleCircular {
         constructor() {
-
+            this.indice = 0
+            this.primero = null
+            this.ultimo = null
+        }
+        add(nuevo) {
+            if(!this.primero) {
+                this.primero = new NodoD(this.indice,nuevo)
+                this.primero.siguiente = this.primero
+                this.primero.anterior = this.primero
+                this.ultimo = this.primero
+                return
+            }
+            this.ultimo.siguiente = new NodoD(this.indice,nuevo)
+            this.ultimo.siguiente.anterior = this.ultimo
+            this.ultimo = this.ultimo.siguiente
+            this.ultimo.siguiente = this.primero
+            this.primero.anterior = this.ultimo
+        }
+        getSize() {
+            return this.indice
         }
     }
-    //window.localStorage.removeItem('inicializado')
+    usuariosTop = new ListaDoble()
+    usuarios = new ListaDobleCircular()
+    window.localStorage.setItem('usuariosTop',usuariosTop)
+    window.localStorage.setItem('usuarios',usuarios)
+    window.localStorage.setItem('inicializado',true)
 }
