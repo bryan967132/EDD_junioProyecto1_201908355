@@ -66,10 +66,12 @@ function init() {
             actual.siguiente = new NodoS(this.indice,nuevo)
             this.indice ++
         }
-        printList() {
+        get(indice) {
             var actual = this.primero
             while(actual) {
-                console.log(actual.objeto)
+                if(actual.indice == indice) {
+                    return actual.objeto
+                }
                 actual = actual.siguiente
             }
         }
@@ -95,6 +97,15 @@ function init() {
             this.ultimo = this.ultimo.siguiente
             this.indice ++
         }
+        get(indice) {
+            var actual = this.primero
+            while(actual) {
+                if(actual.indice == indice) {
+                    return actual.objeto
+                }
+                actual = actual.siguiente
+            }
+        }
         getSize() {
             return this.indice
         }
@@ -119,13 +130,31 @@ function init() {
             this.ultimo.siguiente = this.primero
             this.primero.anterior = this.ultimo
         }
+        get(indice) {
+            var actual = this.primero
+            while(actual) {
+                if(actual.indice == indice) {
+                    return actual.objeto
+                }
+                actual = actual.siguiente
+            }
+        }
         getSize() {
             return this.indice
         }
     }
     usuariosTop = new ListaDoble()
     usuarios = new ListaDobleCircular()
+    usuarios.add(new Usuario(2354168452525,'Wilfred Perez','Wilfred','wilfred@bitrex.com','Administrador',123,'+502 (123) 123-4567',0))
     window.localStorage.setItem('usuariosTop',usuariosTop)
     window.localStorage.setItem('usuarios',usuarios)
     window.localStorage.setItem('inicializado',true)
+}
+
+//init()
+if(window.localStorage.getItem('inicializado') == 'true') {
+    console.log('inicializado')
+}else {
+    init()
+    console.log('no inicializado')
 }
