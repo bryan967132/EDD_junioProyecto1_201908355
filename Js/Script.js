@@ -213,15 +213,15 @@ function searchByDpi(dpi) {
     return false
 }
 
-function createUser(dpi,name,username,email,password,phone) {
+function createUser(dpi,name,username,email,rol,password,phone) {
     var usersCharged = localStorage.getItem('usersCharged')
     usersCharged = usersCharged.replace('[','').replace(']','')
     if(usersCharged == '') {
-        usersCharged += `[${JSON.stringify(new Usuario(parseInt(dpi),name,username,email,'Usuario',password,phone,0))}]`
+        usersCharged += `[${JSON.stringify(new Usuario(parseInt(dpi),name,username,email,rol,password,phone,0))}]`
         localStorage.setItem('usersCharged',usersCharged)
         return
     }
-    usersCharged += `,${JSON.stringify(new Usuario(parseInt(dpi),name,username,email,'Usuario',password,phone,0))}`
+    usersCharged += `,${JSON.stringify(new Usuario(parseInt(dpi),name,username,email,rol,password,phone,0))}`
     usersCharged = `[${usersCharged}]`
     localStorage.setItem('usersCharged',usersCharged)
 }
@@ -277,7 +277,32 @@ function signin() {
         alert(msg)
         return
     }
-    createUser(dpi,name,username,email,password,phone)
+    createUser(dpi,name,username,email,'Usuario',password,phone)
     alert('Usuario creado exitosamente')
     window.location.href = 'Login.html'
+}
+
+function chargeUsers() {
+    let file = document.getElementById('fileusers').files[0]
+    if(file) {
+        let reader = new FileReader()
+        reader.readAsText(file,'UTF-8')
+        reader.onload = function(evt) {
+            let users = JSON.parse(JSON.parse(JSON.stringify({data: evt.target.result}))['data'])
+            for(var i = 0; i < users.length; i ++) {
+                let user = users[i]
+                createUser(
+                    user['dpi'],
+                    user['nombre_completo'],
+                    user['nombre_usuario'],
+                    user['correo'],
+                    user['rol'],
+                    user['contrasenia'],
+                    user['telefono']
+                )
+            }
+        }
+        reader.onerror = function(evt) {alert('Ha ocurrido un error al cargar el archivo')}
+        document.getElementById('fileusers').value = ''
+    }
 }
