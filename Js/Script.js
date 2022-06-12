@@ -145,12 +145,18 @@ class ListaDobleCircular {
     }
 }
 
+//borrar registros
+//localStorage.clear()
+
+//init
 if(localStorage.getItem('userMaster') == null) {
-    localStorage.setItem('userMaster',JSON.stringify(new Usuario(2354168452525,'Wilfred Perez','Wilfred','wilfred@bitrex.com','Administrador',123,'+502 (123) 123-4567',0)))
+    localStorage.setItem('userMaster',JSON.stringify(new Usuario(2354168452525,'Wilfred Perez','Wilfred','wilfred@bitrex.com','Administrador','123','+502 (123) 123-4567',0)))
 }
 if(localStorage.getItem('usersCharged') == null) {
-    localStorage.setItem('usersCharged',JSON.stringify('[]'))
+    localStorage.setItem('usersCharged','')
 }
+
+//lista de usuarios
 function getUsers() {
     var master = JSON.parse(localStorage.getItem('userMaster'))
     var users = new ListaDobleCircular()
@@ -187,8 +193,40 @@ function getUsers() {
     return users
 }
 
+var users = getUsers()
+
+function searchByUsername(user) {
+    for(var i = 0; i < users.getSize(); i ++) {
+        if(user == users.get(i).nombre_usuario) {
+            return true
+        }
+    }
+    return false
+}
+
+function searchByDpi(dpi) {
+    for(var i = 0; i < users.getSize(); i ++) {
+        if(dpi == users.get(i).dpi) {
+            return true
+        }
+    }
+    return false
+}
+
+function createUser(dpi,name,username,email,password,phone) {
+    var usersCharged = localStorage.getItem('usersCharged')
+    usersCharged = usersCharged.replace('[','').replace(']','')
+    if(usersCharged == '') {
+        usersCharged += `[${JSON.stringify(new Usuario(parseInt(dpi),name,username,email,'Usuario',password,phone,0))}]`
+        localStorage.setItem('usersCharged',usersCharged)
+        return
+    }
+    usersCharged += `,${JSON.stringify(new Usuario(parseInt(dpi),name,username,email,'Usuario',password,phone,0))}`
+    usersCharged = `[${usersCharged}]`
+    localStorage.setItem('usersCharged',usersCharged)
+}
+
 function login() {
-    var users = getUsers()
     var username = document.getElementById('user').value
     var password = document.getElementById('pass').value
     if(username.replace(' ','') == '' || password.replace(' ','') == '') {
@@ -205,8 +243,41 @@ function login() {
             }
         }
     }
+    for(var i = 0; i < users.getSize(); i ++) {
+        console.log(users.get(i))
+    }
 }
 
 function signin() {
-    
+    var dpi = document.getElementById('dpi').value
+    var name = document.getElementById('name').value
+    var username = document.getElementById('user').value
+    var email = document.getElementById('email').value
+    var password = document.getElementById('pass').value
+    var phone = document.getElementById('phone').value
+    var msg = ''
+    if(
+        dpi.replace(' ','') == '' || name.replace(' ','') == '' ||
+        username.replace(' ','') == '' || email.replace(' ','') == '' ||
+        password.replace(' ','') == '' || phone.replace(' ','') == ''
+    ) {
+        alert('Todos los campos son obligatorios')
+        return
+    }
+    if(searchByUsername(username)) {
+        msg += 'El nombre de usuario ya existe, intente con otro'
+        document.getElementById('user').value = ''
+    }
+    if(searchByDpi(dpi)) {
+        if(msg != '') msg += '\n'
+        msg += 'El dpi ya existe, intente con otro'
+        document.getElementById('dpi').value = ''
+    }
+    if(msg != '') {
+        alert(msg)
+        return
+    }
+    createUser(dpi,name,username,email,password,phone)
+    alert('Usuario creado exitosamente')
+    window.location.href = 'Login.html'
 }
