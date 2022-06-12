@@ -156,7 +156,7 @@ if(localStorage.getItem('usersCharged') == null) {
     localStorage.setItem('usersCharged','')
 }
 
-//lista de usuarios
+//obtener lista de usuarios
 function getUsers() {
     var master = JSON.parse(localStorage.getItem('userMaster'))
     var users = new ListaDobleCircular()
@@ -193,8 +193,10 @@ function getUsers() {
     return users
 }
 
+//global usuarios
 var users = getUsers()
 
+//búsquedas
 function searchByUsername(user) {
     for(var i = 0; i < users.getSize(); i ++) {
         if(user == users.get(i).nombre_usuario) {
@@ -213,6 +215,7 @@ function searchByDpi(dpi) {
     return false
 }
 
+//crear usuarios en storage
 function createUser(dpi,name,username,email,rol,password,phone) {
     var usersCharged = localStorage.getItem('usersCharged')
     usersCharged = usersCharged.replace('[','').replace(']','')
@@ -226,6 +229,7 @@ function createUser(dpi,name,username,email,rol,password,phone) {
     localStorage.setItem('usersCharged',usersCharged)
 }
 
+//autenticación
 function login() {
     var username = document.getElementById('user').value
     var password = document.getElementById('pass').value
@@ -242,9 +246,6 @@ function login() {
                 }
             }
         }
-    }
-    for(var i = 0; i < users.getSize(); i ++) {
-        console.log(users.get(i))
     }
 }
 
@@ -282,6 +283,8 @@ function signin() {
     window.location.href = 'Login.html'
 }
 
+//cargas masivas
+//---usuarios
 function chargeUsers() {
     let file = document.getElementById('fileusers').files[0]
     if(file) {

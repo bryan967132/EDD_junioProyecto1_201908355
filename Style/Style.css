@@ -101,7 +101,10 @@ h4{
     padding-top: 3rem;
     padding-bottom: 1rem;
 }
-.button-login button {
+.button-login button,
+.users button,
+.authors button,
+.books button {
     width: 100%;
     height: 4rem;
     border-radius: 0.4rem;
