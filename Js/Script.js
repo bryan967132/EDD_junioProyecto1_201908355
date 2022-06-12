@@ -186,5 +186,20 @@ function getUsers() {
 
 function login() {
     var users = getUsers()
-    
+    var username = document.getElementById('user').value
+    var password = document.getElementById('pass').value
+    if(username.replace(' ','') == '' || password.replace(' ','') == '') {
+        alert('Todos los campos son obligatorios')
+    }else{
+        for(var i = 0; i < users.getSize(); i ++) {
+            if(username == users.get(i).nombre_usuario && password == users.get(i).contrasenia) {
+                alert('Bienvenido ' + users.get(i).nombre_completo)
+                if(users.get(i).rol == 'Administrador') {
+                    window.location.href = 'AdminProfile.html'
+                }else if(users.get(i).rol == 'Usuario') {
+                    window.location.href = 'UserProfile.html'
+                }
+            }
+        }
+    }
 }
