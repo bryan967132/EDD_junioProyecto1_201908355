@@ -133,7 +133,6 @@ h4{
 }
 /*Header*/
 .header{
-    height: 60rem;
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
@@ -300,4 +299,21 @@ h4{
 	font-weight:normal;
     cursor: pointer;
     font-size: 1.8rem;
+}
+
+.bodyCharge {
+    width: 100%;
+    padding: 4rem 8rem 0 8rem;
+    display: grid;
+    flex-direction: row;
+    row-gap: 1rem;
+}
+
+.users h1,
+.authors h1,
+.books h1 {
+	color: #fff;
+	margin: auto;
+    font-family: var(--fontParrafo);
+    font-size: 4rem;
 }

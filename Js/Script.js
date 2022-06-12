@@ -148,6 +148,9 @@ class ListaDobleCircular {
 if(localStorage.getItem('userMaster') == null) {
     localStorage.setItem('userMaster',JSON.stringify(new Usuario(2354168452525,'Wilfred Perez','Wilfred','wilfred@bitrex.com','Administrador',123,'+502 (123) 123-4567',0)))
 }
+if(localStorage.getItem('usersCharged') == null) {
+    localStorage.setItem('usersCharged',JSON.stringify('[]'))
+}
 function getUsers() {
     var master = JSON.parse(localStorage.getItem('userMaster'))
     var users = new ListaDobleCircular()
@@ -202,4 +205,8 @@ function login() {
             }
         }
     }
+}
+
+function signin() {
+    
 }
