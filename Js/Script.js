@@ -193,11 +193,9 @@ function getUsers() {
     return users
 }
 
-//global usuarios
-var users = getUsers()
-
 //búsquedas
 function searchByUsername(user) {
+    var users = getUsers()
     for(var i = 0; i < users.getSize(); i ++) {
         if(user == users.get(i).nombre_usuario) {
             return true
@@ -207,6 +205,7 @@ function searchByUsername(user) {
 }
 
 function searchByDpi(dpi) {
+    var users = getUsers()
     for(var i = 0; i < users.getSize(); i ++) {
         if(dpi == users.get(i).dpi) {
             return true
@@ -236,6 +235,7 @@ function login() {
     if(username.replace(' ','') == '' || password.replace(' ','') == '') {
         alert('Todos los campos son obligatorios')
     }else{
+        var users = getUsers()
         for(var i = 0; i < users.getSize(); i ++) {
             if(username == users.get(i).nombre_usuario && password == users.get(i).contrasenia) {
                 alert('Bienvenido ' + users.get(i).nombre_completo)
