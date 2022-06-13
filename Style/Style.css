@@ -2,7 +2,7 @@
     --fontHeading: 'PT Sans', sans-serif;
     --fontParrafo: 'Open Sans', sans-serif;
     
-    --fontprimary: rgb(0, 88, 188);
+    --fontprimary: rgb(0, 77, 166);
     --fontsecondary: rgb(0, 32, 70);
     --backDark: rgb(39, 39, 39);
     --primary: #0078ff;
@@ -318,7 +318,7 @@ h4{
     margin-right: 0.25em;
 }
 .iborrainputfile {
-	font-size:16px; 
+	font-size:1.6rem; 
 	font-weight:normal;
     cursor: pointer;
     font-size: 1.8rem;
