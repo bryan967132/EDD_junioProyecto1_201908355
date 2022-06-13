@@ -344,6 +344,7 @@ function chargeUsers() {
                     user['telefono']
                 )
             }
+            alert('Usuarios cargados')
         }
         reader.onerror = function(evt) {alert('Ha ocurrido un error al cargar el archivo')}
         document.getElementById('fileusers').value = ''
@@ -369,6 +370,7 @@ function chargeAuthors() {
                     author['biografia']
                 )
             }
+            alert('Autores cargados')
         }
         reader.onerror = function(evt) {alert('Ha ocurrido un error al cargar el archivo')}
         document.getElementById('fileauthors').value = ''
