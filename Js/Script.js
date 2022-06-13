@@ -159,6 +159,9 @@ if(localStorage.getItem('usersCharged') == null) {
 if(localStorage.getItem('authorsCharged') == null) {
     localStorage.setItem('authorsCharged','')
 }
+if(localStorage.getItem('booksCharged') == null) {
+    localStorage.setItem('booksCharged','')
+}
 
 //obtener lista de usuarios
 function getUsers() {
@@ -244,6 +247,20 @@ function createAuthor(dpi,name,email,phone,adress,biographic) {
     authorsCharged += `,${JSON.stringify(new Autor(dpi,name,email,phone,adress,biographic))}`
     authorsCharged = `[${authorsCharged}]`
     localStorage.setItem('authorsCharged',authorsCharged)
+}
+
+//crear libros en storage
+function createBook(isbn,author,title,cuantity,row,column,pages,category) {
+    var booksCharged = localStorage.getItem('booksCharged')
+    booksCharged = booksCharged.replace('[','').replace(']','')
+    if(booksCharged == '') {
+        booksCharged += `[${JSON.stringify(new Libro(isbn,author,title,cuantity,row,column,pages,category))}]`
+        localStorage.setItem('booksCharged',booksCharged)
+        return
+    }
+    booksCharged += `,${JSON.stringify(new Libro(isbn,author,title,cuantity,row,column,pages,category))}`
+    booksCharged = `[${booksCharged}]`
+    localStorage.setItem('booksCharged',booksCharged)
 }
 
 //autenticación
