@@ -59,7 +59,7 @@ class ListaSimple {
             this.indice ++
             return
         }
-        var actual = this.primero
+        let actual = this.primero
         while(actual.siguiente) {
             actual = actual.siguiente
         }
@@ -67,7 +67,7 @@ class ListaSimple {
         this.indice ++
     }
     get(indice) {
-        var actual = this.primero
+        let actual = this.primero
         while(actual) {
             if(actual.indice == indice) {
                 return actual.objeto
@@ -98,7 +98,7 @@ class ListaDoble {
         this.indice ++
     }
     get(indice) {
-        var actual = this.primero
+        let actual = this.primero
         while(actual) {
             if(actual.indice == indice) {
                 return actual.objeto
@@ -133,7 +133,7 @@ class ListaDobleCircular {
         this.indice ++
     }
     get(indice) {
-        var actual = this.primero
+        let actual = this.primero
         while(actual) {
             if(actual.indice == indice) {
                 return actual.objeto
@@ -165,8 +165,8 @@ if(localStorage.getItem('booksCharged') == null) {
 
 //obtener lista de usuarios
 function getUsers() {
-    var master = JSON.parse(localStorage.getItem('userMaster'))
-    var users = new ListaDobleCircular()
+    let master = JSON.parse(localStorage.getItem('userMaster'))
+    let users = new ListaDobleCircular()
     users.add(
         new Usuario(
             master['dpi'],
@@ -180,9 +180,9 @@ function getUsers() {
         )
     )
     try {
-        var usersCharged = JSON.parse(localStorage.getItem('usersCharged'))
-        for(var i = 0; i < usersCharged.length; i ++) {
-            var user = usersCharged[i]
+        let usersCharged = JSON.parse(localStorage.getItem('usersCharged'))
+        for(let i = 0; i < usersCharged.length; i ++) {
+            let user = usersCharged[i]
             users.add(
                 new Usuario(
                     user['dpi'],
@@ -202,8 +202,8 @@ function getUsers() {
 
 //búsquedas
 function searchByUsername(user) {
-    var users = getUsers()
-    for(var i = 0; i < users.getSize(); i ++) {
+    let users = getUsers()
+    for(let i = 0; i < users.getSize(); i ++) {
         if(user == users.get(i).nombre_usuario) {
             return true
         }
@@ -212,8 +212,8 @@ function searchByUsername(user) {
 }
 
 function searchByDpi(dpi) {
-    var users = getUsers()
-    for(var i = 0; i < users.getSize(); i ++) {
+    let users = getUsers()
+    for(let i = 0; i < users.getSize(); i ++) {
         if(dpi == users.get(i).dpi) {
             return true
         }
@@ -223,7 +223,7 @@ function searchByDpi(dpi) {
 
 //crear usuarios en storage
 function createUser(dpi,name,username,email,rol,password,phone) {
-    var usersCharged = localStorage.getItem('usersCharged')
+    let usersCharged = localStorage.getItem('usersCharged')
     usersCharged = usersCharged.replace('[','').replace(']','')
     if(usersCharged == '') {
         usersCharged += `[${JSON.stringify(new Usuario(dpi,name,username,email,rol,password,phone,0))}]`
@@ -237,7 +237,7 @@ function createUser(dpi,name,username,email,rol,password,phone) {
 
 //crear autores en storage
 function createAuthor(dpi,name,email,phone,adress,biographic) {
-    var authorsCharged = localStorage.getItem('authorsCharged')
+    let authorsCharged = localStorage.getItem('authorsCharged')
     authorsCharged = authorsCharged.replace('[','').replace(']','')
     if(authorsCharged == '') {
         authorsCharged += `[${JSON.stringify(new Autor(dpi,name,email,phone,adress,biographic))}]`
@@ -251,7 +251,7 @@ function createAuthor(dpi,name,email,phone,adress,biographic) {
 
 //crear libros en storage
 function createBook(isbn,author,title,cuantity,row,column,pages,category) {
-    var booksCharged = localStorage.getItem('booksCharged')
+    let booksCharged = localStorage.getItem('booksCharged')
     booksCharged = booksCharged.replace('[','').replace(']','')
     if(booksCharged == '') {
         booksCharged += `[${JSON.stringify(new Libro(isbn,author,title,cuantity,row,column,pages,category))}]`
@@ -265,13 +265,13 @@ function createBook(isbn,author,title,cuantity,row,column,pages,category) {
 
 //autenticación
 function login() {
-    var username = document.getElementById('user').value
-    var password = document.getElementById('pass').value
+    let username = document.getElementById('user').value
+    let password = document.getElementById('pass').value
     if(username.replace(' ','') == '' || password.replace(' ','') == '') {
         alert('Todos los campos son obligatorios')
     }else{
-        var users = getUsers()
-        for(var i = 0; i < users.getSize(); i ++) {
+        let users = getUsers()
+        for(let i = 0; i < users.getSize(); i ++) {
             if(username == users.get(i).nombre_usuario && password == users.get(i).contrasenia) {
                 alert('Bienvenido ' + users.get(i).nombre_completo)
                 if(users.get(i).rol == 'Administrador') {
@@ -285,13 +285,13 @@ function login() {
 }
 
 function signin() {
-    var dpi = document.getElementById('dpi').value
-    var name = document.getElementById('name').value
-    var username = document.getElementById('user').value
-    var email = document.getElementById('email').value
-    var password = document.getElementById('pass').value
-    var phone = document.getElementById('phone').value
-    var msg = ''
+    let dpi = document.getElementById('dpi').value
+    let name = document.getElementById('name').value
+    let username = document.getElementById('user').value
+    let email = document.getElementById('email').value
+    let password = document.getElementById('pass').value
+    let phone = document.getElementById('phone').value
+    let msg = ''
     if(
         dpi.replace(' ','') == '' || name.replace(' ','') == '' ||
         username.replace(' ','') == '' || email.replace(' ','') == '' ||
@@ -327,7 +327,7 @@ function chargeUsers() {
         reader.readAsText(file,'UTF-8')
         reader.onload = function(evt) {
             let users = JSON.parse(JSON.parse(JSON.stringify({data: evt.target.result}))['data'])
-            for(var i = 0; i < users.length; i ++) {
+            for(let i = 0; i < users.length; i ++) {
                 let user = users[i]
                 createUser(
                     user['dpi'],
@@ -343,4 +343,9 @@ function chargeUsers() {
         reader.onerror = function(evt) {alert('Ha ocurrido un error al cargar el archivo')}
         document.getElementById('fileusers').value = ''
     }
+}
+
+//---autores
+function chargeAuthors() {
+    
 }

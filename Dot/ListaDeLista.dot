@@ -1,17 +1,18 @@
 digraph G {
-    rankdir = LR;
-    node[shape=box]
-    nodo1 -> nodo2 -> nodo3;
+    node[shape="box"]
     subgraph subNodo1 {
-        rank = same;
         nodo1 -> nodo11 -> nodo12 -> nodo13
     }
     subgraph subNodo2 {
-        rank = same;
         nodo2 -> nodo21 -> nodo22 -> nodo23
     }
     subgraph subNodo3 {
-        rank = same;
         nodo3 -> nodo31 -> nodo32 -> nodo33
+    }
+    {
+        rank=same;
+        nodo1 -> nodo2;
+        nodo2 -> nodo3;
+        nodo3 -> nodo1;
     }
 }
