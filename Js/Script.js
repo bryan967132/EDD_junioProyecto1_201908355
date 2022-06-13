@@ -276,11 +276,16 @@ function login() {
                 alert('Bienvenido ' + users.get(i).nombre_completo)
                 if(users.get(i).rol == 'Administrador') {
                     window.location.href = 'AdminProfile.html'
+                    return
                 }else if(users.get(i).rol == 'Usuario') {
                     window.location.href = 'UserProfile.html'
+                    return
                 }
             }
         }
+        alert('Usuario no registrado')
+        document.getElementById('user').value = ''
+        document.getElementById('pass').value = ''
     }
 }
 
