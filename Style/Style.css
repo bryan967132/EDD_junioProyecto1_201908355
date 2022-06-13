@@ -7,6 +7,7 @@
     --backDark: rgb(39, 39, 39);
     --primary: #0078ff;
     --secondary: #0058bc;
+    --thirdy: #0060cd;
     --verde: #42b72a;
     --verdeLog: #379d23;
     --verdeLogB: #267816;
@@ -297,7 +298,7 @@ h4{
 }
 .inputfile-1 + label {
     text-align: center;
-    background-color: var(--secondary);
+    background-color: var(--thirdy);
     color: var(--blanco);
     border-radius: 0.4rem;
     border: var(--fontprimary) solid 0.2rem;
