@@ -271,6 +271,15 @@ h4{
         grid-template-columns: repeat(2, 1fr);
         column-gap: 2rem;
     }
+    .tres-columnas {
+        padding: 2rem;
+        display: grid;
+        /*grid-template-columns: 50% 50%;
+        grid-template-columns: repeat(2, 50%);
+        grid-template-columns: 1fr 1fr;*/
+        grid-template-columns: repeat(3, 1fr);
+        column-gap: 2rem;
+    }
 }
 .input{
     outline: none;
@@ -287,8 +296,11 @@ h4{
     z-index: -1;
 }
 .inputfile-1 + label {
-    color: #fff;
-    background-color: var(--primary);
+    text-align: center;
+    background-color: var(--secondary);
+    color: var(--blanco);
+    border-radius: 0.4rem;
+    border: var(--fontprimary) solid 0.2rem;
 }
 
 .inputfile-1:focus + label,

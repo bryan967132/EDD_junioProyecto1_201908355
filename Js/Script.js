@@ -221,7 +221,7 @@ function searchByDpi(dpi) {
     return false
 }
 
-//crear usuarios en storage
+//crear
 function createUser(dpi,name,username,email,rol,password,phone) {
     let usersCharged = localStorage.getItem('usersCharged')
     usersCharged = usersCharged.replace('[','').replace(']','')
@@ -235,7 +235,6 @@ function createUser(dpi,name,username,email,rol,password,phone) {
     localStorage.setItem('usersCharged',usersCharged)
 }
 
-//crear autores en storage
 function createAuthor(dpi,name,email,phone,adress,biographic) {
     let authorsCharged = localStorage.getItem('authorsCharged')
     authorsCharged = authorsCharged.replace('[','').replace(']','')
@@ -249,7 +248,6 @@ function createAuthor(dpi,name,email,phone,adress,biographic) {
     localStorage.setItem('authorsCharged',authorsCharged)
 }
 
-//crear libros en storage
 function createBook(isbn,author,title,cuantity,row,column,pages,category) {
     let booksCharged = localStorage.getItem('booksCharged')
     booksCharged = booksCharged.replace('[','').replace(']','')
@@ -374,5 +372,34 @@ function chargeAuthors() {
         }
         reader.onerror = function(evt) {alert('Ha ocurrido un error al cargar el archivo')}
         document.getElementById('fileauthors').value = ''
+    }
+}
+
+//---libros
+function chargeBooks() {
+    let file = document.getElementById('filebooks').files[0]
+    if(file) {
+        let reader = new FileReader()
+        reader.readAsText(file,'UTF-8')
+        reader.onload = function(evt) {
+            let books = JSON.parse(JSON.parse(JSON.stringify({data: evt.target.result}))['data'])
+            console.log(books)
+            for(let i = 0; i < books.length; i ++) {
+                let book = books[i]
+                createBook(
+                    book['isbn'],
+                    book['nombre_autor'],
+                    book['nombre_libro'],
+                    book['cantidad'],
+                    book['fila'],
+                    book['columna'],
+                    book['paginas'],
+                    book['categoria']
+                )
+            }
+            alert('Libros cargados')
+        }
+        reader.onerror = function(evt) {alert('Ha ocurrido un error al cargar el archivo')}
+        document.getElementById('filebooks').value = ''
     }
 }
