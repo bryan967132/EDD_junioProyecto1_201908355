@@ -352,5 +352,25 @@ function chargeUsers() {
 
 //---autores
 function chargeAuthors() {
-    
+    let file = document.getElementById('fileauthors').files[0]
+    if(file) {
+        let reader = new FileReader()
+        reader.readAsText(file,'UTF-8')
+        reader.onload = function(evt) {
+            let authors = JSON.parse(JSON.parse(JSON.stringify({data: evt.target.result}))['data'])
+            for(let i = 0; i < authors.length; i ++) {
+                let author = authors[i]
+                createAuthor(
+                    author['dpi'],
+                    author['nombre_autor'],
+                    author['correo'],
+                    author['telefono'],
+                    author['direccion'],
+                    author['biografia']
+                )
+            }
+        }
+        reader.onerror = function(evt) {alert('Ha ocurrido un error al cargar el archivo')}
+        document.getElementById('fileauthors').value = ''
+    }
 }
