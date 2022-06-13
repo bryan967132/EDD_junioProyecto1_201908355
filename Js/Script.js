@@ -1,3 +1,4 @@
+//objetos
 class Libro {
     constructor(isbn,nombre_autor,nombre_libro,cantidad,fila,columna,paginas,categoria) {
         this.isbn = isbn
@@ -148,12 +149,15 @@ class ListaDobleCircular {
 //borrar registros
 //localStorage.clear()
 
-//init
+//inicialización
 if(localStorage.getItem('userMaster') == null) {
     localStorage.setItem('userMaster',JSON.stringify(new Usuario(2354168452525,'Wilfred Perez','Wilfred','wilfred@bitrex.com','Administrador','123','+502 (123) 123-4567',0)))
 }
 if(localStorage.getItem('usersCharged') == null) {
     localStorage.setItem('usersCharged','')
+}
+if(localStorage.getItem('authorsCharged') == null) {
+    localStorage.setItem('authorsCharged','')
 }
 
 //obtener lista de usuarios
@@ -219,13 +223,27 @@ function createUser(dpi,name,username,email,rol,password,phone) {
     var usersCharged = localStorage.getItem('usersCharged')
     usersCharged = usersCharged.replace('[','').replace(']','')
     if(usersCharged == '') {
-        usersCharged += `[${JSON.stringify(new Usuario(parseInt(dpi),name,username,email,rol,password,phone,0))}]`
+        usersCharged += `[${JSON.stringify(new Usuario(dpi,name,username,email,rol,password,phone,0))}]`
         localStorage.setItem('usersCharged',usersCharged)
         return
     }
-    usersCharged += `,${JSON.stringify(new Usuario(parseInt(dpi),name,username,email,rol,password,phone,0))}`
+    usersCharged += `,${JSON.stringify(new Usuario(dpi,name,username,email,rol,password,phone,0))}`
     usersCharged = `[${usersCharged}]`
     localStorage.setItem('usersCharged',usersCharged)
+}
+
+//crear autores en storage
+function createAuthor(dpi,name,email,phone,adress,biographic) {
+    var authorsCharged = localStorage.getItem('authorsCharged')
+    authorsCharged = authorsCharged.replace('[','').replace(']','')
+    if(authorsCharged == '') {
+        authorsCharged += `[${JSON.stringify(new Autor(dpi,name,email,phone,adress,biographic))}]`
+        localStorage.setItem('authorsCharged',authorsCharged)
+        return
+    }
+    authorsCharged += `,${JSON.stringify(new Autor(dpi,name,email,phone,adress,biographic))}`
+    authorsCharged = `[${authorsCharged}]`
+    localStorage.setItem('authorsCharged',authorsCharged)
 }
 
 //autenticación
@@ -278,7 +296,7 @@ function signin() {
         alert(msg)
         return
     }
-    createUser(dpi,name,username,email,'Usuario',password,phone)
+    createUser(parseInt(dpi),name,username,email,'Usuario',password,phone)
     alert('Usuario creado exitosamente')
     window.location.href = 'Login.html'
 }
