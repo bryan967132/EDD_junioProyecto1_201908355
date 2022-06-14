@@ -13,8 +13,14 @@ class NodoD {
         this.anterior = null
     }
 }
-class NodoL {
-    
+class NodoAB {
+    constructor(objeto,nivel,id) {
+        this.objeto = objeto
+        this.nivel = nivel
+        this.id = id
+        this.izquierda = null
+        this.derecha = null
+    }
 }
 class ListaSimple {
     constructor() {
@@ -147,6 +153,53 @@ class Usuario {
         this.telefono = telefono
         this.compras = compras
         this.listaLibros = new ListaSimple()
+    }
+}
+//árbol binario
+class Arbol {
+    constructor() {
+        this.raiz = null
+        this.dot = ''
+        this.id = 0
+    }
+    insert(nuevo) {
+        let nivel = 0
+        if(!this.raiz) {
+            this.raiz = new NodoAB(nuevo,nivel,this.id)
+            this.dot += `nodo${this.id}${nivel} [label ="<C0>|${nuevo.nombre_autor}|<C1>"];`
+            this.id ++
+            return
+        }
+        let actual = this.raiz
+        while(actual) {
+            nivel ++
+            if(nuevo.nombre_autor < actual.objeto.nombre_autor) {
+                if(!actual.izquierda) {
+                    actual.izquierda = new NodoAB(nuevo,nivel,this.id)
+                    this.dot += `nodo${this.id}${nivel} [label ="<C0>|${nuevo.nombre_autor}|<C1>"];`
+                    this.dot += `nodo${actual.id}${actual.nivel}:C0 -> nodo${this.id}${nivel};`
+                    this.id ++
+                    return
+                }
+                actual = actual.izquierda
+            }else if(nuevo.nombre_autor > actual.objeto.nombre_autor) {
+                if(!actual.derecha) {
+                    actual.derecha = new NodoAB(nuevo,nivel,this.id)
+                    this.dot += `nodo${this.id}${nivel} [label ="<C0>|${nuevo.nombre_autor}|<C1>"];`
+                    this.dot += `nodo${actual.id}${actual.nivel}:C1 -> nodo${this.id}${nivel};`
+                    this.id ++
+                    return
+                }
+                actual = actual.derecha
+            }else {
+                console.log('no se permiten duplicados')
+                return
+            }
+        }
+        
+    }
+    getDot() {
+        return `digraph G{rankdir=TB;node [shape = record];${this.dot}}`
     }
 }
 
@@ -363,7 +416,6 @@ function listOfLists() {
         let nodosC = 'nodo0'
         let subG = ''
         for(let i = 0; i < clients.getSize(); i ++) {
-            console.log(clients.get(i))
             nodos += `nodo${i}[label="${clients.get(i).nombre_completo}"];`
             subG += `subgraph subNodo${i} {`
             if(clients.get(i).listaLibros.getSize() > 0) {
@@ -377,11 +429,40 @@ function listOfLists() {
         }
         nodosC += ` -> nodo0;`
         let dot = `digraph G{node[shape="box"];${nodos}${subG}{rank=same;${nodosC}}}`
-        console.log(dot)
         d3.select('#listoflists').graphviz().width(800).height(200).renderDot(dot)
         return
     }
     d3.select('#listoflists').graphviz().width(250).height(50).renderDot('digraph G{label="No hay clientes cargados"}')
+}
+
+function getAuthors() {
+    let authors = new Arbol()
+    try {
+        let authorsCharged = JSON.parse(localStorage.getItem('authorsCharged'))
+        for(let i = 0; i < authorsCharged.length; i ++) {
+            let author = authorsCharged[i]
+            authors.insert(
+                new Autor(
+                    author['dpi'],
+                    author['nombre_autor'],
+                    author['correo'],
+                    author['telefono'],
+                    author['direccion'],
+                    author['biografia']
+                )
+            )
+        }
+    } catch (error) {}
+    return authors
+}
+
+function binaryTree() {
+    let authors = getAuthors()
+    if(authors.raiz) {
+        d3.select('#binarytree').graphviz().width(800).height(400).renderDot(authors.getDot())
+        return
+    }
+    d3.select('#binarytree').graphviz().width(250).height(50).renderDot('digraph G{label="No hay autores cargados"}')
 }
 
 //cargas masivas
@@ -433,6 +514,7 @@ function chargeAuthors() {
                 )
             }
             alert('Autores cargados')
+            binaryTree()
         }
         reader.onerror = function(evt) {alert('Ha ocurrido un error al cargar el archivo')}
         document.getElementById('fileauthors').value = ''
