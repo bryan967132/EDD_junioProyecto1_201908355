@@ -31,6 +31,7 @@ class Usuario {
         this.contrasenia = contrasenia
         this.telefono = telefono
         this.compras = compras
+        this.listaLibros = null
     }
 }
 class NodoS {
@@ -47,6 +48,9 @@ class NodoD {
         this.siguiente = null
         this.anterior = null
     }
+}
+class NodoL {
+    
 }
 class ListaSimple {
     constructor() {
@@ -146,9 +150,6 @@ class ListaDobleCircular {
     }
 }
 
-//borrar registros
-//localStorage.clear()
-
 //inicialización
 if(localStorage.getItem('userMaster') == null) {
     localStorage.setItem('userMaster',JSON.stringify(new Usuario(2354168452525,'Wilfred Perez','Wilfred','wilfred@bitrex.com','Administrador','123','+502 (123) 123-4567',0)))
@@ -161,6 +162,11 @@ if(localStorage.getItem('authorsCharged') == null) {
 }
 if(localStorage.getItem('booksCharged') == null) {
     localStorage.setItem('booksCharged','')
+}
+
+//borrar registros
+function reset() {
+    localStorage.clear()
 }
 
 //obtener lista de usuarios
@@ -198,6 +204,10 @@ function getUsers() {
         }
     } catch (error) {}
     return users
+}
+
+function getClients() {
+
 }
 
 //búsquedas
@@ -324,6 +334,7 @@ function signin() {
 //cargas masivas
 //---usuarios
 function chargeUsers() {
+    //console.log(JSON.parse(localStorage.getItem('usersCharged')))
     let file = document.getElementById('fileusers').files[0]
     if(file) {
         let reader = new FileReader()
@@ -342,7 +353,8 @@ function chargeUsers() {
                     user['telefono']
                 )
             }
-            alert('Usuarios cargados')
+            console.log(JSON.parse(localStorage.getItem('usersCharged')))
+            //alert('Usuarios cargados')
         }
         reader.onerror = function(evt) {alert('Ha ocurrido un error al cargar el archivo')}
         document.getElementById('fileusers').value = ''
@@ -402,4 +414,9 @@ function chargeBooks() {
         reader.onerror = function(evt) {alert('Ha ocurrido un error al cargar el archivo')}
         document.getElementById('filebooks').value = ''
     }
+}
+
+//graficas
+function listOfLists() {
+
 }
