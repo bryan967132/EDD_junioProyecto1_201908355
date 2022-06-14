@@ -1,39 +1,3 @@
-//objetos
-class Libro {
-    constructor(isbn,nombre_autor,nombre_libro,cantidad,fila,columna,paginas,categoria) {
-        this.isbn = isbn
-        this.nombre_autor = nombre_autor
-        this.nombre_libro = nombre_libro
-        this.cantidad = cantidad
-        this.fila = fila
-        this.columna = columna
-        this.paginas = paginas
-        this.categoria = categoria
-    }
-}
-class Autor {
-    constructor(dpi,nombre_autor,correo,telefono,direccion,biografia) {
-        this.dpi = dpi
-        this.nombre_autor = nombre_autor
-        this.correo = correo
-        this.telefono = telefono
-        this.direccion = direccion
-        this.biografia = biografia
-    }
-}
-class Usuario {
-    constructor(dpi,nombre_completo,nombre_usuario,correo,rol,contrasenia,telefono,compras) {
-        this.dpi = dpi
-        this.nombre_completo = nombre_completo
-        this.nombre_usuario = nombre_usuario
-        this.correo = correo
-        this.rol = rol
-        this.contrasenia = contrasenia
-        this.telefono = telefono
-        this.compras = compras
-        this.listaLibros = null
-    }
-}
 class NodoS {
     constructor(indice,objeto) {
         this.indice = indice
@@ -149,6 +113,42 @@ class ListaDobleCircular {
         return this.indice
     }
 }
+//objetos
+class Libro {
+    constructor(isbn,nombre_autor,nombre_libro,cantidad,fila,columna,paginas,categoria) {
+        this.isbn = isbn
+        this.nombre_autor = nombre_autor
+        this.nombre_libro = nombre_libro
+        this.cantidad = cantidad
+        this.fila = fila
+        this.columna = columna
+        this.paginas = paginas
+        this.categoria = categoria
+    }
+}
+class Autor {
+    constructor(dpi,nombre_autor,correo,telefono,direccion,biografia) {
+        this.dpi = dpi
+        this.nombre_autor = nombre_autor
+        this.correo = correo
+        this.telefono = telefono
+        this.direccion = direccion
+        this.biografia = biografia
+    }
+}
+class Usuario {
+    constructor(dpi,nombre_completo,nombre_usuario,correo,rol,contrasenia,telefono,compras) {
+        this.dpi = dpi
+        this.nombre_completo = nombre_completo
+        this.nombre_usuario = nombre_usuario
+        this.correo = correo
+        this.rol = rol
+        this.contrasenia = contrasenia
+        this.telefono = telefono
+        this.compras = compras
+        this.listaLibros = new ListaSimple()
+    }
+}
 
 //inicialización
 if(localStorage.getItem('userMaster') == null) {
@@ -207,10 +207,6 @@ function getUsers() {
         }
     } catch (error) {}
     return users
-}
-
-function getClients() {
-
 }
 
 //búsquedas
@@ -334,6 +330,60 @@ function signin() {
     window.location.href = 'Login.html'
 }
 
+//obtener clientes
+function getClients() {
+    let clients = new ListaDobleCircular()
+    try {
+        let usersCharged = JSON.parse(localStorage.getItem('usersCharged'))
+        for(let i = 0; i < usersCharged.length; i ++) {
+            let user = usersCharged[i]
+            if(user['rol'] == 'Usuario') {
+                let newUser = new Usuario(
+                    user['dpi'],
+                    user['nombre_completo'],
+                    user['nombre_usuario'],
+                    user['correo'],
+                    user['rol'],
+                    user['contrasenia'],
+                    user['telefono'],
+                    user['compras']
+                    )
+                clients.add(newUser)
+            }
+        }
+    } catch (error) {}
+    return clients
+}
+
+//graficas
+function listOfLists() {
+    let clients = getClients()
+    if(clients.getSize() > 0) {
+        let nodos = ''
+        let nodosC = 'nodo0'
+        let subG = ''
+        for(let i = 0; i < clients.getSize(); i ++) {
+            console.log(clients.get(i))
+            nodos += `nodo${i}[label="${clients.get(i).nombre_completo}"];`
+            subG += `subgraph subNodo${i} {`
+            if(clients.get(i).listaLibros.getSize() > 0) {
+            }else{
+                subG += `null${i}[label="Sin Libros"];nodo${i} -> null${i};`
+            }
+            subG += `}`
+            if(i > 0) {
+                nodosC += ` -> nodo${i}`
+            }
+        }
+        nodosC += ` -> nodo0;`
+        let dot = `digraph G{node[shape="box"];${nodos}${subG}{rank=same;${nodosC}}}`
+        console.log(dot)
+        d3.select('#listoflists').graphviz().width(800).height(200).renderDot(dot)
+        return
+    }
+    d3.select('#listoflists').graphviz().width(250).height(50).renderDot('digraph G{label="No hay clientes cargados"}')
+}
+
 //cargas masivas
 //---usuarios
 function chargeUsers() {
@@ -356,6 +406,7 @@ function chargeUsers() {
                 )
             }
             alert('Usuarios cargados')
+            listOfLists()
         }
         reader.onerror = function(evt) {alert('Ha ocurrido un error al cargar el archivo')}
         document.getElementById('fileusers').value = ''
@@ -414,9 +465,4 @@ function chargeBooks() {
         reader.onerror = function(evt) {alert('Ha ocurrido un error al cargar el archivo')}
         document.getElementById('filebooks').value = ''
     }
-}
-
-//graficas
-function listOfLists() {
-
 }

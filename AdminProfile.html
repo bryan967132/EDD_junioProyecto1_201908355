@@ -9,13 +9,17 @@
         <link rel="stylesheet" href="">
         <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="./Style/Style.css">
+        <script src="https://d3js.org/d3.v5.min.js"></script>
+        <script src="https://unpkg.com/@hpcc-js/wasm@0.3.11/dist/index.min.js"></script>
+        <script src="https://unpkg.com/d3-graphviz@3.0.5/build/d3-graphviz.js"></script>
+        <script src="./Js/Script.js"></script>
     </head>
     <body>
-        <header class="header">
+        <header id="header" class="header">
             <div class="contenedor">
                 <div class="barra derecha">
                     <nav class="navegacion">
-                        <a href="#users" class="navegacion__enlace">Carga de Usuarios</a>
+                        <a href="#header" class="navegacion__enlace">Carga de Usuarios</a>
                         <a href="#authors" class="navegacion__enlace">Carga de Autores</a>
                         <a href="#books" class="navegacion__enlace">Carga de Libros</a>
                         <a href="./Login.html" class="navegacion__enlace">Cerrar Sesión</a>
@@ -25,7 +29,7 @@
         </header>
         <div class="bodyCharge">
             <div class="users" id="users">
-                <h1>Carga Masiva de Usuarios</h1>
+                <h2>Carga Masiva de Usuarios</h2>
                 <div class="tres-columnas">
                     <input type="file" id="fileusers" class="inputfile inputfile-1" accept=".json">
                     <label for="fileusers">
@@ -34,12 +38,12 @@
                     </label>
                     <button type="button" onclick="chargeUsers()">Cargar Usuarios</button>
                 </div>
-                <div id="usersCustomers">
-                    <h1>Clientes</h1>
-                </div>
+                <h3>Clientes</h3>
+                <div id="listoflists"></div>
+                <script>listOfLists()</script>
             </div>
             <div class="authors" id="authors">
-                <h1>Carga Masiva de Autores</h1>
+                <h2>Carga Masiva de Autores</h2>
                 <div class="tres-columnas">
                     <input type="file" id="fileauthors" class="inputfile inputfile-1" accept=".json">
                     <label for="fileauthors">
@@ -50,7 +54,7 @@
                 </div>
             </div>
             <div class="books" id="books">
-                <h1>Carga Masiva de Libros</h1>
+                <h2>Carga Masiva de Libros</h2>
                 <div class="tres-columnas">
                     <input type="file" id="filebooks" class="inputfile inputfile-1" accept=".json">
                     <label for="filebooks">
@@ -62,9 +66,8 @@
             </div>
         </div>
         <footer>
-            <button type="button" onclick="reset()">Cargar Autores</button>
+            <button type="button" onclick="reset()">Reiniciar Sistema</button>
         </footer>
-        <script src="./Js/Script.js"></script>
         <script src="./Js/ScriptChooseFile.js"></script>
     </body>
 </html>

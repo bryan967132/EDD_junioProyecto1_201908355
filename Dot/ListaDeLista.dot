@@ -1,18 +1,35 @@
 digraph G {
-    node[shape="box"]
+    node[shape="box"];
+    nodo0 [label="William Leon"];
+    nodo1 [label="Hawkins Graves"];
+    nodo2 [label="William Leon"];
+    nodo3 [label="Hawkins Graves"];
+    subgraph subNodo0 {
+        nodo00[label="Libro 1"];
+        nodo01[label="Libro 2"];
+        nodo02[label="Libro 3"];
+        nodo0 -> nodo00 -> nodo01 -> nodo02;
+    }
     subgraph subNodo1 {
-        nodo1 -> nodo11 -> nodo12 -> nodo13
+        nodo10[label="Libro 1"];
+        nodo11[label="Libro 2"];
+        nodo12[label="Libro 3"];
+        nodo1 -> nodo10 -> nodo11 -> nodo12;
     }
     subgraph subNodo2 {
-        nodo2 -> nodo21 -> nodo22 -> nodo23
+        nodo20[label="Libro 1"];
+        nodo21[label="Libro 2"];
+        nodo22[label="Libro 3"];
+        nodo2 -> nodo20 -> nodo21 -> nodo22;
     }
     subgraph subNodo3 {
-        nodo3 -> nodo31 -> nodo32 -> nodo33
+        nodo30[label="Libro 1"];
+        nodo31[label="Libro 2"];
+        nodo32[label="Libro 3"];
+        nodo3 -> nodo30 -> nodo31 -> nodo32;
     }
     {
         rank=same;
-        nodo1 -> nodo2;
-        nodo2 -> nodo3;
-        nodo3 -> nodo1;
+        nodo0 -> nodo1 -> nodo2 -> nodo3 -> nodo0;
     }
 }

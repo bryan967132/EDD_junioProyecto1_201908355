@@ -16,6 +16,7 @@
     --rojo2: #e34331;
     --gris: #919395;
     --blanco: #fff;
+    --blanco1:rgb(255, 255, 255);
     --blancoH: #c3dfff;
     --negro: #000;
 }
@@ -63,6 +64,7 @@ h4{
 .contenedor{
     width: 100%;
     margin: 0 auto;
+    position: fixed;
 }
 .contentForm {
     position: absolute;
@@ -329,19 +331,28 @@ h4{
 
 .bodyCharge {
     width: 100%;
-    padding: 4rem 8rem 0 8rem;
+    padding: 8rem 8rem 0 8rem;
     display: grid;
     flex-direction: row;
     row-gap: 1rem;
 }
 
-.users h1,
-.authors h1,
-.books h1 {
-	color: #fff;
+.users h2,
+.authors h2,
+.books h2 {
+	color: var(--blanco);
 	margin: auto;
     font-family: var(--fontParrafo);
     font-size: 4rem;
+}
+
+.users h3,
+.authors h3,
+.books h3 {
+	color: var(--blanco1);
+	margin: auto;
+    font-family: var(--fontParrafo);
+    font-size: 3rem;
 }
 
 footer {
