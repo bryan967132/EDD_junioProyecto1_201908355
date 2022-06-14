@@ -166,7 +166,10 @@ if(localStorage.getItem('booksCharged') == null) {
 
 //borrar registros
 function reset() {
-    localStorage.clear()
+    if(prompt('¿Reiniciar sistema? (y/n)') == 'y') {
+        localStorage.clear()
+        window.location.href = 'Login.html'
+    }
 }
 
 //obtener lista de usuarios
@@ -334,7 +337,6 @@ function signin() {
 //cargas masivas
 //---usuarios
 function chargeUsers() {
-    //console.log(JSON.parse(localStorage.getItem('usersCharged')))
     let file = document.getElementById('fileusers').files[0]
     if(file) {
         let reader = new FileReader()
@@ -353,8 +355,7 @@ function chargeUsers() {
                     user['telefono']
                 )
             }
-            console.log(JSON.parse(localStorage.getItem('usersCharged')))
-            //alert('Usuarios cargados')
+            alert('Usuarios cargados')
         }
         reader.onerror = function(evt) {alert('Ha ocurrido un error al cargar el archivo')}
         document.getElementById('fileusers').value = ''
@@ -395,7 +396,6 @@ function chargeBooks() {
         reader.readAsText(file,'UTF-8')
         reader.onload = function(evt) {
             let books = JSON.parse(JSON.parse(JSON.stringify({data: evt.target.result}))['data'])
-            console.log(books)
             for(let i = 0; i < books.length; i ++) {
                 let book = books[i]
                 createBook(

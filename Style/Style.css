@@ -13,6 +13,7 @@
     --verdeLogB: #267816;
     --rojo: #C03425;
     --rojo1: #a5281b;
+    --rojo2: #e34331;
     --gris: #919395;
     --blanco: #fff;
     --blancoH: #c3dfff;
@@ -29,6 +30,8 @@ body{
     font-family: var(--fontParrafo);
     font-size: 1.6rem;
     line-height: 2;
+    display: grid;
+    grid-template-rows: repeat(3,auto);
 }
 @media (prefers-color-scheme: dark) {
     body { 
@@ -339,4 +342,27 @@ h4{
 	margin: auto;
     font-family: var(--fontParrafo);
     font-size: 4rem;
+}
+
+footer {
+    display: flex;
+    gap: 2rem;
+    justify-content: flex-end;
+    gap: 2rem;
+    width: 100%;
+    padding: 10rem;
+}
+
+footer button {
+    width: 20%;
+    height: 4rem;
+    border-radius: 0.4rem;
+    background-color: var(--rojo);
+    border: var(--rojo1) solid 0.2rem;
+    color: var(--blanco);
+}
+
+footer button:hover {
+	cursor: pointer;
+    background-color: var(--rojo2);
 }
