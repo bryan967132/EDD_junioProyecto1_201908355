@@ -360,7 +360,7 @@ class MatrizDispersa {
     getDot() {
         let grafo = 'digraph T{\nnode[shape=box fontname="Arial" fillcolor="white" style=filled]'
         grafo += `\nroot[label = "Capa 0", group=1]\n`
-        grafo += 'label = "MATRIZ DISPERSA" \nfontname="Arial Black" \nfontsize="15pt"\n'
+        grafo += 'fontname="Arial Black" \nfontsize="15pt"\n'
         let x_fila = this.filas.primero
         while(x_fila) {
             grafo += `F${x_fila.id}[label="${x_fila.id}",fillcolor="plum",group=1];\n`
