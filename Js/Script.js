@@ -458,6 +458,206 @@ class MatrizDispersa {
         return grafo
     }
 }
+class MatrizOrtogonal {
+    constructor(filas,columnas) {
+        this.filas = new ListaEncabezado('LISTAS')
+        this.columnas = new ListaEncabezado('COLUMNAS')
+        for(let i = 1; i <= filas; i ++) {
+            for(let j = 1; j <= columnas; j ++) {
+                this.createNode(i,j,null)
+            }
+        }
+    }
+    createNode(x,y,objeto) {
+        let nodoInterno = new NodoInterno(x,y,objeto)
+        let encabezadoX = this.filas.getHeader(nodoInterno.x)
+        let encabezadoY = this.columnas.getHeader(nodoInterno.y)
+        if(!encabezadoX) {
+            encabezadoX = new NodoEncabezado(nodoInterno.x)
+            this.filas.insertHeader(encabezadoX)
+        }
+        if(!encabezadoY) {
+            encabezadoY = new NodoEncabezado(nodoInterno.y)
+            this.columnas.insertHeader(encabezadoY)
+        }
+        if(!encabezadoX.acceso) {
+            encabezadoX.acceso = nodoInterno
+        }else {
+            if(nodoInterno.y < encabezadoX.acceso.y) {
+                nodoInterno.derecha = encabezadoX.acceso
+                encabezadoX.acceso.izquierda = nodoInterno
+                encabezadoX.acceso = encabezadoX.acceso.izquierda
+            }else {
+                let actual = encabezadoX.acceso
+                while(actual) {
+                    if(nodoInterno.y < actual.y) {
+                        nodoInterno.derecha = actual
+                        nodoInterno.izquierda = actual.izquierda
+                        actual.izquierda.derecha = nodoInterno
+                        actual.izquierda = actual.izquierda.derecha
+                        break
+                    }else {
+                        if(!actual.derecha) {
+                            actual.derecha = nodoInterno
+                            actual.derecha.izquierda = actual
+                            break
+                        }else {
+                            actual = actual.derecha
+                        }
+                    }
+                }
+            }
+        }
+        if(!encabezadoY.acceso) {
+            encabezadoY.acceso = nodoInterno
+        }else {
+            if(nodoInterno.x < encabezadoY.acceso.x) {
+                nodoInterno.abajo = encabezadoY.acceso
+                encabezadoY.acceso.arriba = nodoInterno
+                encabezadoY.acceso = encabezadoY.acceso.arriba
+            }else {
+                let actual2 = encabezadoY.acceso
+                while(actual2) {
+                    if(nodoInterno.x < actual2.x) {
+                        nodoInterno.abajo = actual2
+                        nodoInterno.arriba = actual2.arriba
+                        actual2.arriba.abajo = nodoInterno
+                        actual2.arriba = actual2.arriba.abajo
+                        break
+                    }else {
+                        if(!actual2.abajo) {
+                            actual2.abajo = nodoInterno
+                            actual2.abajo.arriba = actual2
+                            break
+                        }else {
+                            actual2 = actual2.abajo
+                        }
+                    }
+                }
+            }
+        }
+    }
+    insert(objeto) {
+        let actual = this.filas.primero
+        let actual2 = actual.acceso
+        while(actual) {
+            if(objeto.fila == actual.id) {
+                while(actual2) {
+                    if(objeto.columna == actual2.y) {
+                        actual2.objeto = objeto
+                    }
+                    actual2 = actual2.derecha
+                }
+            }
+            actual = actual.siguiente
+            if(actual) {
+                actual2 = actual.acceso
+            }
+        }
+    }
+    getDot() {
+        let grafo = 'digraph T{\nnode[shape=box fontname="Arial" fillcolor="white" style=filled]'
+        grafo += `\nroot[label = "Capa 0", group=1]\n`
+        grafo += 'label = "MATRIZ DISPERSA" \nfontname="Arial Black" \nfontsize="15pt"\n'
+        let x_fila = this.filas.primero
+        while(x_fila) {
+            grafo += `F${x_fila.id}[label="${x_fila.id}",fillcolor="plum",group=1];\n`
+            x_fila = x_fila.siguiente
+        }
+        x_fila = this.filas.primero
+        while(x_fila) {
+            if(x_fila.siguiente) {
+                grafo += `F${x_fila.id} -> F${x_fila.siguiente.id};\n`
+                grafo += `F${x_fila.siguiente.id} -> F${x_fila.id};\n`
+            }
+            x_fila = x_fila.siguiente
+        }
+        let y_columna = this.columnas.primero
+        while(y_columna) {
+            grafo += `C${y_columna.id}[label="${y_columna.id}",fillcolor="powderblue",group=${y_columna.id + 1}];\n`
+            y_columna = y_columna.siguiente
+        }
+        y_columna = this.columnas.primero
+        while(y_columna) {
+            if(y_columna.siguiente) {
+                grafo += `C${y_columna.id} -> C${y_columna.siguiente.id};\n`
+                grafo += `C${y_columna.siguiente.id} -> C${y_columna.id};\n`
+            }
+            y_columna = y_columna.siguiente
+        }
+        x_fila = this.filas.primero
+        y_columna = this.columnas.primero
+        grafo += `root -> F${x_fila.id};\nroot -> C${y_columna.id};\n`
+        grafo += '{rank=same;root;'
+        y_columna = this.columnas.primero
+        while(y_columna) {
+            grafo += `C${y_columna.id};`
+            y_columna = y_columna.siguiente
+        }
+        grafo += '}\n'
+        let actual = this.filas.primero
+        let actual2 = actual.acceso
+        while(actual) {
+            while(actual2) {
+                let label = ''
+                if(actual2.objeto) label = actual2.objeto.nombre_libro
+                grafo += `N${actual2.x}_${actual2.y}[label="${label}",group="${actual2.y + 1}"];\n`
+                actual2 = actual2.derecha
+            }
+            actual = actual.siguiente
+            if(actual) {
+                actual2 = actual.acceso
+            }
+        }
+        actual = this.filas.primero
+        actual2 = actual.acceso
+        while(actual) {
+            let rank = `{rank=same;F${actual.id};`
+            let cont = 0
+            while(actual2) {
+                if(cont == 0) {
+                    grafo += `F${actual.id} -> N${actual2.x}_${actual2.y};\n`
+                    grafo += `N${actual2.x}_${actual2.y} -> F${actual.id};\n`
+                    cont ++
+                }
+                if(actual2.derecha) {
+                    grafo += `N${actual2.x}_${actual2.y} -> N${actual2.derecha.x}_${actual2.derecha.y};\n`
+                    grafo += `N${actual2.derecha.x}_${actual2.derecha.y} -> N${actual2.x}_${actual2.y};\n`
+                }
+                rank += `N${actual2.x}_${actual2.y};`
+                actual2 = actual2.derecha
+            }
+            actual = actual.siguiente
+            if(actual) {
+                actual2 = actual.acceso
+            }
+            grafo += `${rank}}\n`
+        }
+        actual = this.columnas.primero
+        actual2 = actual.acceso
+        while(actual) {
+            let cont = 0
+            while(actual2) {
+                if(cont == 0) {
+                    grafo += `C${actual.id} -> N${actual2.x}_${actual2.y};\n`
+                    grafo += `N${actual2.x}_${actual2.y} -> C${actual.id};\n`
+                    cont ++
+                }
+                if(actual2.abajo) {
+                    grafo += `N${actual2.x}_${actual2.y} -> N${actual2.abajo.x}_${actual2.abajo.y};\n`
+                    grafo += `N${actual2.abajo.x}_${actual2.abajo.y} -> N${actual2.x}_${actual2.y};\n`
+                }
+                actual2 = actual2.abajo
+            }
+            actual = actual.siguiente
+            if(actual) {
+                actual2 = actual.acceso
+            }
+        }
+        grafo += '}'
+        return grafo
+    }
+}
 
 //inicialización
 if(localStorage.getItem('userMaster') == null) {
@@ -664,6 +864,31 @@ function getClients() {
     return clients
 }
 
+function getBooksFantasia() {
+    let matrixOrtogonal = new MatrizOrtogonal(25,25)
+    try{
+        let booksCharged = JSON.parse(localStorage.getItem('booksCharged'))
+        for(let i = 0; i < booksCharged.length; i ++) {
+            let book = booksCharged[i]
+            if(book['categoria'] == 'Fantasia') {
+                matrixOrtogonal.insert(
+                    new Libro(
+                        book['isbn'],
+                        book['nombre_autor'],
+                        book['nombre_libro'],
+                        book['cantidad'],
+                        book['fila'],
+                        book['columna'],
+                        book['paginas'],
+                        book['categoria']
+                    )
+                )
+            }
+        }
+    } catch (error) {}
+    return matrixOrtogonal
+}
+
 function getBooksThriller() {
     let matrixDisperse = new MatrizDispersa()
     try{
@@ -689,7 +914,7 @@ function getBooksThriller() {
     return matrixDisperse
 }
 
-//graficas
+//graficas de estructuras
 function listOfLists() {
     let clients = getClients()
     if(clients.getSize() > 0) {
@@ -744,6 +969,15 @@ function binaryTree() {
         return
     }
     d3.select('#binarytree').graphviz().width(250).height(50).renderDot('digraph G{label="No hay autores cargados"}')
+}
+
+function ortogonalMatrix() {
+    let booksFantasia = getBooksFantasia()
+    try {
+        d3.select('#fantasia').graphviz().width(800).height(800).renderDot(booksFantasia.getDot())
+        return
+    } catch (error) {}
+    d3.select('#fantasia').graphviz().width(250).height(50).renderDot('digraph G{label="No hay libros de Fantasía"}')
 }
 
 function disperseMatrix() {
