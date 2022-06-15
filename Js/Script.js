@@ -710,7 +710,7 @@ function listOfLists() {
         }
         nodosC += ` -> nodo0;`
         let dot = `digraph G{node[shape="box"];${nodos}${subG}{rank=same;${nodosC}}}`
-        d3.select('#listoflists').graphviz().width(1250).height(300).renderDot(dot)
+        d3.select('#listoflists').graphviz().width(1150).height(300).renderDot(dot)
         return
     }
     d3.select('#listoflists').graphviz().width(250).height(50).renderDot('digraph G{label="No hay clientes cargados"}')
@@ -740,7 +740,7 @@ function getAuthors() {
 function binaryTree() {
     let authors = getAuthors()
     if(authors.raiz) {
-        d3.select('#binarytree').graphviz().width(1250).height(600).renderDot(authors.getDot())
+        d3.select('#binarytree').graphviz().width(1150).height(600).renderDot(authors.getDot())
         return
     }
     d3.select('#binarytree').graphviz().width(250).height(50).renderDot('digraph G{label="No hay autores cargados"}')
@@ -759,6 +759,27 @@ function buyBook(isbn,cantidad) {
     alert(isbn + ' ' + cantidad)
 }
 
+function booksFantasia() {
+    code = ''
+    try{
+        let booksCharged = JSON.parse(localStorage.getItem('booksCharged'))
+        for(let i = 0; i < booksCharged.length; i ++) {
+            let book = booksCharged[i]
+            if(book['categoria'] == 'Fantasia') {
+                code += `
+            <div class="producto" id="p_${book['isbn']}" onclick="buyBook(${book['isbn']},${book['cantidad']})">
+                
+                <h4>${book['nombre_libro']}</h4>
+                <p>Autor: ${book['nombre_autor']}</p>
+                <h5><strong>Estantería</strong></h5>
+                <p>Fila: ${book['fila']}</p>
+                <p>Columna: ${book['columna']}</p>
+            </div>`
+            }
+        }
+    } catch (error) {}
+    document.getElementById('fantasiabook').innerHTML = code
+}
 function booksThriller() {
     code = ''
     try{
