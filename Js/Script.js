@@ -755,8 +755,8 @@ function disperseMatrix() {
     d3.select('#thriller').graphviz().width(250).height(50).renderDot('digraph G{label="No hay libros de thriller"}')
 }
 
-function buyBook(isbn,cantidad) {
-    alert(isbn + ' ' + cantidad)
+function buyBook(isbn,titulo,cantidad) {
+    alert(`${isbn} ${titulo} ${cantidad}`)
 }
 
 function booksFantasia() {
@@ -767,8 +767,7 @@ function booksFantasia() {
             let book = booksCharged[i]
             if(book['categoria'] == 'Fantasia') {
                 code += `
-            <div class="producto" id="p_${book['isbn']}" onclick="buyBook(${book['isbn']},${book['cantidad']})">
-                
+            <div class="producto" id="p_${book['isbn']}" onclick="buyBook(${book['isbn']},'${book['nombre_libro']}',${book['cantidad']})">
                 <h4>${book['nombre_libro']}</h4>
                 <p>Autor: ${book['nombre_autor']}</p>
                 <h5><strong>Estantería</strong></h5>
@@ -788,8 +787,7 @@ function booksThriller() {
             let book = booksCharged[i]
             if(book['categoria'] == 'Thriller') {
                 code += `
-            <div class="producto" id="p_${book['isbn']}" onclick="buyBook(${book['isbn']},${book['cantidad']})">
-                
+            <div class="producto" id="p_${book['isbn']}" onclick="buyBook(${book['isbn']},'${book['nombre_libro']}',${book['cantidad']})">
                 <h4>${book['nombre_libro']}</h4>
                 <p>Autor: ${book['nombre_autor']}</p>
                 <h5><strong>Estantería</strong></h5>
