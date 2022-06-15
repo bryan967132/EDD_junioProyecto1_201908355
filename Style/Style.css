@@ -14,6 +14,8 @@
     --rojo: #C03425;
     --rojo1: #a5281b;
     --rojo2: #e34331;
+    --naranja: rgb(255, 160, 87);
+    --naranja1: rgb(206, 126, 65);
     --gris: #919395;
     --blanco: #fff;
     --blanco1:rgb(255, 255, 255);
@@ -286,6 +288,16 @@ h4{
         grid-template-columns: repeat(3, 1fr);
         column-gap: 2rem;
     }
+    .cuatro-columnas {
+        display: grid;
+        /*grid-template-columns: 50% 50%;
+        grid-template-columns: repeat(2, 50%);
+        grid-template-columns: 1fr 1fr;*/
+        grid-template-columns: repeat(4, 1fr);
+        column-gap: 1rem;
+        row-gap: 1rem;
+        align-content: flex-start;
+    }
 }
 .input{
     outline: none;
@@ -376,4 +388,24 @@ footer button {
 footer button:hover {
 	cursor: pointer;
     background-color: var(--rojo2);
+}
+.producto {
+    background-color: var(--naranja);
+    border-radius: 0.4rem;
+    padding: 1rem 1.2rem 1rem 1.5rem;
+    cursor: pointer;
+    height: 100%;
+}
+.producto h4,
+.producto h5 {
+    margin: auto;
+    color: var(--blanco);
+    text-align: center;
+}
+.producto h5 {
+    font-size: 1.8rem;
+}
+.producto p {
+    margin: auto;
+    color: var(--blanco);
 }

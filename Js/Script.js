@@ -750,10 +750,35 @@ function disperseMatrix() {
     let booksThriller = getBooksThriller()
     try {
         d3.select('#thriller').graphviz().width(800).height(800).renderDot(booksThriller.getDot())
-        console.log(booksThriller.getDot())
         return
     } catch (error) {}
     d3.select('#thriller').graphviz().width(250).height(50).renderDot('digraph G{label="No hay libros de thriller"}')
+}
+
+function buyBook(isbn,cantidad) {
+    alert(isbn + ' ' + cantidad)
+}
+
+function booksThriller() {
+    code = ''
+    try{
+        let booksCharged = JSON.parse(localStorage.getItem('booksCharged'))
+        for(let i = 0; i < booksCharged.length; i ++) {
+            let book = booksCharged[i]
+            if(book['categoria'] == 'Thriller') {
+                code += `
+            <div class="producto" id="p_${book['isbn']}" onclick="buyBook(${book['isbn']},${book['cantidad']})">
+                
+                <h4>${book['nombre_libro']}</h4>
+                <p>Autor: ${book['nombre_autor']}</p>
+                <h5><strong>Estantería</strong></h5>
+                <p>Fila: ${book['fila']}</p>
+                <p>Columna: ${book['columna']}</p>
+            </div>`
+            }
+        }
+    } catch (error) {}
+    document.getElementById('thrillerbook').innerHTML = code
 }
 
 //cargas masivas
