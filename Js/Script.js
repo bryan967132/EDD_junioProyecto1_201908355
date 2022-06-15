@@ -1,3 +1,4 @@
+//Nodos
 class NodoS {
     constructor(indice,objeto) {
         this.indice = indice
@@ -22,6 +23,7 @@ class NodoAB {
         this.derecha = null
     }
 }
+//listas
 class ListaSimple {
     constructor() {
         this.indice = 0
@@ -200,6 +202,260 @@ class Arbol {
     }
     getDot() {
         return `digraph G{rankdir=TB;node [shape = record];${this.dot}}`
+    }
+}
+class NodoEncabezado {
+    constructor(id) {
+        this.id = id
+        this.siguiente = null
+        this.anterior = null
+        this.acceso = null
+    }
+}
+class NodoInterno {
+    constructor(x,y,objeto) {
+        this.objeto = objeto
+        this.x = x
+        this.y = y
+        this.arriba = null
+        this.abajo = null
+        this.derecha = null
+        this.izquierda = null
+    }
+}
+class ListaEncabezado {
+    constructor(tipo) {
+        this.tipo = tipo
+        this.primero = null
+        this.ultimo = null
+        this.size = 0
+    }
+    insertHeader(nuevo) {
+        this.size ++
+        if(!this.primero) {
+            this.primero = nuevo
+            this.ultimo = this.primero
+            return
+        }
+        if(nuevo.id < this.primero.id) {
+            nuevo.siguiente = this.primero
+            this.primero.anterior = nuevo
+            this.primero = this.primero.anterior
+            return
+        }
+        if(nuevo.id > this.ultimo.id) {
+            this.ultimo.siguiente = nuevo
+            this.ultimo.siguiente.anterior = this.ultimo
+            this.ultimo = this.ultimo.siguiente
+            return
+        }
+        let actual = this.primero
+        while(actual) {
+            if(nuevo.id < actual.id) {
+                nuevo.siguiente = actual
+                nuevo.anterior = actual.anterior
+                actual.anterior.siguiente = nuevo
+                actual.anterior = actual.anterior.siguiente
+                return
+            }
+            if(nuevo.id > actual.id) {
+                actual = actual.siguiente
+                continue
+            }
+            return
+        }
+    }
+    lookHeader() {
+        let actual = this.primero
+        while(actual) {
+            console.log(`Encabezado ${this.tipo} ${actual.id}`)
+            actual = actual.siguiente
+        }
+    }
+    getHeader(id) {
+        let actual = this.primero
+        while(actual) {
+            if(id == actual.id) {
+                return actual
+            }
+            actual = actual.siguiente
+        }
+        return null
+    }
+}
+class MatrizDispersa {
+    constructor() {
+        this.filas = new ListaEncabezado('LISTAS')
+        this.columnas = new ListaEncabezado('COLUMNAS')
+    }
+    insert(objeto) {
+        let nodoInterno = new NodoInterno(objeto.fila,objeto.columna,objeto)
+        let encabezadoX = this.filas.getHeader(nodoInterno.x)
+        let encabezadoY = this.columnas.getHeader(nodoInterno.y)
+        if(!encabezadoX) {
+            encabezadoX = new NodoEncabezado(nodoInterno.x)
+            this.filas.insertHeader(encabezadoX)
+        }
+        if(!encabezadoY) {
+            encabezadoY = new NodoEncabezado(nodoInterno.y)
+            this.columnas.insertHeader(encabezadoY)
+        }
+        if(!encabezadoX.acceso) {
+            encabezadoX.acceso = nodoInterno
+        }else {
+            if(nodoInterno.y < encabezadoX.acceso.y) {
+                nodoInterno.derecha = encabezadoX.acceso
+                encabezadoX.acceso.izquierda = nodoInterno
+                encabezadoX.acceso = encabezadoX.acceso.izquierda
+            }else {
+                let actual = encabezadoX.acceso
+                while(actual) {
+                    if(nodoInterno.y < actual.y) {
+                        nodoInterno.derecha = actual
+                        nodoInterno.izquierda = actual.izquierda
+                        actual.izquierda.derecha = nodoInterno
+                        actual.izquierda = actual.izquierda.derecha
+                        break
+                    }else {
+                        if(!actual.derecha) {
+                            actual.derecha = nodoInterno
+                            actual.derecha.izquierda = actual
+                            break
+                        }else {
+                            actual = actual.derecha
+                        }
+                    }
+                }
+            }
+        }
+        if(!encabezadoY.acceso) {
+            encabezadoY.acceso = nodoInterno
+        }else {
+            if(nodoInterno.x < encabezadoY.acceso.x) {
+                nodoInterno.abajo = encabezadoY.acceso
+                encabezadoY.acceso.arriba = nodoInterno
+                encabezadoY.acceso = encabezadoY.acceso.arriba
+            }else {
+                let actual2 = encabezadoY.acceso
+                while(actual2) {
+                    if(nodoInterno.x < actual2.x) {
+                        nodoInterno.abajo = actual2
+                        nodoInterno.arriba = actual2.arriba
+                        actual2.arriba.abajo = nodoInterno
+                        actual2.arriba = actual2.arriba.abajo
+                        break
+                    }else {
+                        if(!actual2.abajo) {
+                            actual2.abajo = nodoInterno
+                            actual2.abajo.arriba = actual2
+                            break
+                        }else {
+                            actual2 = actual2.abajo
+                        }
+                    }
+                }
+            }
+        }
+    }
+    getDot() {
+        let grafo = 'digraph T{\nnode[shape=box fontname="Arial" fillcolor="white" style=filled]'
+        grafo += `\nroot[label = "Capa 0", group=1]\n`
+        grafo += 'label = "MATRIZ DISPERSA" \nfontname="Arial Black" \nfontsize="15pt"\n'
+        let x_fila = this.filas.primero
+        while(x_fila) {
+            grafo += `F${x_fila.id}[label="${x_fila.id}",fillcolor="plum",group=1];\n`
+            x_fila = x_fila.siguiente
+        }
+        x_fila = this.filas.primero
+        while(x_fila) {
+            if(x_fila.siguiente) {
+                grafo += `F${x_fila.id} -> F${x_fila.siguiente.id};\n`
+                grafo += `F${x_fila.siguiente.id} -> F${x_fila.id};\n`
+            }
+            x_fila = x_fila.siguiente
+        }
+        let y_columna = this.columnas.primero
+        while(y_columna) {
+            grafo += `C${y_columna.id}[label="${y_columna.id}",fillcolor="powderblue",group=${y_columna.id + 1}];\n`
+            y_columna = y_columna.siguiente
+        }
+        y_columna = this.columnas.primero
+        while(y_columna) {
+            if(y_columna.siguiente) {
+                grafo += `C${y_columna.id} -> C${y_columna.siguiente.id};\n`
+                grafo += `C${y_columna.siguiente.id} -> C${y_columna.id};\n`
+            }
+            y_columna = y_columna.siguiente
+        }
+        x_fila = this.filas.primero
+        y_columna = this.columnas.primero
+        grafo += `root -> F${x_fila.id};\nroot -> C${y_columna.id};\n`
+        grafo += '{rank=same;root;'
+        y_columna = this.columnas.primero
+        while(y_columna) {
+            grafo += `C${y_columna.id};`
+            y_columna = y_columna.siguiente
+        }
+        grafo += '}\n'
+        let actual = this.filas.primero
+        let actual2 = actual.acceso
+        while(actual) {
+            while(actual2) {
+                grafo += `N${actual2.x}_${actual2.y}[label="${actual2.objeto.nombre_libro}",group="${actual2.y + 1}"];\n`
+                actual2 = actual2.derecha
+            }
+            actual = actual.siguiente
+            if(actual) {
+                actual2 = actual.acceso
+            }
+        }
+        actual = this.filas.primero
+        actual2 = actual.acceso
+        while(actual) {
+            let rank = `{rank=same;F${actual.id};`
+            let cont = 0
+            while(actual2) {
+                if(cont == 0) {
+                    grafo += `F${actual.id} -> N${actual2.x}_${actual2.y};\n`
+                    grafo += `N${actual2.x}_${actual2.y} -> F${actual.id};\n`
+                    cont ++
+                }
+                if(actual2.derecha) {
+                    grafo += `N${actual2.x}_${actual2.y} -> N${actual2.derecha.x}_${actual2.derecha.y};\n`
+                    grafo += `N${actual2.derecha.x}_${actual2.derecha.y} -> N${actual2.x}_${actual2.y};\n`
+                }
+                rank += `N${actual2.x}_${actual2.y};`
+                actual2 = actual2.derecha
+            }
+            actual = actual.siguiente
+            if(actual) {
+                actual2 = actual.acceso
+            }
+            grafo += `${rank}}\n`
+        }
+        actual = this.columnas.primero
+        actual2 = actual.acceso
+        while(actual) {
+            let cont = 0
+            while(actual2) {
+                if(cont == 0) {
+                    grafo += `C${actual.id} -> N${actual2.x}_${actual2.y};\n`
+                    grafo += `N${actual2.x}_${actual2.y} -> C${actual.id};\n`
+                    cont ++
+                }
+                if(actual2.abajo) {
+                    grafo += `N${actual2.x}_${actual2.y} -> N${actual2.abajo.x}_${actual2.abajo.y};\n`
+                    grafo += `N${actual2.abajo.x}_${actual2.abajo.y} -> N${actual2.x}_${actual2.y};\n`
+                }
+                actual2 = actual2.abajo
+            }
+            actual = actual.siguiente
+            if(actual) {
+                actual2 = actual.acceso
+            }
+        }
+        grafo += '}'
+        return grafo
     }
 }
 
@@ -408,6 +664,31 @@ function getClients() {
     return clients
 }
 
+function getBooksThriller() {
+    let matrixDisperse = new MatrizDispersa()
+    try{
+        let booksCharged = JSON.parse(localStorage.getItem('booksCharged'))
+        for(let i = 0; i < booksCharged.length; i ++) {
+            let book = booksCharged[i]
+            if(book['categoria'] == 'Thriller') {
+                matrixDisperse.insert(
+                    new Libro(
+                        book['isbn'],
+                        book['nombre_autor'],
+                        book['nombre_libro'],
+                        book['cantidad'],
+                        book['fila'],
+                        book['columna'],
+                        book['paginas'],
+                        book['categoria']
+                    )
+                )
+            }
+        }
+    } catch (error) {}
+    return matrixDisperse
+}
+
 //graficas
 function listOfLists() {
     let clients = getClients()
@@ -429,7 +710,7 @@ function listOfLists() {
         }
         nodosC += ` -> nodo0;`
         let dot = `digraph G{node[shape="box"];${nodos}${subG}{rank=same;${nodosC}}}`
-        d3.select('#listoflists').graphviz().width(800).height(200).renderDot(dot)
+        d3.select('#listoflists').graphviz().width(1250).height(300).renderDot(dot)
         return
     }
     d3.select('#listoflists').graphviz().width(250).height(50).renderDot('digraph G{label="No hay clientes cargados"}')
@@ -459,10 +740,20 @@ function getAuthors() {
 function binaryTree() {
     let authors = getAuthors()
     if(authors.raiz) {
-        d3.select('#binarytree').graphviz().width(800).height(400).renderDot(authors.getDot())
+        d3.select('#binarytree').graphviz().width(1250).height(600).renderDot(authors.getDot())
         return
     }
     d3.select('#binarytree').graphviz().width(250).height(50).renderDot('digraph G{label="No hay autores cargados"}')
+}
+
+function disperseMatrix() {
+    let booksThriller = getBooksThriller()
+    try {
+        d3.select('#thriller').graphviz().width(800).height(800).renderDot(booksThriller.getDot())
+        console.log(booksThriller.getDot())
+        return
+    } catch (error) {}
+    d3.select('#thriller').graphviz().width(250).height(50).renderDot('digraph G{label="No hay libros de thriller"}')
 }
 
 //cargas masivas

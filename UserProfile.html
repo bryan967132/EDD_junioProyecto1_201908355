@@ -9,6 +9,10 @@
         <link rel="stylesheet" href="">
         <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="./Style/Style.css">
+        <script src="https://d3js.org/d3.v5.min.js"></script>
+        <script src="https://unpkg.com/@hpcc-js/wasm@0.3.11/dist/index.min.js"></script>
+        <script src="https://unpkg.com/d3-graphviz@3.0.5/build/d3-graphviz.js"></script>
+        <script src="./Js/Script.js"></script>
     </head>
     <body>
         <header class="header">
@@ -21,10 +25,17 @@
                 </div>
             </div>
         </header>
-        <div class="contenedor">
-            <div id="libros"></div>
+        <div class="bodyCharge">
+            <div class="books" id="books">
+                <h2>Categoría: Thriller</h2>
+                <div class="dos-columnas">
+                    <div></div>
+                    <div id="thriller"></div>
+                </div>
+                <script>disperseMatrix()</script>
+            </div>
+
             <div id="topcom"></div>
         </div>
-        <script></script>
     </body>
 </html>
