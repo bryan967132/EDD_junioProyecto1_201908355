@@ -1022,7 +1022,7 @@ function booksFantasia() {
             }
         }
     } catch (error) {}
-    document.getElementById('fantasiabook').innerHTML = code
+    document.getElementById('fantasiabook').innerHTML = code + '<div class="grafo grafo--matriz" id="fantasia"></div>'
 }
 function booksThriller() {
     code = ''
@@ -1042,7 +1042,7 @@ function booksThriller() {
             }
         }
     } catch (error) {}
-    document.getElementById('thrillerbook').innerHTML = code
+    document.getElementById('thrillerbook').innerHTML = code + '<div class="grafo grafo--matriz" id="thriller"></div>'
 }
 
 function getAuthorsList() {
@@ -1098,7 +1098,7 @@ function authors() {
             <h4 style="font-size: 1.8rem">${author.nombre_autor}</h4>
         </div>`
     }
-    document.getElementById('authorsR').innerHTML = code
+    document.getElementById('authorsR').innerHTML = code + '<div class="grafo grafo--arbol-binario" id="binarytree"></div>'
 }
 
 //cargas masivas
