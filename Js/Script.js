@@ -165,43 +165,37 @@ class Arbol {
         this.id = 0
     }
     insert(nuevo) {
-        let nivel = 0
-        if(!this.raiz) {
-            this.raiz = new NodoAB(nuevo,nivel,this.id)
-            this.dot += `nodo${this.id}${nivel} [label ="<C0>|${nuevo.nombre_autor}|<C1>"];`
-            this.id ++
-            return
+        this.raiz = this.add(this.raiz,nuevo,0)
+        this.id ++
+    }
+    add(actual,nuevo,nivel) {
+        if(!actual) {
+            return new NodoAB(nuevo,nivel,this.id)
         }
-        let actual = this.raiz
-        while(actual) {
-            nivel ++
-            if(nuevo.nombre_autor < actual.objeto.nombre_autor) {
-                if(!actual.izquierda) {
-                    actual.izquierda = new NodoAB(nuevo,nivel,this.id)
-                    this.dot += `nodo${this.id}${nivel} [label ="<C0>|${nuevo.nombre_autor}|<C1>"];`
-                    this.dot += `nodo${actual.id}${actual.nivel}:C0 -> nodo${this.id}${nivel};`
-                    this.id ++
-                    return
-                }
-                actual = actual.izquierda
-            }else if(nuevo.nombre_autor > actual.objeto.nombre_autor) {
-                if(!actual.derecha) {
-                    actual.derecha = new NodoAB(nuevo,nivel,this.id)
-                    this.dot += `nodo${this.id}${nivel} [label ="<C0>|${nuevo.nombre_autor}|<C1>"];`
-                    this.dot += `nodo${actual.id}${actual.nivel}:C1 -> nodo${this.id}${nivel};`
-                    this.id ++
-                    return
-                }
-                actual = actual.derecha
-            }else {
-                console.log('no se permiten duplicados')
-                return
-            }
+        if(nuevo.nombre_autor > actual.objeto.nombre_autor) {
+            actual.derecha = this.add(actual.derecha,nuevo,nivel + 1)
+        }else {
+            actual.izquierda = this.add(actual.izquierda,nuevo,nivel + 1)
         }
-        
+        return actual
+    }
+    getBranchesDot(actual) {
+        let etiqueta = ''
+        if(!actual.izquierda && !actual.derecha) {
+            etiqueta = `nodo${actual.id} [label="${actual.objeto.nombre_autor}"];`
+        }else {
+            etiqueta = `nodo${actual.id} [label="<C0> | ${actual.objeto.nombre_autor} | <C1>"];`
+        }
+        if(actual.izquierda) {
+            etiqueta += `${this.getBranchesDot(actual.izquierda)}nodo${actual.id}:C0 -> nodo${actual.izquierda.id};`
+        }
+        if(actual.derecha) {
+            etiqueta += `${this.getBranchesDot(actual.derecha)}nodo${actual.id}:C1 -> nodo${actual.derecha.id};`
+        }
+        return etiqueta
     }
     getDot() {
-        return `digraph G{rankdir=TB;node [shape = record];${this.dot}}`
+        return `digraph G{rankdir=TB;node [shape = record];${this.getBranchesDot(this.raiz)}}`
     }
 }
 class NodoEncabezado {
