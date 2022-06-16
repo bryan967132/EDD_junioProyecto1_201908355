@@ -411,6 +411,7 @@ footer button:hover {
     padding: 1rem 1.2rem 1rem 1.5rem;
     cursor: pointer;
     height: 100%;
+    text-align: center;
 }
 .libro {
     background-color: var(--naranja);
@@ -488,6 +489,7 @@ footer button:hover {
 .modal_autor_bio {
     width: 100%;
     height: 100%;
+    text-align: left;
 }
 .modal_botones{
     width: 100%;    

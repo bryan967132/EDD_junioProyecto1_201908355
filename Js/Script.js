@@ -983,7 +983,7 @@ function disperseMatrix() {
     d3.select('#thriller').graphviz().width(250).height(50).renderDot('digraph G{label="No hay libros de thriller"}')
 }
 
-function buyBook(titulo,cantidad) {
+function lookBook(titulo,cantidad) {
     document.getElementsByClassName('fondo_transparente')[0].style.display = 'block'
     document.getElementById('titulomodal').innerHTML = `Ejemplares: ${titulo}`
     let dot = `digraph pila{
@@ -1012,7 +1012,7 @@ function booksFantasia() {
             let book = booksCharged[i]
             if(book['categoria'] == 'Fantasia') {
                 code += `
-            <div class="libro" id="p_${book['isbn']}" onclick="buyBook('${book['nombre_libro']}',${book['cantidad']})">
+            <div class="libro" id="p_${book['isbn']}" onclick="lookBook('${book['nombre_libro']}',${book['cantidad']})">
                 <h4>${book['nombre_libro']}</h4>
                 <p>Autor: ${book['nombre_autor']}</p>
                 <h5><strong>Estantería</strong></h5>
@@ -1032,7 +1032,7 @@ function booksThriller() {
             let book = booksCharged[i]
             if(book['categoria'] == 'Thriller') {
                 code += `
-            <div class="libro" onclick="buyBook('${book['nombre_libro']}',${book['cantidad']})">
+            <div class="libro" onclick="lookBook('${book['nombre_libro']}',${book['cantidad']})">
                 <h4>${book['nombre_libro']}</h4>
                 <p>Autor: ${book['nombre_autor']}</p>
                 <h5><strong>Estantería</strong></h5>
@@ -1066,16 +1066,36 @@ function getAuthorsList() {
     return authors
 }
 
+function lookAuthor(dpi) {
+    let authors = getAuthorsList()
+    for(let i = 0; i < authors.getSize(); i ++) {
+        let author = authors.get(i)
+        if(dpi == author.dpi) {
+            document.getElementsByClassName('fondo_transparente')[0].style.display = 'block'
+            document.getElementById('titulomodal').innerHTML = `${author.nombre_autor}`
+            document.getElementById('contenidomodal').innerHTML = `
+            <div class="modal_autor_bio">
+                <p style="margin: auto"><strong>DPI:</strong> ${author.dpi}</p>
+                <p style="margin: auto"><strong>Correo:</strong> ${author.correo}</p>
+                <p style="margin: auto"><strong>Telefono:</strong> ${author.telefono}</p>
+                <p style="margin: auto"><strong>Dirección:</strong> ${author.direccion}</p>
+                <p style="margin: auto"><strong>Biografía:</strong> ${author.biografia}</p>
+            </div>`
+            return
+        }
+    }
+    
+}
+
 function authors() {
     let authors = getAuthorsList()
     code = ''
     for(let i = 0; i < authors.getSize(); i ++) {
         let author = authors.get(i)
         code += `
-        <div class="autor">
+        <div class="autor" onclick="lookAuthor(${author.dpi})">
+            <img src="./Images/author.png" width="50" height="50"/>
             <h4 style="font-size: 1.8rem">${author.nombre_autor}</h4>
-            <p style="font-size: 1.4rem">Correo: ${author.correo}</p>
-            <p style="font-size: 1.4rem">Teléfono: ${author.telefono}</p>
         </div>`
     }
     document.getElementById('authorsR').innerHTML = code
