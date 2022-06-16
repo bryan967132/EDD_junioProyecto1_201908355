@@ -985,14 +985,24 @@ function disperseMatrix() {
 
 function buyBook(titulo,cantidad) {
     document.getElementsByClassName('fondo_transparente')[0].style.display = 'block'
-    document.getElementById('tituloLibroPila').innerHTML = titulo
-    let dot = `digraph pila{node[shape=plaintext];label="Cantidad = ${cantidad}";struct[label=<<table border="0" cellborder="1" cellspacing="0">`
+    document.getElementById('titulomodal').innerHTML = titulo
+    let dot = `digraph pila{
+    node[shape=plaintext];
+    label="Cantidad = ${cantidad}";
+    struct[
+        label=<
+            <table border="0" cellborder="1" cellspacing="0">`
     for(let i = 1; i <= cantidad; i ++) {
-        dot += `<tr><td width="200" bgcolor="springgreen2" color="springgreen3"><font color="white">${i}</font></td></tr>`
+        dot += `
+                <tr><td width="200" bgcolor="springgreen2" color="springgreen3"><font color="white">${i}</font></td></tr>`
     }
-    dot += '</table>>]}'
+    dot += `
+            </table>
+        >
+    ];
+}`
     console.log(dot)
-    d3.select('#grafopila').graphviz().width(500).height(300).renderDot(dot)
+    d3.select('#contenidomodal').graphviz().width(285).height(325).renderDot(dot)
 }
 
 function booksFantasia() {
