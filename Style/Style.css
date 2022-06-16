@@ -16,6 +16,8 @@
     --rojo2: #e34331;
     --naranja: rgb(255, 160, 87);
     --naranja1: rgb(206, 126, 65);
+    --morado: rgb(147, 70, 255);
+    --morado1: rgb(101, 47, 175);
     --gris: #919395;
     --blanco: #fff;
     --blanco1:rgb(255, 255, 255);
@@ -299,6 +301,7 @@ h4{
         row-gap: 1rem;
         align-content: flex-start;
     }
+    .autores-columnas,
     .mislibro-columnas {
         padding: 2rem;
         display: grid;
@@ -401,7 +404,15 @@ footer button:hover {
 	cursor: pointer;
     background-color: var(--rojo2);
 }
-.producto {
+.autor {
+    background-color: var(--morado);
+    border-radius: 0.4rem;
+    border: var(--morado1) solid 0.2rem;
+    padding: 1rem 1.2rem 1rem 1.5rem;
+    cursor: pointer;
+    height: 100%;
+}
+.libro {
     background-color: var(--naranja);
     border-radius: 0.4rem;
     border: var(--naranja1) solid 0.2rem;
@@ -409,16 +420,88 @@ footer button:hover {
     cursor: pointer;
     height: 100%;
 }
-.producto h4,
-.producto h5 {
+.autor h4,
+.autor h5,
+.libro h4,
+.libro h5 {
     margin: auto;
     color: var(--blanco);
     text-align: center;
 }
-.producto h5 {
+.autor h5,
+.libro h5 {
     font-size: 1.8rem;
 }
-.producto p {
+.autor p,
+.libro p {
     margin: auto;
     color: var(--blanco);
+}
+
+.fondo_transparente{
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.609);
+    position: fixed;
+    height: 100vh;
+    width: 100%;
+    display: none;
+}
+.modal{
+    background: var(--blanco);
+    width: 600px;
+    height: 500px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    position: fixed;
+    display: grid;
+    grid-template-rows: 1fr 5fr 1fr;
+    border-radius: 3rem;
+}
+.modal_cerrar{
+    background: white;
+    position: absolute;
+    right: -20px;
+    color: crimson;
+    top: -20px;
+    width: 40px;
+    height: 40px;
+    border-radius: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+.modal_titulo{
+    color: white;
+    font-size: 40px;
+    text-align: center;
+    vertical-align: middle;
+    background-color: crimson;
+    border-radius: 3rem 3rem 0 0;
+}
+.modal_mensaje{            
+    padding: 10px 30px;
+    text-align: center;
+}
+.modal_botones{
+    width: 100%;    
+    background: whitesmoke;
+    padding: 2rem 0;
+    display: flex;
+    justify-content: space-evenly;
+    border-radius: 0 0 3rem 3rem;
+}
+.boton{
+    background: white;
+    padding: 8px 30px;
+    color: crimson;
+    text-decoration: none;
+    border-radius: 25px;
+    border:1px solid crimson
+}
+.boton:hover{
+    background: crimson;
+    color: white;
 }

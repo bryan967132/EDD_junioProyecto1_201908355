@@ -956,10 +956,10 @@ function getAuthors() {
     return authors
 }
 
-function binaryTree() {
+function binaryTree(width) {
     let authors = getAuthors()
     if(authors.raiz) {
-        d3.select('#binarytree').graphviz().width(1150).height(600).renderDot(authors.getDot())
+        d3.select('#binarytree').graphviz().width(width).height(600).renderDot(authors.getDot())
         return
     }
     d3.select('#binarytree').graphviz().width(250).height(50).renderDot('digraph G{label="No hay autores cargados"}')
@@ -983,8 +983,16 @@ function disperseMatrix() {
     d3.select('#thriller').graphviz().width(250).height(50).renderDot('digraph G{label="No hay libros de thriller"}')
 }
 
-function buyBook(isbn,titulo,cantidad) {
-    alert(`${isbn} ${titulo} ${cantidad}`)
+function buyBook(titulo,cantidad) {
+    document.getElementsByClassName('fondo_transparente')[0].style.display = 'block'
+    document.getElementById('tituloLibroPila').innerHTML = titulo
+    let dot = `digraph pila{node[shape=plaintext];label="Cantidad = ${cantidad}";struct[label=<<table border="0" cellborder="1" cellspacing="0">`
+    for(let i = 1; i <= cantidad; i ++) {
+        dot += `<tr><td width="200" bgcolor="springgreen2" color="springgreen3"><font color="white">${i}</font></td></tr>`
+    }
+    dot += '</table>>]}'
+    console.log(dot)
+    d3.select('#grafopila').graphviz().width(500).height(300).renderDot(dot)
 }
 
 function booksFantasia() {
@@ -995,7 +1003,7 @@ function booksFantasia() {
             let book = booksCharged[i]
             if(book['categoria'] == 'Fantasia') {
                 code += `
-            <div class="producto" id="p_${book['isbn']}" onclick="buyBook(${book['isbn']},'${book['nombre_libro']}',${book['cantidad']})">
+            <div class="libro" id="p_${book['isbn']}" onclick="buyBook('${book['nombre_libro']}',${book['cantidad']})">
                 <h4>${book['nombre_libro']}</h4>
                 <p>Autor: ${book['nombre_autor']}</p>
                 <h5><strong>Estantería</strong></h5>
@@ -1015,7 +1023,7 @@ function booksThriller() {
             let book = booksCharged[i]
             if(book['categoria'] == 'Thriller') {
                 code += `
-            <div class="producto" id="p_${book['isbn']}" onclick="buyBook(${book['isbn']},'${book['nombre_libro']}',${book['cantidad']})">
+            <div class="libro" onclick="buyBook('${book['nombre_libro']}',${book['cantidad']})">
                 <h4>${book['nombre_libro']}</h4>
                 <p>Autor: ${book['nombre_autor']}</p>
                 <h5><strong>Estantería</strong></h5>
@@ -1026,6 +1034,42 @@ function booksThriller() {
         }
     } catch (error) {}
     document.getElementById('thrillerbook').innerHTML = code
+}
+
+function getAuthorsList() {
+    let authors = new ListaSimple()
+    try {
+        let authorsCharged = JSON.parse(localStorage.getItem('authorsCharged'))
+        for(let i = 0; i < authorsCharged.length; i ++) {
+            let author = authorsCharged[i]
+            authors.add(
+                new Autor(
+                    author['dpi'],
+                    author['nombre_autor'],
+                    author['correo'],
+                    author['telefono'],
+                    author['direccion'],
+                    author['biografia']
+                )
+            )
+        }
+    } catch (error) {}
+    return authors
+}
+
+function authors() {
+    let authors = getAuthorsList()
+    code = ''
+    for(let i = 0; i < authors.getSize(); i ++) {
+        let author = authors.get(i)
+        code += `
+        <div class="autor">
+            <h4 style="font-size: 1.8rem">${author.nombre_autor}</h4>
+            <p style="font-size: 1.4rem">Correo: ${author.correo}</p>
+            <p style="font-size: 1.4rem">Teléfono: ${author.telefono}</p>
+        </div>`
+    }
+    document.getElementById('authorsR').innerHTML = code
 }
 
 //cargas masivas

@@ -22,7 +22,7 @@
                         <a href="#header" class="navegacion__enlace">Mi Biblioteca</a>
                         <a href="#books" class="navegacion__enlace">Libreras</a>
                         <a href="#buybooks" class="navegacion__enlace">Compras</a>
-                        <a href="#autores" class="navegacion__enlace">Autores</a>
+                        <a href="#authors" class="navegacion__enlace">Autores</a>
                         <a href="./Login.html" class="navegacion__enlace">Cerrar Sesión</a>
                     </nav>
                 </div>
@@ -46,7 +46,35 @@
                 <script>booksThriller()</script>
                 <script>disperseMatrix()</script>
             </div>
+
+            <div class="fondo_transparente">
+                <div class="modal">
+                    <div class="modal_cerrar">
+                        <span>x</span>
+                    </div>
+                    <div class="modal_titulo" id="tituloLibroPila"></div>
+                    <div class="modal_mensaje" id="grafopila"></div>
+                    <div class="modal_botones"></div>
+                </div>
+            </div>
+            <div class="authors" id="authors">
+                <h2>Autores</h2>
+                <div class="dos-columnas">
+                    <div class="libro-columnas" id="authorsR"></div>
+                    <div id="binarytree" style="width: auto;padding: 2rem;"></div>
+                </div>
+                <script>authors()</script>
+                <script>binaryTree(800)</script>
+            </div>
         </div>
         <footer></footer>
+        <script>
+            document.getElementsByClassName('modal_cerrar')[0].addEventListener(
+                'click',
+                function() {
+                    document.getElementsByClassName('fondo_transparente')[0].style.display = 'none'
+                }
+            )
+        </script>
     </body>
 </html>
