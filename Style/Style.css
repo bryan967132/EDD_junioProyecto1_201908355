@@ -299,6 +299,17 @@ h4{
         row-gap: 1rem;
         align-content: flex-start;
     }
+    .mislibro-columnas {
+        padding: 2rem;
+        display: grid;
+        /*grid-template-columns: 50% 50%;
+        grid-template-columns: repeat(2, 50%);
+        grid-template-columns: 1fr 1fr;*/
+        grid-template-columns: repeat(6,1fr);
+        column-gap: 1rem;
+        row-gap: 1rem;
+        align-content: flex-start;
+    }
 }
 .input{
     outline: none;
@@ -393,6 +404,7 @@ footer button:hover {
 .producto {
     background-color: var(--naranja);
     border-radius: 0.4rem;
+    border: var(--naranja1) solid 0.2rem;
     padding: 1rem 1.2rem 1rem 1.5rem;
     cursor: pointer;
     height: 100%;

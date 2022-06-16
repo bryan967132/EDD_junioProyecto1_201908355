@@ -1111,3 +1111,21 @@ function chargeBooks() {
         document.getElementById('filebooks').value = ''
     }
 }
+
+
+
+/*
+para mi librera
+
+<div class="books" id="mybooks">
+                <h2>Libros</h2>
+                <div class="mislibro-columnas">
+                    <div class="producto">
+                        <h4>nombre_libro</h4>
+                        <p>Autor: nombre_autor</p>
+                        <p>Cantidad: cantidad</p>
+                    </div>
+                </div>
+            </div>
+
+*/
