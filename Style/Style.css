@@ -451,7 +451,7 @@ footer button:hover {
 .modal{
     background: var(--blanco);
     width: 600px;
-    height: 500px;
+    height: auto;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
