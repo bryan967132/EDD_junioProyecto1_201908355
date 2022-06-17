@@ -1120,6 +1120,49 @@ function authors() {
     document.getElementById('authorsR').innerHTML = '<h4>¡No hay autores!</h4>'
 }
 
+function getAllBooks() {
+    let books = new ListaSimple()
+    try {
+        let booksCharged = JSON.parse(localStorage.getItem('booksCharged'))
+        for(let i = 0; i < booksCharged.length; i ++) {
+            let author = booksCharged[i]
+            books.add(
+                new Libro(
+                    author['isbn'],
+                    author['nombre_autor'],
+                    author['nombre_libro'],
+                    author['cantidad'],
+                    author['fila'],
+                    author['columna'],
+                    author['paginas'],
+                    author['categoria']
+                )
+            )
+        }
+    } catch (error) {}
+    return books
+}
+
+function saleBooks() {
+    let books = getAllBooks()
+    if(books.getSize() > 0) {
+        let code = ''
+        for(let i = 0; i < books.getSize(); i ++) {
+            let book = books.get(i)
+            code += `
+        <div class="vende-libro" onclick="">
+            <h4>${book['nombre_libro']}</h4>
+            <p>Autor: ${book['nombre_autor']}</p>
+            <p>Categoría: ${book['categoria']}</p>
+            <p>ISBN: ${book['isbn']}</p>
+        </div>`
+        }
+        document.getElementById('saleBooks').innerHTML = code
+        return
+    }
+    document.getElementById('saleBooks').innerHTML = '<h4>¡No hay libros en venta!</h4>'
+}
+
 //cargas masivas
 //---usuarios
 function chargeUsers() {

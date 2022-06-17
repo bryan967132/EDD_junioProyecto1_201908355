@@ -6,9 +6,11 @@
     --fontsecondary: rgb(0, 32, 70);
     --backDark: rgb(39, 39, 39);
     --backLight: rgb(203, 203, 203);
-    --primary: #0078ff;
+    --primary: #166FE5;
     --secondary: #0058bc;
     --thirdy: #0060cd;
+    --celeste: #01ACC0;
+    --celeste1: #00828D;
     --verde: #42b72a;
     --verdeLog: #379d23;
     --verdeLogB: #267816;
@@ -432,10 +434,20 @@ footer button:hover {
     cursor: pointer;
     height: 100%;
 }
+.vende-libro {
+    background-color: var(--celeste);
+    border-radius: 0.4rem;
+    border: var(--celeste1) solid 0.2rem;
+    padding: 1rem 1.2rem 1rem 1.5rem;
+    cursor: pointer;
+    height: 100%;
+}
 .autor h4,
 .autor h5,
 .libro h4,
-.libro h5 {
+.libro h5,
+.vende-libro h4,
+.vende-libro h5 {
     margin: auto;
     color: var(--blanco);
     text-align: center;
@@ -445,7 +457,8 @@ footer button:hover {
     font-size: 1.8rem;
 }
 .autor p,
-.libro p {
+.libro p,
+.vende-libro p {
     margin: auto;
     color: var(--blanco);
 }
