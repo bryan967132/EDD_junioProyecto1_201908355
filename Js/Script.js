@@ -933,7 +933,7 @@ function listOfLists() {
         d3.select('#listoflists').graphviz().width(1150).height(300).renderDot(dot)
         return
     }
-    document.getElementById('listoflists').innerHTML = '<h4>¡No hay clientes cargados!</h4>'
+    document.getElementById('listoflists').innerHTML = '<h4>¡No hay usuarios cargados!</h4>'
 }
 
 function getAuthors() {
