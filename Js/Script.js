@@ -819,7 +819,7 @@ function login() {
             if(username == users.get(i).nombre_usuario && password == users.get(i).contrasenia) {
                 alert('Bienvenido ' + users.get(i).nombre_completo)
                 if(users.get(i).rol == 'Administrador') {
-                    window.location.href = 'AdminProfile.html'
+                    window.location.href = `AdminProfile.html?dpi=${users.get(i).dpi}`
                     return
                 }else if(users.get(i).rol == 'Usuario') {
                     window.location.href = `UserProfile.html?dpi=${users.get(i).dpi}`
@@ -969,18 +969,15 @@ function listOfLists() {
             let client = clients.get(i)
             if(client.compras && client.compras.getSize() > 0) {
                 for(let x = 0; x < client.compras.getSize(); x ++) {
-                    console.log(client.compras.get(x))
                     subG += `
         lib${i}${x}[label="${client.compras.get(x).nombre_libro}\nCantidad = ${client.compras.get(x).cantidad}"];`
                     if(x == 0) {
                         subG += `
         nodo${i} -> lib${i}${x};`
-                        console.log('x es igual a 0')
                     }else if(x > 0) {
                         subG += `
         lib${i}${x - 1} -> lib${i}${x};`
                     }
-                    console.log(x)
                 }
             }
             subG += `
@@ -998,7 +995,7 @@ digraph G {
     }
 }`
         document.getElementById('listoflists').innerHTML = ''
-        d3.select('#listoflists').graphviz().width(1150).renderDot(dot)
+        d3.select('#listoflists').graphviz().renderDot(dot)
         return
     }
     document.getElementById('listoflists').innerHTML = '<h4>¡No hay usuarios cargados!</h4>'
@@ -1025,12 +1022,12 @@ function getAuthors() {
     return authors
 }
 
-function binaryTree(width) {
+function binaryTree(width,height) {
     let authors = getAuthors()
     try {
         if(authors.raiz) {
             document.getElementById('binarytree').innerHTML = ''
-            d3.select('#binarytree').graphviz().width(width).renderDot(authors.getDot())
+            d3.select('#binarytree').graphviz().width(width).height(height).renderDot(authors.getDot())
             return
         }
         document.getElementById('binarytree').innerHTML = '<h4>¡No hay autores cargados!</h4>'
@@ -1422,12 +1419,22 @@ function chargeBooks() {
 }
 
 function getNameClient() {
-    let usersCharged = JSON.parse(localStorage.getItem('usersCharged'))
-    for(let i = 0; i < usersCharged.length; i ++) {
-        if(parseInt(dpi) == usersCharged[i]['dpi']) {
-            var nombreCompletoUser = usersCharged[i]['nombre_completo']
-            break
+    let users = getUsers()
+    for(let i = 0; i < users.getSize(); i ++) {
+        console.log(users.get(i))
+        if(parseInt(dpi) == users.get(i).dpi) {
+            document.getElementById('usernameClient').innerHTML = users.get(i).nombre_completo
+            return
         }
     }
-    document.getElementById('usernameClient').innerHTML = nombreCompletoUser
+}
+
+function getNameAdmin() {
+    let users = getUsers()
+    for(let i = 0; i < users.getSize(); i ++) {
+        if(parseInt(dpiAdmin) == users.get(i).dpi) {
+            document.getElementById('usernameAdmin').innerHTML = users.get(i).nombre_completo
+            return
+        }
+    }
 }

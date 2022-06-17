@@ -15,7 +15,6 @@
         <script src="./Js/Script.js"></script>
         <script>
             try {
-                let enlaces = document.querySelectorAll("a");
                 let url = window.location.href
                 var dpi = url.match(/dpi=\d+$/)[0].split('=')[1]
             } catch (error) {}
@@ -65,7 +64,7 @@
                 <h2>Autores</h2>
                 <div class="mosaico" id="authorsR"></div>
                 <script>authors()</script>
-                <script>binaryTree(800)</script>
+                <script>binaryTree(800,620)</script>
             </div>
             <div class="fondo_transparente">
                 <div class="modal">
