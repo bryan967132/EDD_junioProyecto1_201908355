@@ -189,7 +189,6 @@ class Usuario {
         this.contrasenia = contrasenia
         this.telefono = telefono
         this.compras = compras
-        this.listaLibros = new ListaSimple()
     }
 }
 //árbol binario
@@ -773,11 +772,11 @@ function createUser(dpi,name,username,email,rol,password,phone) {
     let usersCharged = localStorage.getItem('usersCharged')
     usersCharged = usersCharged.replace('[','').replace(']','')
     if(usersCharged == '') {
-        usersCharged += `[${JSON.stringify(new Usuario(dpi,name,username,email,rol,password,phone,0))}]`
+        usersCharged += `[${JSON.stringify(new Usuario(dpi,name,username,email,rol,password,phone,null))}]`
         localStorage.setItem('usersCharged',usersCharged)
         return
     }
-    usersCharged += `,${JSON.stringify(new Usuario(dpi,name,username,email,rol,password,phone,0))}`
+    usersCharged += `,${JSON.stringify(new Usuario(dpi,name,username,email,rol,password,phone,null))}`
     usersCharged = `[${usersCharged}]`
     localStorage.setItem('usersCharged',usersCharged)
 }
@@ -868,7 +867,18 @@ function signin() {
     window.location.href = 'Login.html'
 }
 
-//obtener clientes
+//obtener
+function getBuys(compras) {
+    if(compras != null) {
+        let buys = new ListaSimple()
+        for(let i = 0; i < compras.length; i ++) {
+            let buy = compras[i]
+            buys.add(new Compra(buy['isbn'],buy['nombre_autor'],buy['nombre_libro'],buy['cantidad'],buy['paginas'],buy['categoria']))
+        }
+        return buys
+    }
+    return null
+}
 function getClients() {
     let clients = new ListaDobleCircular()
     try {
@@ -884,8 +894,8 @@ function getClients() {
                     user['rol'],
                     user['contrasenia'],
                     user['telefono'],
-                    user['compras']
-                    )
+                    getBuys(user['compras'])
+                )
                 clients.add(newUser)
             }
         }
@@ -948,24 +958,52 @@ function listOfLists() {
     let clients = getClients()
     if(clients.getSize() > 0) {
         let nodos = ''
-        let nodosC = 'nodo0'
+        let nodosC = `
+        nodo0`
         let subG = ''
         for(let i = 0; i < clients.getSize(); i ++) {
-            nodos += `nodo${i}[label="${clients.get(i).nombre_completo}"];`
-            subG += `subgraph subNodo${i} {`
-            if(clients.get(i).listaLibros.getSize() > 0) {
+            nodos += `
+    nodo${i}[label="${clients.get(i).nombre_completo}"];`
+            subG += `
+    subgraph subNodo${i} {`
+            let client = clients.get(i)
+            if(client.compras && client.compras.getSize() > 0) {
+                for(let x = 0; x < client.compras.getSize(); x ++) {
+                    console.log(client.compras.get(x))
+                    subG += `
+        lib${i}${x}[label="${client.compras.get(x).nombre_libro}\nCantidad = ${client.compras.get(x).cantidad}"];`
+                    if(x == 0) {
+                        subG += `
+        nodo${i} -> lib${i}${x};`
+                        console.log('x es igual a 0')
+                    }else if(x > 0) {
+                        subG += `
+        lib${i}${x - 1} -> lib${i}${x};`
+                    }
+                    console.log(x)
+                }
             }else{
-                subG += `null${i}[label="Sin Libros"];nodo${i} -> null${i};`
+                subG += `
+        null${i}[label="Sin Libros"];
+        nodo${i} -> null${i};`
             }
-            subG += `}`
+            subG += `
+    }`
             if(i > 0) {
                 nodosC += ` -> nodo${i}`
             }
         }
         nodosC += ` -> nodo0;`
-        let dot = `digraph G{node[shape="box"];${nodos}${subG}{rank=same;${nodosC}}}`
+        let dot = `
+digraph G {
+    node[shape="box"];${nodos}${subG}
+    {
+        rank=same;${nodosC}
+    }
+}`
+        console.log(dot)
         document.getElementById('listoflists').innerHTML = ''
-        d3.select('#listoflists').graphviz().width(1150).height(300).renderDot(dot)
+        d3.select('#listoflists').graphviz().width(1150).renderDot(dot)
         return
     }
     document.getElementById('listoflists').innerHTML = '<h4>¡No hay usuarios cargados!</h4>'
@@ -997,7 +1035,7 @@ function binaryTree(width) {
     try {
         if(authors.raiz) {
             document.getElementById('binarytree').innerHTML = ''
-            d3.select('#binarytree').graphviz().width(width).height(600).renderDot(authors.getDot())
+            d3.select('#binarytree').graphviz().width(width).renderDot(authors.getDot())
             return
         }
         document.getElementById('binarytree').innerHTML = '<h4>¡No hay autores cargados!</h4>'
@@ -1214,10 +1252,9 @@ function searchByISBN(buyedBooks,isbn) {
 function createBuyBook(buyedBooks,isbn,author,title,cuantity,pages,category) {
     let indice = searchByISBN(buyedBooks,isbn)
     if(indice) {
-        console.log('ya se compró una vez el libro')
-        return
+        buyedBooks[indice]['cantidad'] += cuantity
+        return buyedBooks
     }
-    console.log('se compró el libro por primera vez')
     buyedBooks.push(JSON.parse(JSON.stringify(new Compra(isbn,author,title,cuantity,pages,category))))
     return buyedBooks
 }
@@ -1226,10 +1263,10 @@ function addToLibrary(isbn,author,title,cuantity,pages,category) {
     let usersCharged = JSON.parse(localStorage.getItem('usersCharged'))
     for(let x = 0; x < usersCharged.length; x ++) {
         if(dpi == usersCharged[x]['dpi']) {
-            if(usersCharged[x]['listaLibros'].indice == 0) {
-                usersCharged[x]['listaLibros'] = [] 
+            if(usersCharged[x]['compras'] == null) {
+                usersCharged[x]['compras'] = []
             }
-            usersCharged[x]['listaLibros'] = createBuyBook(usersCharged[x]['listaLibros'],isbn,author,title,cuantity,pages,category)
+            usersCharged[x]['compras'] = createBuyBook(usersCharged[x]['compras'],isbn,author,title,cuantity,pages,category)
             localStorage.setItem('usersCharged',JSON.stringify(usersCharged))
             return
         }
