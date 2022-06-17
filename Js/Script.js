@@ -1169,7 +1169,7 @@ function chargeAuthors() {
                 )
             }
             alert('Autores cargados')
-            binaryTree()
+            binaryTree(1150)
         }
         reader.onerror = function(evt) {alert('Ha ocurrido un error al cargar el archivo')}
         document.getElementById('fileauthors').value = ''
