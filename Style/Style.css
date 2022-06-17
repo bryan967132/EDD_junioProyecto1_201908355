@@ -118,6 +118,11 @@ h4{
     padding-top: 3rem;
     padding-bottom: 1rem;
 }
+.books,
+.authors{
+    padding-top: 8rem;
+}
+
 .button-login button,
 .users button,
 .authors button,
@@ -369,6 +374,7 @@ h4{
     row-gap: 1rem;
 }
 
+.mybooks h2,
 .users h2,
 .authors h2,
 .books h2 {
