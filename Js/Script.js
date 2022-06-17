@@ -982,10 +982,6 @@ function listOfLists() {
                     }
                     console.log(x)
                 }
-            }else{
-                subG += `
-        null${i}[label="Sin Libros"];
-        nodo${i} -> null${i};`
             }
             subG += `
     }`
@@ -1001,7 +997,6 @@ digraph G {
         rank=same;${nodosC}
     }
 }`
-        console.log(dot)
         document.getElementById('listoflists').innerHTML = ''
         d3.select('#listoflists').graphviz().width(1150).renderDot(dot)
         return
@@ -1215,6 +1210,36 @@ function getAllBooks() {
     return books
 }
 
+function myBuyedBooks(listaLibros) {
+    if(listaLibros != null) {
+        let code = ''
+        for(let i = 0; i < listaLibros.getSize(); i ++) {
+            let book = listaLibros.get(i)
+            code += `
+            <div class="mi-libro">
+                <h4>${book['nombre_libro']}</h4>
+                <p>Autor: ${book['nombre_autor']}</p>
+                <p>Categoría: ${book['categoria']}</p>
+                <p>ISBN: ${book['isbn']}</p>
+                <p>Ejemplares comprados: ${book['cantidad']}</p>
+            </div>`
+        }
+        document.getElementById('myBuyedBooks').innerHTML = code
+        return
+    }
+    document.getElementById('myBuyedBooks').innerHTML = '<h4>¡La librera está vacía!</h4>'
+}
+
+function myBooks() {
+    let clients = getClients()
+    for(let i = 0; i < clients.getSize(); i ++) {
+        if(parseInt(dpi) == clients.get(i).dpi) {
+            myBuyedBooks(clients.get(i).compras)
+            return
+        }
+    }
+}
+
 function saleBooks() {
     let books = getAllBooks()
     if(books.getSize() > 0) {
@@ -1251,7 +1276,7 @@ function searchByISBN(buyedBooks,isbn) {
 
 function createBuyBook(buyedBooks,isbn,author,title,cuantity,pages,category) {
     let indice = searchByISBN(buyedBooks,isbn)
-    if(indice) {
+    if(indice != null) {
         buyedBooks[indice]['cantidad'] += cuantity
         return buyedBooks
     }
@@ -1281,6 +1306,7 @@ function confirmBuyBook(isbn,cantidad) {
             if(book['cantidad'] >= cantidad) {
                 booksCharged[i]['cantidad'] -= cantidad
                 addToLibrary(book['isbn'],book['nombre_autor'],book['nombre_libro'],cantidad,book['paginas'],book['categoria'])
+                myBooks()
             }else {
                 //se agregará a cola de espera
             }
@@ -1395,20 +1421,13 @@ function chargeBooks() {
     }
 }
 
-
-
-/*
-para mi librera
-
-<div class="books" id="mybooks">
-                <h2>Libros</h2>
-                <div class="mislibro-columnas">
-                    <div class="producto">
-                        <h4>nombre_libro</h4>
-                        <p>Autor: nombre_autor</p>
-                        <p>Cantidad: cantidad</p>
-                    </div>
-                </div>
-            </div>
-
-*/
+function getNameClient() {
+    let usersCharged = JSON.parse(localStorage.getItem('usersCharged'))
+    for(let i = 0; i < usersCharged.length; i ++) {
+        if(parseInt(dpi) == usersCharged[i]['dpi']) {
+            var nombreCompletoUser = usersCharged[i]['nombre_completo']
+            break
+        }
+    }
+    document.getElementById('usernameClient').innerHTML = nombreCompletoUser
+}

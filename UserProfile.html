@@ -18,16 +18,16 @@
                 let enlaces = document.querySelectorAll("a");
                 let url = window.location.href
                 var dpi = url.match(/dpi=\d+$/)[0].split('=')[1]
-            } catch (error) {
-                window.location.href = 'Login.html'
-            }
+            } catch (error) {}
         </script>
     </head>
     <body>
         <header id="header" class="header">
             <div class="contenedor">
-                
-                <div class="barra derecha">
+                <div class="barra">
+                    <a href="#" class="logo">
+                        <h1 class="logo__nombre no-margin centrar-texto" id="usernameClient"></h1>
+                    </a>
                     <nav class="navegacion">
                         <a href="#header" class="navegacion__enlace">Mi Biblioteca</a>
                         <a href="#books" class="navegacion__enlace">Libreras</a>
@@ -35,12 +35,15 @@
                         <a href="#authors" class="navegacion__enlace">Autores</a>
                         <a href="./Login.html" class="navegacion__enlace">Cerrar Sesión</a>
                     </nav>
+                    <script>getNameClient()</script>
                 </div>
             </div>
         </header>
         <div class="bodyCharge">
             <div class="mybooks" id="mybooks">
                 <h2>Mi Biblioteca</h2>
+                <div class="mosaico" id="myBuyedBooks"></div>
+                <script>myBooks()</script>
             </div>
             <div class="books" id="books">
                 <h2>Libreras</h2>

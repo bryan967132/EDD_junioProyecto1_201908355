@@ -195,7 +195,7 @@ h4{
     color: var(--blanco);
 }
 .logo__nombre{
-    font-weight: 400;
+    font-size: 3rem;
 }
 .logo__bold{
     font-weight: 700;
