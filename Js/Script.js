@@ -159,6 +159,16 @@ class Libro {
         this.categoria = categoria
     }
 }
+class Compra {
+    constructor(isbn,nombre_autor,nombre_libro,cantidad,paginas,categoria) {
+        this.isbn = isbn
+        this.nombre_autor = nombre_autor
+        this.nombre_libro = nombre_libro
+        this.cantidad = cantidad
+        this.paginas = paginas
+        this.categoria = categoria
+    }
+}
 class Autor {
     constructor(dpi,nombre_autor,correo,telefono,direccion,biografia) {
         this.dpi = dpi
@@ -813,7 +823,7 @@ function login() {
                     window.location.href = 'AdminProfile.html'
                     return
                 }else if(users.get(i).rol == 'Usuario') {
-                    window.location.href = 'UserProfile.html'
+                    window.location.href = `UserProfile.html?dpi=${users.get(i).dpi}`
                     return
                 }
             }
@@ -1192,12 +1202,48 @@ function saleBooks() {
     document.getElementById('saleBooks').innerHTML = '<h4>¡No hay libros en venta!</h4>'
 }
 
+function searchByISBN(buyedBooks,isbn) {
+    for(let i = 0; i < buyedBooks.length; i ++) {
+        if(isbn == buyedBooks[i]['isbn']) {
+            return i
+        }
+    }
+    return null
+}
+
+function createBuyBook(buyedBooks,isbn,author,title,cuantity,pages,category) {
+    let indice = searchByISBN(buyedBooks,isbn)
+    if(indice) {
+        console.log('ya se compró una vez el libro')
+        return
+    }
+    console.log('se compró el libro por primera vez')
+    buyedBooks.push(JSON.parse(JSON.stringify(new Compra(isbn,author,title,cuantity,pages,category))))
+    return buyedBooks
+}
+
+function addToLibrary(isbn,author,title,cuantity,pages,category) {
+    let usersCharged = JSON.parse(localStorage.getItem('usersCharged'))
+    for(let x = 0; x < usersCharged.length; x ++) {
+        if(dpi == usersCharged[x]['dpi']) {
+            if(usersCharged[x]['listaLibros'].indice == 0) {
+                usersCharged[x]['listaLibros'] = [] 
+            }
+            usersCharged[x]['listaLibros'] = createBuyBook(usersCharged[x]['listaLibros'],isbn,author,title,cuantity,pages,category)
+            localStorage.setItem('usersCharged',JSON.stringify(usersCharged))
+            return
+        }
+    }
+}
+
 function confirmBuyBook(isbn,cantidad) {
     let booksCharged = JSON.parse(localStorage.getItem('booksCharged'))
     for(let i = 0; i < booksCharged.length; i ++) {
-        if(isbn == booksCharged[i]['isbn']) {
-            if(booksCharged[i]['cantidad'] >= cantidad) {
+        let book = booksCharged[i]
+        if(isbn == book['isbn']) {
+            if(book['cantidad'] >= cantidad) {
                 booksCharged[i]['cantidad'] -= cantidad
+                addToLibrary(book['isbn'],book['nombre_autor'],book['nombre_libro'],cantidad,book['paginas'],book['categoria'])
             }else {
                 //se agregará a cola de espera
             }

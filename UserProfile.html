@@ -13,10 +13,20 @@
         <script src="https://unpkg.com/@hpcc-js/wasm@0.3.11/dist/index.min.js"></script>
         <script src="https://unpkg.com/d3-graphviz@3.0.5/build/d3-graphviz.js"></script>
         <script src="./Js/Script.js"></script>
+        <script>
+            try {
+                let enlaces = document.querySelectorAll("a");
+                let url = window.location.href
+                var dpi = url.match(/dpi=\d+$/)[0].split('=')[1]
+            } catch (error) {
+                window.location.href = 'Login.html'
+            }
+        </script>
     </head>
     <body>
         <header id="header" class="header">
             <div class="contenedor">
+                
                 <div class="barra derecha">
                     <nav class="navegacion">
                         <a href="#header" class="navegacion__enlace">Mi Biblioteca</a>
