@@ -552,7 +552,7 @@ class MatrizOrtogonal {
     getDot() {
         let grafo = 'digraph T{\nnode[shape=box fontname="Arial" fillcolor="white" style=filled]'
         grafo += `\nroot[label = "Capa 0", group=1]\n`
-        grafo += 'label = "MATRIZ DISPERSA" \nfontname="Arial Black" \nfontsize="15pt"\n'
+        grafo += 'fontname="Arial Black" \nfontsize="15pt"\n'
         let x_fila = this.filas.primero
         while(x_fila) {
             grafo += `F${x_fila.id}[label="${x_fila.id}",fillcolor="plum",group=1];\n`
@@ -929,10 +929,11 @@ function listOfLists() {
         }
         nodosC += ` -> nodo0;`
         let dot = `digraph G{node[shape="box"];${nodos}${subG}{rank=same;${nodosC}}}`
+        document.getElementById('listoflists').innerHTML = ''
         d3.select('#listoflists').graphviz().width(1150).height(300).renderDot(dot)
         return
     }
-    d3.select('#listoflists').graphviz().width(250).height(50).renderDot('digraph G{label="No hay clientes cargados"}')
+    document.getElementById('listoflists').innerHTML = '<h4>¡No hay clientes cargados!</h4>'
 }
 
 function getAuthors() {
@@ -959,10 +960,23 @@ function getAuthors() {
 function binaryTree(width) {
     let authors = getAuthors()
     if(authors.raiz) {
+        document.getElementById('binarytree').innerHTML = ''
         d3.select('#binarytree').graphviz().width(width).height(600).renderDot(authors.getDot())
         return
     }
-    d3.select('#binarytree').graphviz().width(250).height(50).renderDot('digraph G{label="No hay autores cargados"}')
+    try {
+        document.getElementById('binarytree').innerHTML = '<h4>¡No hay autores cargados!</h4>'
+    } catch (error) {
+        document.getElementById('binarytree').innerHTML = '<h4>¡No hay autores cargados!</h4>'
+    }
+}
+
+function booksChargeConfirm() {
+    if(JSON.parse(JSON.stringify(localStorage.getItem('booksCharged')))) {
+        document.getElementById('booksCharge').innerHTML = '<h4>¡Libros cargados!</h4>'
+        return
+    }
+    document.getElementById('booksCharge').innerHTML = '<h4>¡No hay libros cargados!</h4>'
 }
 
 function ortogonalMatrix() {
@@ -971,7 +985,6 @@ function ortogonalMatrix() {
         d3.select('#fantasia').graphviz().width(800).height(800).renderDot(booksFantasia.getDot())
         return
     } catch (error) {}
-    d3.select('#fantasia').graphviz().width(250).height(50).renderDot('digraph G{label="No hay libros de Fantasía"}')
 }
 
 function disperseMatrix() {
@@ -980,7 +993,6 @@ function disperseMatrix() {
         d3.select('#thriller').graphviz().width(800).height(800).renderDot(booksThriller.getDot())
         return
     } catch (error) {}
-    d3.select('#thriller').graphviz().width(250).height(50).renderDot('digraph G{label="No hay libros de thriller"}')
 }
 
 function lookBook(titulo,cantidad) {
@@ -1001,7 +1013,7 @@ function lookBook(titulo,cantidad) {
         >
     ];
 }`
-    d3.select('#contenidomodal').graphviz().width(300).height(325).renderDot(dot)
+    d3.select('#contenidomodal').graphviz().renderDot(dot)
 }
 
 function booksFantasia() {
@@ -1021,8 +1033,10 @@ function booksFantasia() {
             </div>`
             }
         }
-    } catch (error) {}
-    document.getElementById('fantasiabook').innerHTML = code + '<div class="grafo grafo--matriz" id="fantasia"></div>'
+        document.getElementById('fantasiabook').innerHTML = code + '<div class="grafo grafo--matriz" id="fantasia"></div>'
+    } catch (error) {
+        document.getElementById('fantasiabook').innerHTML = '<h4>¡La librera está vacía!</h4>'
+    }
 }
 function booksThriller() {
     code = ''
@@ -1041,8 +1055,10 @@ function booksThriller() {
             </div>`
             }
         }
-    } catch (error) {}
-    document.getElementById('thrillerbook').innerHTML = code + '<div class="grafo grafo--matriz" id="thriller"></div>'
+        document.getElementById('thrillerbook').innerHTML = code + '<div class="grafo grafo--matriz" id="thriller"></div>'
+    } catch (error) {
+        document.getElementById('thrillerbook').innerHTML = '<h4>¡La librera está vacía!</h4>'
+    }
 }
 
 function getAuthorsList() {
@@ -1084,21 +1100,24 @@ function lookAuthor(dpi) {
             return
         }
     }
-    
 }
 
 function authors() {
     let authors = getAuthorsList()
-    code = ''
-    for(let i = 0; i < authors.getSize(); i ++) {
-        let author = authors.get(i)
-        code += `
-        <div class="autor" onclick="lookAuthor(${author.dpi})">
+    if(authors.getSize() > 0){
+        code = ''
+        for(let i = 0; i < authors.getSize(); i ++) {
+            let author = authors.get(i)
+            code += `
+            <div class="autor" onclick="lookAuthor(${author.dpi})">
             <img src="./Images/author.png" width="50" height="50"/>
             <h4 style="font-size: 1.8rem">${author.nombre_autor}</h4>
-        </div>`
+            </div>`
+        }
+        document.getElementById('authorsR').innerHTML = code + '<div class="grafo grafo--arbol-binario" id="binarytree"></div>'
+        return
     }
-    document.getElementById('authorsR').innerHTML = code + '<div class="grafo grafo--arbol-binario" id="binarytree"></div>'
+    document.getElementById('authorsR').innerHTML = '<h4>¡No hay autores!</h4>'
 }
 
 //cargas masivas
@@ -1179,6 +1198,7 @@ function chargeBooks() {
                 )
             }
             alert('Libros cargados')
+            booksChargeConfirm()
         }
         reader.onerror = function(evt) {alert('Ha ocurrido un error al cargar el archivo')}
         document.getElementById('filebooks').value = ''

@@ -5,6 +5,7 @@
     --fontprimary: rgb(0, 77, 166);
     --fontsecondary: rgb(0, 32, 70);
     --backDark: rgb(39, 39, 39);
+    --backLight: rgb(203, 203, 203);
     --primary: #0078ff;
     --secondary: #0058bc;
     --thirdy: #0060cd;
@@ -41,6 +42,11 @@ body{
 @media (prefers-color-scheme: dark) {
     body { 
         background: var(--backDark); 
+    }
+}
+@media (prefers-color-scheme: light) {
+    body { 
+        background: var(--backLight); 
     }
 }
 a{
@@ -308,7 +314,7 @@ h4{
     grid-column: 4 / 7;
 }
 .grafo--matriz {
-    grid-row: 1 / 4;
+    grid-row: 1 / 5;
 }
 .grafo--arbol-binario {
     grid-row: 1 / 6;
@@ -437,11 +443,14 @@ footer button:hover {
     margin: auto;
     color: var(--blanco);
 }
-
+.graphs h4,
+.mosaico h4 {
+    color: var(--blanco);
+}
 .fondo_transparente{
     top: 0;
     left: 0;
-    background: rgba(0, 0, 0, 0.609);
+    background: rgba(0, 0, 0, 0.765);
     position: fixed;
     height: 100vh;
     width: 100%;
