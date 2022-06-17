@@ -436,6 +436,14 @@ footer button:hover {
     cursor: pointer;
     height: 100%;
 }
+.mi-libro {
+    background-color: var(--agua);
+    border-radius: 0.4rem;
+    border: var(--agua1) solid 0.2rem;
+    padding: 1rem 1.2rem 1rem 1.5rem;
+    cursor: pointer;
+    height: 100%;
+}
 .vende-libro {
     background-color: var(--celeste);
     border-radius: 0.4rem;
@@ -448,6 +456,8 @@ footer button:hover {
 .autor h5,
 .libro h4,
 .libro h5,
+.mi-libro h4,
+.mi-libro h5,
 .vende-libro h4,
 .vende-libro h5 {
     margin: auto;
@@ -460,6 +470,7 @@ footer button:hover {
 }
 .autor p,
 .libro p,
+.mi-libro p,
 .vende-libro p {
     margin: auto;
     color: var(--blanco);
@@ -539,4 +550,5 @@ footer button:hover {
 .boton:hover{
     background: crimson;
     color: white;
+    cursor: pointer;
 }

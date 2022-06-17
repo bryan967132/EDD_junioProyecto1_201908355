@@ -51,6 +51,13 @@ class ListaSimple {
             actual = actual.siguiente
         }
     }
+    tour() {
+        let actual = this.primero
+        while(actual) {
+            console.log(actual.objeto)
+            actual = actual.siguiente
+        }
+    }
     getSize() {
         return this.indice
     }
@@ -80,6 +87,15 @@ class ListaDoble {
                 return actual.objeto
             }
             actual = actual.siguiente
+        }
+    }
+    tour() {
+        let actual = this.primero
+        let cont = 0
+        while(cont < this.indice) {
+            console.log(actual.objeto)
+            actual = actual.siguiente
+            cont ++
         }
     }
     getSize() {
@@ -115,6 +131,15 @@ class ListaDobleCircular {
                 return actual.objeto
             }
             actual = actual.siguiente
+        }
+    }
+    tour() {
+        let actual = this.primero
+        let cont = 0
+        while(cont < this.indice) {
+            console.log(actual.objeto)
+            actual = actual.siguiente
+            cont ++
         }
     }
     getSize() {
@@ -959,15 +984,14 @@ function getAuthors() {
 
 function binaryTree(width) {
     let authors = getAuthors()
-    if(authors.raiz) {
-        document.getElementById('binarytree').innerHTML = ''
-        d3.select('#binarytree').graphviz().width(width).height(600).renderDot(authors.getDot())
-        return
-    }
     try {
+        if(authors.raiz) {
+            document.getElementById('binarytree').innerHTML = ''
+            d3.select('#binarytree').graphviz().width(width).height(600).renderDot(authors.getDot())
+            return
+        }
         document.getElementById('binarytree').innerHTML = '<h4>¡No hay autores cargados!</h4>'
     } catch (error) {
-        document.getElementById('binarytree').innerHTML = '<h4>¡No hay autores cargados!</h4>'
     }
 }
 
@@ -1149,18 +1173,58 @@ function saleBooks() {
         let code = ''
         for(let i = 0; i < books.getSize(); i ++) {
             let book = books.get(i)
+            let disponible = 'Agotado'
+            if(book['cantidad'] > 0) {
+                disponible = book['cantidad']
+            }
             code += `
-        <div class="vende-libro" onclick="">
+        <div class="vende-libro" onclick="buyBook(${book['isbn']},'${book['nombre_libro']}','${book['nombre_autor']}',${book['paginas']},${book['cantidad']})">
             <h4>${book['nombre_libro']}</h4>
             <p>Autor: ${book['nombre_autor']}</p>
             <p>Categoría: ${book['categoria']}</p>
             <p>ISBN: ${book['isbn']}</p>
+            <p>Cantidad Disponible: ${disponible}</p>
         </div>`
         }
         document.getElementById('saleBooks').innerHTML = code
         return
     }
     document.getElementById('saleBooks').innerHTML = '<h4>¡No hay libros en venta!</h4>'
+}
+
+function confirmBuyBook(isbn,cantidad) {
+    let booksCharged = JSON.parse(localStorage.getItem('booksCharged'))
+    for(let i = 0; i < booksCharged.length; i ++) {
+        if(isbn == booksCharged[i]['isbn']) {
+            if(booksCharged[i]['cantidad'] >= cantidad) {
+                booksCharged[i]['cantidad'] -= cantidad
+            }else {
+                //se agregará a cola de espera
+            }
+            break
+        }
+    }
+    localStorage.setItem('booksCharged',JSON.stringify(booksCharged))
+    document.getElementsByClassName('fondo_transparente')[0].style.display = 'none'
+    document.getElementById('contenidomodal').innerHTML = ''
+    saleBooks()
+}
+
+function buyBook(isbn,titulo,autor,paginas,disponibles) {
+    document.getElementsByClassName('fondo_transparente')[0].style.display = 'block'
+    document.getElementById('titulomodal').innerHTML = 'Confirmación de Compra'
+    document.getElementById('contenidomodal').innerHTML = `
+    <div class="modal_autor_bio">
+        <p style="margin: auto;font-size: 3rem"><strong>ISBN:</strong> ${isbn}</p>
+        <p style="margin: auto;font-size: 3rem"><strong>Libro:</strong> ${titulo}</p>
+        <p style="margin: auto;font-size: 3rem"><strong>Autor:</strong> ${autor}</p>
+        <p style="margin: auto;font-size: 3rem"><strong>Páginas:</strong> ${paginas}</p>
+        <p style="margin: auto;font-size: 3rem"><strong>Cantidad Disponible:</strong> ${disponibles}</p>
+        <label for="cant" style="margin: auto;font-size: 3rem;color: black;"><strong>Cantidad:</strong></label>
+        <input id="cant" type="number" min="1" style="text-align: center;width: 25%;font-size: 3rem;border: 0rem solid;outline: none;" value="1"/>
+    </div>`
+    document.getElementById('botones').innerHTML = `
+    <button type="buton" class="boton" onclick="confirmBuyBook(${isbn},parseInt(document.getElementById('cant').value))">Comprar</button>`
 }
 
 //cargas masivas
