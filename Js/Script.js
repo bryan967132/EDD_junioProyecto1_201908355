@@ -954,7 +954,7 @@ function getBooksThriller() {
 }
 
 //graficas de estructuras
-function listOfLists() {
+function listOfLists(width) {
     let clients = getClients()
     if(clients.getSize() > 0) {
         let nodos = ''
@@ -995,7 +995,7 @@ digraph G {
     }
 }`
         document.getElementById('listoflists').innerHTML = ''
-        d3.select('#listoflists').graphviz().renderDot(dot)
+        d3.select('#listoflists').graphviz().width(width).renderDot(dot)
         return
     }
     document.getElementById('listoflists').innerHTML = '<h4>¡No hay usuarios cargados!</h4>'
