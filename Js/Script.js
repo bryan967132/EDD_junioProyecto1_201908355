@@ -89,6 +89,25 @@ class ListaDoble {
             actual = actual.siguiente
         }
     }
+    bubbleSortByName() {
+        this.bubbleSortR1(this.primero)
+    }
+    bubbleSortR1(nodoI) {
+        if(nodoI.indice < this.ultimo.indice) {
+            this.bubbleSortR2(nodoI,this.primero)
+            this.bubbleSortR1(nodoI.siguiente)
+        }
+    }
+    bubbleSortR2(nodoI,nodoX) {
+        if(nodoX.indice < this.ultimo.indice - nodoI.indice) {
+            if(nodoX.objeto.nombre_libro > nodoX.siguiente.objeto.nombre_libro) {
+                let temporal = nodoX.objeto.nombre_libro
+                nodoX.objeto.nombre_libro = nodoX.siguiente.objeto.nombre_libro
+                nodoX.siguiente.objeto.nombre_libro = temporal
+            }
+            this.bubbleSortR2(nodoI,nodoX.siguiente)
+        }
+    }
     tour() {
         let actual = this.primero
         let cont = 0
@@ -918,6 +937,7 @@ function signin() {
 function booksHome() {
     let books = getAllBooks()
     if(books.getSize() > 0) {
+        books.bubbleSortByName()
         let code = ''
         for(let i = 0; i < books.getSize(); i ++) {
             let book = books.get(i)
@@ -1338,6 +1358,7 @@ function myBooks() {
 function saleBooks() {
     let books = getAllBooks()
     if(books.getSize() > 0) {
+        books.bubbleSortByName()
         let code = ''
         for(let i = 0; i < books.getSize(); i ++) {
             let book = books.get(i)
