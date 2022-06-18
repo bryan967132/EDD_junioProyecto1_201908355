@@ -108,6 +108,31 @@ class ListaDoble {
             this.bubbleSortR2(nodoI,nodoX.siguiente)
         }
     }
+    quickSortByName() {
+        this.quickSortR1(this.primero,this.ultimo)
+    }
+    quickSortR1(izquierda,derecha) {
+        if(izquierda.indice < derecha.indice) {
+            let nodoParticion = this.partition(izquierda.objeto.nombre_libro,izquierda,derecha)
+            this.quickSortR1(izquierda,nodoParticion)
+            this.quickSortR1(nodoParticion.siguiente,derecha)
+        }
+    }
+    partition(pivote,izquierda,derecha) {
+        while(izquierda.objeto.nombre_libro > pivote) {
+            izquierda = izquierda.siguiente
+        }
+        while(derecha.objeto.nombre_libro < pivote) {
+            derecha = derecha.anterior
+        }
+        if(izquierda.indice >= derecha.indice) {
+            return derecha
+        }
+        let temporal = izquierda.objeto
+        izquierda.objeto = derecha.objeto
+        derecha.objeto = temporal
+        return this.partition(pivote,izquierda.siguiente,derecha.anterior)
+    }
     tour() {
         let actual = this.primero
         let cont = 0
@@ -157,9 +182,9 @@ class ListaDobleCircular {
     }
     quickSortR1(izquierda,derecha) {
         if(izquierda.indice < derecha.indice) {
-            let indiceParticion = this.particion(izquierda.objeto.ncompras,izquierda,derecha)
-            this.quickSortR1(izquierda,indiceParticion)
-            this.quickSortR1(indiceParticion.siguiente,derecha)
+            let nodoParticion = this.particion(izquierda.objeto.ncompras,izquierda,derecha)
+            this.quickSortR1(izquierda,nodoParticion)
+            this.quickSortR1(nodoParticion.siguiente,derecha)
         }
     }
     particion(pivote,izquierda,derecha) {
