@@ -1218,7 +1218,7 @@ function myBuyedBooks(listaLibros) {
                 <p>Autor: ${book['nombre_autor']}</p>
                 <p>Categoría: ${book['categoria']}</p>
                 <p>ISBN: ${book['isbn']}</p>
-                <p>Ejemplares comprados: ${book['cantidad']}</p>
+                <p>Ejemplares Comprados: ${book['cantidad']}</p>
             </div>`
         }
         document.getElementById('myBuyedBooks').innerHTML = code

@@ -11,20 +11,23 @@
         <link rel="stylesheet" href="./Style/Style.css">
     </head>
     <body>
-        <header class="header">
+        <header id="header" class="header">
             <div class="contenedor">
                 <div class="barra derecha">
                     <nav class="navegacion">
-                        <a href="#libros" class="navegacion__enlace">Libros</a>
+                        <a href="#header" class="navegacion__enlace">Libros</a>
                         <a href="#topcom" class="navegacion__enlace">Top Compras</a>
                         <a href="./Login.html" class="navegacion__enlace">Iniciar Sesión</a>
                     </nav>
                 </div>
             </div>
         </header>
-        <div class="contenedor">
-            <div id="libros"></div>
-            <div id="topcom"></div>
+        <div class="bodyCharge">
+            <div class="mybooks" id="libros">
+                <h2>Libros</h2>
+                <div class="mosaico" id="lookbooks"></div>
+            </div>
+            <div id="users"></div>
         </div>
         <script src="./Js/Script.js"></script>
     </body>
