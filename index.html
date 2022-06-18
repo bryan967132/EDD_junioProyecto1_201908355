@@ -9,6 +9,7 @@
         <link rel="stylesheet" href="">
         <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="./Style/Style.css">
+        <script src="./Js/Script.js"></script>
     </head>
     <body>
         <header id="header" class="header">
@@ -16,7 +17,7 @@
                 <div class="barra derecha">
                     <nav class="navegacion">
                         <a href="#header" class="navegacion__enlace">Libros</a>
-                        <a href="#topcom" class="navegacion__enlace">Top Compras</a>
+                        <a href="#users" class="navegacion__enlace">Top Compras</a>
                         <a href="./Login.html" class="navegacion__enlace">Iniciar Sesión</a>
                     </nav>
                 </div>
@@ -26,9 +27,13 @@
             <div class="mybooks" id="libros">
                 <h2>Libros</h2>
                 <div class="mosaico" id="lookbooks"></div>
+                <script>booksHome()</script>
             </div>
-            <div id="users"></div>
+            <div class="authors" id="users">
+                <h2>Top Usuarios con más Compras</h2>
+                <div class="mosaicotop" id="topcom"></div>
+                <script></script>
+            </div>
         </div>
-        <script src="./Js/Script.js"></script>
     </body>
 </html>

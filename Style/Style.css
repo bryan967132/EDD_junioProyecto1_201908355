@@ -316,6 +316,17 @@ h4{
         row-gap: 1rem;
         align-content: flex-start;
     }
+    .mosaicotop {
+        padding: 2rem;
+        display: grid;
+        /*grid-template-columns: 50% 50%;
+        grid-template-columns: repeat(2, 50%);
+        grid-template-columns: 1fr 1fr;*/
+        grid-template-columns: repeat(5,1fr);
+        column-gap: 1rem;
+        row-gap: 1rem;
+        align-content: flex-start;
+    }
 }
 .grafo {
     background-repeat: no-repeat;
@@ -441,7 +452,6 @@ footer button:hover {
     border-radius: 0.4rem;
     border: var(--agua1) solid 0.2rem;
     padding: 1rem 1.2rem 1rem 1.5rem;
-    cursor: pointer;
     height: 100%;
 }
 .vende-libro {
@@ -476,7 +486,8 @@ footer button:hover {
     color: var(--blanco);
 }
 .graphs h4,
-.mosaico h4 {
+.mosaico h4,
+.mosaicotop h4 {
     color: var(--blanco);
 }
 .fondo_transparente{

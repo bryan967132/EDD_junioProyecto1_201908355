@@ -1237,6 +1237,31 @@ function myBooks() {
     }
 }
 
+function booksHome() {
+    let books = getAllBooks()
+    if(books.getSize() > 0) {
+        let code = ''
+        for(let i = 0; i < books.getSize(); i ++) {
+            let book = books.get(i)
+            let disponible = 'Agotado'
+            if(book['cantidad'] > 0) {
+                disponible = book['cantidad']
+            }
+            code += `
+        <div class="vende-libro" onclick="buyBook(${book['isbn']},'${book['nombre_libro']}','${book['nombre_autor']}',${book['paginas']},${book['cantidad']})">
+            <h4>${book['nombre_libro']}</h4>
+            <p>Autor: ${book['nombre_autor']}</p>
+            <p>Categoría: ${book['categoria']}</p>
+            <p>ISBN: ${book['isbn']}</p>
+            <p>Cantidad Disponible: ${disponible}</p>
+        </div>`
+        }
+        document.getElementById('lookbooks').innerHTML = code
+        return
+    }
+    document.getElementById('lookbooks').innerHTML = '<h4>¡No hay libros en venta!</h4>'
+}
+
 function saleBooks() {
     let books = getAllBooks()
     if(books.getSize() > 0) {
@@ -1421,7 +1446,6 @@ function chargeBooks() {
 function getNameClient() {
     let users = getUsers()
     for(let i = 0; i < users.getSize(); i ++) {
-        console.log(users.get(i))
         if(parseInt(dpi) == users.get(i).dpi) {
             document.getElementById('usernameClient').innerHTML = users.get(i).nombre_completo
             return
