@@ -868,6 +868,29 @@ function signin() {
 }
 
 //obtener
+function booksHome() {
+    let books = getAllBooks()
+    if(books.getSize() > 0) {
+        let code = ''
+        for(let i = 0; i < books.getSize(); i ++) {
+            let book = books.get(i)
+            if(book['cantidad'] > 0) {
+                disponible = book['cantidad']
+            }
+            code += `
+        <div class="mi-libro"">
+            <h4>${book['nombre_libro']}</h4>
+            <p>Autor: ${book['nombre_autor']}</p>
+            <p>Categoría: ${book['categoria']}</p>
+            <p>Páginas: ${book['paginas']}</p>
+        </div>`
+        }
+        document.getElementById('lookbooks').innerHTML = code
+        return
+    }
+    document.getElementById('lookbooks').innerHTML = '<h4  class="msg">¡No hay libros en venta!</h4>'
+}
+
 function getBuys(compras) {
     if(compras != null) {
         let buys = new ListaSimple()
@@ -901,6 +924,14 @@ function getClients() {
         }
     } catch (error) {}
     return clients
+}
+
+function getTop() {
+    let clients = getClients()
+    if(clients > 0) {
+
+    }
+    document.getElementById('topcom').innerHTML = '<h4 class="msg">¡No se han hecho compras !</h4>'
 }
 
 function getBooksFantasia() {
@@ -998,7 +1029,7 @@ digraph G {
         d3.select('#listoflists').graphviz().width(width).renderDot(dot)
         return
     }
-    document.getElementById('listoflists').innerHTML = '<h4>¡No hay usuarios cargados!</h4>'
+    document.getElementById('listoflists').innerHTML = '<h4  class="msg">¡No hay usuarios cargados!</h4>'
 }
 
 function getAuthors() {
@@ -1030,17 +1061,17 @@ function binaryTree(width,height) {
             d3.select('#binarytree').graphviz().width(width).height(height).renderDot(authors.getDot())
             return
         }
-        document.getElementById('binarytree').innerHTML = '<h4>¡No hay autores cargados!</h4>'
+        document.getElementById('binarytree').innerHTML = '<h4  class="msg">¡No hay autores cargados!</h4>'
     } catch (error) {
     }
 }
 
 function booksChargeConfirm() {
     if(JSON.parse(JSON.stringify(localStorage.getItem('booksCharged')))) {
-        document.getElementById('booksCharge').innerHTML = '<h4>¡Libros cargados!</h4>'
+        document.getElementById('booksCharge').innerHTML = '<h4  class="msg">¡Libros cargados!</h4>'
         return
     }
-    document.getElementById('booksCharge').innerHTML = '<h4>¡No hay libros cargados!</h4>'
+    document.getElementById('booksCharge').innerHTML = '<h4  class="msg">¡No hay libros cargados!</h4>'
 }
 
 function ortogonalMatrix() {
@@ -1099,7 +1130,7 @@ function booksFantasia() {
         }
         document.getElementById('fantasiabook').innerHTML = code + '<div class="grafo grafo--matriz" id="fantasia"></div>'
     } catch (error) {
-        document.getElementById('fantasiabook').innerHTML = '<h4>¡La librera está vacía!</h4>'
+        document.getElementById('fantasiabook').innerHTML = '<h4  class="msg">¡La librera está vacía!</h4>'
     }
 }
 function booksThriller() {
@@ -1121,7 +1152,7 @@ function booksThriller() {
         }
         document.getElementById('thrillerbook').innerHTML = code + '<div class="grafo grafo--matriz" id="thriller"></div>'
     } catch (error) {
-        document.getElementById('thrillerbook').innerHTML = '<h4>¡La librera está vacía!</h4>'
+        document.getElementById('thrillerbook').innerHTML = '<h4  class="msg">¡La librera está vacía!</h4>'
     }
 }
 
@@ -1181,7 +1212,7 @@ function authors() {
         document.getElementById('authorsR').innerHTML = code + '<div class="grafo grafo--arbol-binario" id="binarytree"></div>'
         return
     }
-    document.getElementById('authorsR').innerHTML = '<h4>¡No hay autores!</h4>'
+    document.getElementById('authorsR').innerHTML = '<h4  class="msg">¡No hay autores!</h4>'
 }
 
 function getAllBooks() {
@@ -1224,7 +1255,7 @@ function myBuyedBooks(listaLibros) {
         document.getElementById('myBuyedBooks').innerHTML = code
         return
     }
-    document.getElementById('myBuyedBooks').innerHTML = '<h4>¡La librera está vacía!</h4>'
+    document.getElementById('myBuyedBooks').innerHTML = '<h4  class="msg">¡La librera está vacía!</h4>'
 }
 
 function myBooks() {
@@ -1235,31 +1266,6 @@ function myBooks() {
             return
         }
     }
-}
-
-function booksHome() {
-    let books = getAllBooks()
-    if(books.getSize() > 0) {
-        let code = ''
-        for(let i = 0; i < books.getSize(); i ++) {
-            let book = books.get(i)
-            let disponible = 'Agotado'
-            if(book['cantidad'] > 0) {
-                disponible = book['cantidad']
-            }
-            code += `
-        <div class="vende-libro" onclick="buyBook(${book['isbn']},'${book['nombre_libro']}','${book['nombre_autor']}',${book['paginas']},${book['cantidad']})">
-            <h4>${book['nombre_libro']}</h4>
-            <p>Autor: ${book['nombre_autor']}</p>
-            <p>Categoría: ${book['categoria']}</p>
-            <p>ISBN: ${book['isbn']}</p>
-            <p>Cantidad Disponible: ${disponible}</p>
-        </div>`
-        }
-        document.getElementById('lookbooks').innerHTML = code
-        return
-    }
-    document.getElementById('lookbooks').innerHTML = '<h4>¡No hay libros en venta!</h4>'
 }
 
 function saleBooks() {
@@ -1284,7 +1290,7 @@ function saleBooks() {
         document.getElementById('saleBooks').innerHTML = code
         return
     }
-    document.getElementById('saleBooks').innerHTML = '<h4>¡No hay libros en venta!</h4>'
+    document.getElementById('saleBooks').innerHTML = '<h4  class="msg">¡No hay libros en venta!</h4>'
 }
 
 function searchByISBN(buyedBooks,isbn) {

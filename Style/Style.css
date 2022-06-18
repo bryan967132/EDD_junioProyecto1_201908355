@@ -339,6 +339,9 @@ h4{
 .grafo--arbol-binario {
     grid-row: 1 / 6;
 }
+.msg {
+    grid-column: 1 / 6;
+}
 .input{
     outline: none;
     min-width: 100%;
