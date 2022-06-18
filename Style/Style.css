@@ -340,6 +340,7 @@ h4{
     grid-row: 1 / 6;
 }
 .msg {
+    color: var(--blanco);
     grid-column: 1 / 6;
 }
 .input{

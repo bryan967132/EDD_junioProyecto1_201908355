@@ -133,6 +133,25 @@ class ListaDobleCircular {
             actual = actual.siguiente
         }
     }
+    swap(indice1,indice2) {
+        let actual1 = this.primero
+        while(actual1) {
+            if(actual1.siguiente && actual1.siguiente.indice == indice1) {
+                break
+            }
+            actual1 = actual1.siguiente
+        }
+        let actual2 = this.primero
+        while(actual2) {
+            if(actual2.siguiente && actual2.siguiente.indice == indice2) {
+                break
+            }
+            actual2 = actual2.siguiente
+        }
+        let temporal = actual1.siguiente.objeto
+        actual1.siguiente.objeto = actual2.siguiente.objeto
+        actual2.siguiente.objeto = temporal
+    }
     tour() {
         let actual = this.primero
         let cont = 0
@@ -180,7 +199,7 @@ class Autor {
     }
 }
 class Usuario {
-    constructor(dpi,nombre_completo,nombre_usuario,correo,rol,contrasenia,telefono,compras) {
+    constructor(dpi,nombre_completo,nombre_usuario,correo,rol,contrasenia,telefono,compras,ncompras) {
         this.dpi = dpi
         this.nombre_completo = nombre_completo
         this.nombre_usuario = nombre_usuario
@@ -189,6 +208,7 @@ class Usuario {
         this.contrasenia = contrasenia
         this.telefono = telefono
         this.compras = compras
+        this.ncompras = ncompras
     }
 }
 //árbol binario
@@ -722,7 +742,8 @@ function getUsers() {
             master['rol'],
             master['contrasenia'],
             master['telefono'],
-            master['compras']
+            master['compras'],
+            master['ncompras']
         )
     )
     try {
@@ -738,7 +759,8 @@ function getUsers() {
                     user['rol'],
                     user['contrasenia'],
                     user['telefono'],
-                    user['compras']
+                    user['compras'],
+                    user['ncompras']
                 )
             )
         }
@@ -772,11 +794,11 @@ function createUser(dpi,name,username,email,rol,password,phone) {
     let usersCharged = localStorage.getItem('usersCharged')
     usersCharged = usersCharged.replace('[','').replace(']','')
     if(usersCharged == '') {
-        usersCharged += `[${JSON.stringify(new Usuario(dpi,name,username,email,rol,password,phone,null))}]`
+        usersCharged += `[${JSON.stringify(new Usuario(dpi,name,username,email,rol,password,phone,null,0))}]`
         localStorage.setItem('usersCharged',usersCharged)
         return
     }
-    usersCharged += `,${JSON.stringify(new Usuario(dpi,name,username,email,rol,password,phone,null))}`
+    usersCharged += `,${JSON.stringify(new Usuario(dpi,name,username,email,rol,password,phone,null,0))}`
     usersCharged = `[${usersCharged}]`
     localStorage.setItem('usersCharged',usersCharged)
 }
@@ -888,7 +910,7 @@ function booksHome() {
         document.getElementById('lookbooks').innerHTML = code
         return
     }
-    document.getElementById('lookbooks').innerHTML = '<h4  class="msg">¡No hay libros en venta!</h4>'
+    document.getElementById('lookbooks').innerHTML = '<h4 class="msg">¡No hay libros en venta!</h4>'
 }
 
 function getBuys(compras) {
@@ -917,7 +939,8 @@ function getClients() {
                     user['rol'],
                     user['contrasenia'],
                     user['telefono'],
-                    getBuys(user['compras'])
+                    getBuys(user['compras']),
+                    user['ncompras']
                 )
                 clients.add(newUser)
             }
@@ -928,8 +951,32 @@ function getClients() {
 
 function getTop() {
     let clients = getClients()
-    if(clients > 0) {
-
+    if(clients.getSize() > 0) {
+        for(let i = 0; i < clients.getSize() - 1; i ++) {
+            for(let x = 0; x < clients.getSize() - i - 1; x ++){
+                if(clients.get(x).ncompras < clients.get(x + 1).ncompras) {
+                    clients.swap(x,x + 1)
+                }
+            }
+        }
+        if(clients.get(0).ncompras > 0) {
+            let top = 5
+            if(clients.getSize() < 5) top = clients.getSize()
+            let code = ''
+            for(let i = 0; i < top; i ++) {
+                if(clients.get(i).ncompras > 0) {
+                    code += `
+                    <div class="autor">
+                        <h4 style="font-size: 2.2rem">No. ${i + 1}</h4>
+                        <img src="./Images/author.png" width="50" height="50"/>
+                        <h4 style="font-size: 1.8rem">${clients.get(i).nombre_completo}</h4>
+                        <p>Cantidad: ${clients.get(i).ncompras}</p>
+                    </div>`
+                }
+            }
+            document.getElementById('topcom').innerHTML = code
+            return
+        }
     }
     document.getElementById('topcom').innerHTML = '<h4 class="msg">¡No se han hecho compras !</h4>'
 }
@@ -986,6 +1033,7 @@ function getBooksThriller() {
 
 //graficas de estructuras
 function listOfLists(width) {
+    console.log(JSON.parse(JSON.stringify(localStorage.getItem('usersCharged'))))
     let clients = getClients()
     if(clients.getSize() > 0) {
         let nodos = ''
@@ -1029,7 +1077,7 @@ digraph G {
         d3.select('#listoflists').graphviz().width(width).renderDot(dot)
         return
     }
-    document.getElementById('listoflists').innerHTML = '<h4  class="msg">¡No hay usuarios cargados!</h4>'
+    document.getElementById('listoflists').innerHTML = '<h4 class="msg">¡No hay usuarios cargados!</h4>'
 }
 
 function getAuthors() {
@@ -1061,17 +1109,17 @@ function binaryTree(width,height) {
             d3.select('#binarytree').graphviz().width(width).height(height).renderDot(authors.getDot())
             return
         }
-        document.getElementById('binarytree').innerHTML = '<h4  class="msg">¡No hay autores cargados!</h4>'
+        document.getElementById('binarytree').innerHTML = '<h4 class="msg">¡No hay autores cargados!</h4>'
     } catch (error) {
     }
 }
 
 function booksChargeConfirm() {
     if(JSON.parse(JSON.stringify(localStorage.getItem('booksCharged')))) {
-        document.getElementById('booksCharge').innerHTML = '<h4  class="msg">¡Libros cargados!</h4>'
+        document.getElementById('booksCharge').innerHTML = '<h4 class="msg">¡Libros cargados!</h4>'
         return
     }
-    document.getElementById('booksCharge').innerHTML = '<h4  class="msg">¡No hay libros cargados!</h4>'
+    document.getElementById('booksCharge').innerHTML = '<h4 class="msg">¡No hay libros cargados!</h4>'
 }
 
 function ortogonalMatrix() {
@@ -1130,7 +1178,7 @@ function booksFantasia() {
         }
         document.getElementById('fantasiabook').innerHTML = code + '<div class="grafo grafo--matriz" id="fantasia"></div>'
     } catch (error) {
-        document.getElementById('fantasiabook').innerHTML = '<h4  class="msg">¡La librera está vacía!</h4>'
+        document.getElementById('fantasiabook').innerHTML = '<h4 class="msg">¡La librera está vacía!</h4>'
     }
 }
 function booksThriller() {
@@ -1152,7 +1200,7 @@ function booksThriller() {
         }
         document.getElementById('thrillerbook').innerHTML = code + '<div class="grafo grafo--matriz" id="thriller"></div>'
     } catch (error) {
-        document.getElementById('thrillerbook').innerHTML = '<h4  class="msg">¡La librera está vacía!</h4>'
+        document.getElementById('thrillerbook').innerHTML = '<h4 class="msg">¡La librera está vacía!</h4>'
     }
 }
 
@@ -1205,14 +1253,14 @@ function authors() {
             let author = authors.get(i)
             code += `
             <div class="autor" onclick="lookAuthor(${author.dpi})">
-            <img src="./Images/author.png" width="50" height="50"/>
-            <h4 style="font-size: 1.8rem">${author.nombre_autor}</h4>
+                <img src="./Images/author.png" width="50" height="50"/>
+                <h4 style="font-size: 1.8rem">${author.nombre_autor}</h4>
             </div>`
         }
         document.getElementById('authorsR').innerHTML = code + '<div class="grafo grafo--arbol-binario" id="binarytree"></div>'
         return
     }
-    document.getElementById('authorsR').innerHTML = '<h4  class="msg">¡No hay autores!</h4>'
+    document.getElementById('authorsR').innerHTML = '<h4 class="msg">¡No hay autores!</h4>'
 }
 
 function getAllBooks() {
@@ -1255,7 +1303,7 @@ function myBuyedBooks(listaLibros) {
         document.getElementById('myBuyedBooks').innerHTML = code
         return
     }
-    document.getElementById('myBuyedBooks').innerHTML = '<h4  class="msg">¡La librera está vacía!</h4>'
+    document.getElementById('myBuyedBooks').innerHTML = '<h4 class="msg">¡La librera está vacía!</h4>'
 }
 
 function myBooks() {
@@ -1290,7 +1338,7 @@ function saleBooks() {
         document.getElementById('saleBooks').innerHTML = code
         return
     }
-    document.getElementById('saleBooks').innerHTML = '<h4  class="msg">¡No hay libros en venta!</h4>'
+    document.getElementById('saleBooks').innerHTML = '<h4 class="msg">¡No hay libros en venta!</h4>'
 }
 
 function searchByISBN(buyedBooks,isbn) {
@@ -1319,6 +1367,7 @@ function addToLibrary(isbn,author,title,cuantity,pages,category) {
             if(usersCharged[x]['compras'] == null) {
                 usersCharged[x]['compras'] = []
             }
+            usersCharged[x]['ncompras'] += cuantity
             usersCharged[x]['compras'] = createBuyBook(usersCharged[x]['compras'],isbn,author,title,cuantity,pages,category)
             localStorage.setItem('usersCharged',JSON.stringify(usersCharged))
             return
@@ -1386,7 +1435,7 @@ function chargeUsers() {
                 )
             }
             alert('Usuarios cargados')
-            listOfLists()
+            listOfLists(1150)
         }
         reader.onerror = function(evt) {alert('Ha ocurrido un error al cargar el archivo')}
         document.getElementById('fileusers').value = ''
