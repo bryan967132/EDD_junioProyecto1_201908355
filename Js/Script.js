@@ -6,6 +6,7 @@ class NodoS {
         this.siguiente = null
     }
 }
+
 class NodoD {
     constructor(indice,objeto) {
         this.indice = indice
@@ -14,6 +15,7 @@ class NodoD {
         this.anterior = null
     }
 }
+
 class NodoAB {
     constructor(objeto,nivel,id) {
         this.objeto = objeto
@@ -23,6 +25,7 @@ class NodoAB {
         this.derecha = null
     }
 }
+
 //listas
 class ListaSimple {
     constructor() {
@@ -62,6 +65,7 @@ class ListaSimple {
         return this.indice
     }
 }
+
 class ListaDoble {
     constructor() {
         this.indice = 0
@@ -146,6 +150,7 @@ class ListaDoble {
         return this.indice
     }
 }
+
 class ListaDobleCircular {
     constructor() {
         this.indice = 0
@@ -234,6 +239,7 @@ class ListaDobleCircular {
         return this.indice
     }
 }
+
 //objetos
 class Libro {
     constructor(isbn,nombre_autor,nombre_libro,cantidad,fila,columna,paginas,categoria) {
@@ -247,6 +253,7 @@ class Libro {
         this.categoria = categoria
     }
 }
+
 class Compra {
     constructor(isbn,nombre_autor,nombre_libro,cantidad,paginas,categoria) {
         this.isbn = isbn
@@ -257,6 +264,7 @@ class Compra {
         this.categoria = categoria
     }
 }
+
 class Autor {
     constructor(dpi,nombre_autor,correo,telefono,direccion,biografia) {
         this.dpi = dpi
@@ -267,6 +275,7 @@ class Autor {
         this.biografia = biografia
     }
 }
+
 class Usuario {
     constructor(dpi,nombre_completo,nombre_usuario,correo,rol,contrasenia,telefono,compras,ncompras) {
         this.dpi = dpi
@@ -280,6 +289,7 @@ class Usuario {
         this.ncompras = ncompras
     }
 }
+
 //árbol binario
 class Arbol {
     constructor() {
@@ -321,6 +331,7 @@ class Arbol {
         return `digraph G{rankdir=TB;node [shape = record];${this.getBranchesDot(this.raiz)}}`
     }
 }
+
 class NodoEncabezado {
     constructor(id) {
         this.id = id
@@ -329,6 +340,7 @@ class NodoEncabezado {
         this.acceso = null
     }
 }
+
 class NodoInterno {
     constructor(x,y,objeto) {
         this.objeto = objeto
@@ -340,6 +352,7 @@ class NodoInterno {
         this.izquierda = null
     }
 }
+
 class ListaEncabezado {
     constructor(tipo) {
         this.tipo = tipo
@@ -400,6 +413,7 @@ class ListaEncabezado {
         return null
     }
 }
+
 class MatrizDispersa {
     constructor() {
         this.filas = new ListaEncabezado('LISTAS')
@@ -575,6 +589,7 @@ class MatrizDispersa {
         return grafo
     }
 }
+
 class MatrizOrtogonal {
     constructor(filas,columnas) {
         this.filas = new ListaEncabezado('LISTAS')
@@ -780,12 +795,15 @@ class MatrizOrtogonal {
 if(localStorage.getItem('userMaster') == null) {
     localStorage.setItem('userMaster',JSON.stringify(new Usuario(2354168452525,'Wilfred Perez','Wilfred','wilfred@bitrex.com','Administrador','123','+502 (123) 123-4567',0)))
 }
+
 if(localStorage.getItem('usersCharged') == null) {
     localStorage.setItem('usersCharged','')
 }
+
 if(localStorage.getItem('authorsCharged') == null) {
     localStorage.setItem('authorsCharged','')
 }
+
 if(localStorage.getItem('booksCharged') == null) {
     localStorage.setItem('booksCharged','')
 }
@@ -994,6 +1012,7 @@ function getBuys(compras) {
     }
     return null
 }
+
 function getClients() {
     let clients = new ListaDobleCircular()
     try {
@@ -1097,7 +1116,6 @@ function getBooksThriller() {
 
 //graficas de estructuras
 function listOfLists(width) {
-    console.log(JSON.parse(JSON.stringify(localStorage.getItem('usersCharged'))))
     let clients = getClients()
     if(clients.getSize() > 0) {
         let nodos = ''
@@ -1245,6 +1263,7 @@ function booksFantasia() {
         document.getElementById('fantasiabook').innerHTML = '<h4 class="msg">¡La librera está vacía!</h4>'
     }
 }
+
 function booksThriller() {
     code = ''
     try{
@@ -1563,6 +1582,7 @@ function chargeBooks() {
     }
 }
 
+//obtener datos en usuarios
 function getNameClient() {
     let users = getUsers()
     for(let i = 0; i < users.getSize(); i ++) {
@@ -1583,7 +1603,9 @@ function getNameAdmin() {
     }
 }
 
-function getOffset(elemento) {
+//obtener la posición de un elemento html
+function getOffset(id) {
+    let elemento = document.getElementById(id)
     let _x = 0
     let _y = 0
     while(elemento && !isNaN(elemento.offsetLeft) && !isNaN(elemento.offsetTop)) {
@@ -1593,3 +1615,18 @@ function getOffset(elemento) {
     }
     return {top: _y,left: _x}
 }
+
+//funciones scroll
+function header() {scroll(0,0)}
+
+function topBuys() {scroll(0,getOffset('users').top)}
+
+function libraries() {scroll(0,getOffset('books').top)}
+
+function salesBooks() {scroll(0,getOffset('buybooks').top)}
+
+function allAuthors() {scroll(0,getOffset('authors').top)}
+
+function chargeOfAuthors() {scroll(0,getOffset('authors').top)}
+
+function chargeOfBooks() {scroll(0,getOffset('books').top)}
