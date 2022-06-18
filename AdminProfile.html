@@ -17,7 +17,14 @@
             try {
                 let url = window.location.href
                 var dpiAdmin = url.match(/dpi=\d+$/)[0].split('=')[1]
-            } catch (error) {}
+            } catch (error) {
+                window.location.href = 'Login.html'
+            }
+        </script>
+        <script>
+            function header() {scroll(0,0)}
+            function chargeOfAuthors() {scroll(0,getOffset(document.getElementById('authors')).top)}
+            function chargeOfBooks() {scroll(0,getOffset(document.getElementById('books')).top)}
         </script>
     </head>
     <body>
@@ -28,20 +35,20 @@
                         <h1 class="logo__nombre no-margin centrar-texto" id="usernameAdmin"></h1>
                     </a>
                     <nav class="navegacion">
-                        <a href="#header" class="navegacion__enlace">Carga de Usuarios</a>
-                        <a href="#authors" class="navegacion__enlace">Carga de Autores</a>
-                        <a href="#books" class="navegacion__enlace">Carga de Libros</a>
-                        <a href="./Login.html" class="navegacion__enlace">Cerrar Sesión</a>
+                        <a class="navegacion__enlace" onclick="header()">Carga de Usuarios</a>
+                        <a class="navegacion__enlace" onclick="chargeOfAuthors()">Carga de Autores</a>
+                        <a class="navegacion__enlace" onclick="chargeOfBooks()">Carga de Libros</a>
+                        <a class="navegacion__enlace" href="./AdminProfile.html">Cerrar Sesión</a>
                     </nav>
                     <script>getNameAdmin()</script>
                 </div>
             </div>
         </header>
         <div class="bodyCharge">
-            <div class="users" id="users">
+            <div id="users" class="users">
                 <h2>Carga Masiva de Usuarios</h2>
                 <div class="tres-columnas">
-                    <input type="file" id="fileusers" class="inputfile inputfile-1" accept=".json">
+                    <input id="fileusers" type="file" class="inputfile inputfile-1" accept=".json">
                     <label for="fileusers">
                         <svg xmlns="http://www.w3.org/2000/svg" class="iborrainputfile" width="20" height="17" viewBox="0 0 20 17"><path d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z"></path></svg>
                         <span class="iborrainputfile">Seleccionar archivo</span>
@@ -49,13 +56,13 @@
                     <button type="button" onclick="chargeUsers()">Cargar Usuarios</button>
                 </div>
                 <h3>Clientes</h3>
-                <div class="" id="listoflists" style="width: auto;padding: 2rem;"></div>
+                <div id="listoflists" style="width: auto;padding: 2rem;"></div>
                 <script>listOfLists(1150)</script>
             </div>
-            <div class="authors" id="authors">
+            <div id="authors" class="authors">
                 <h2>Carga Masiva de Autores</h2>
                 <div class="tres-columnas">
-                    <input type="file" id="fileauthors" class="inputfile inputfile-1" accept=".json">
+                    <input id="fileauthors" type="file" class="inputfile inputfile-1" accept=".json">
                     <label for="fileauthors">
                         <svg xmlns="http://www.w3.org/2000/svg" class="iborrainputfile" width="20" height="17" viewBox="0 0 20 17"><path d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z"></path></svg>
                         <span class="iborrainputfile">Seleccionar archivo</span>
@@ -63,20 +70,20 @@
                     <button type="button" onclick="chargeAuthors()">Cargar Autores</button>
                 </div>
                 <h3>Autores</h3>
-                <div class="" id="binarytree" style="width: auto;padding: 2rem;"></div>
+                <div id="binarytree" style="width: auto;padding: 2rem;"></div>
                 <script>binaryTree(1150)</script>
             </div>
-            <div class="books" id="books">
+            <div id="books" class="books">
                 <h2>Carga Masiva de Libros</h2>
                 <div class="tres-columnas">
-                    <input type="file" id="filebooks" class="inputfile inputfile-1" accept=".json">
+                    <input id="filebooks" type="file" class="inputfile inputfile-1" accept=".json">
                     <label for="filebooks">
                         <svg xmlns="http://www.w3.org/2000/svg" class="iborrainputfile" width="20" height="17" viewBox="0 0 20 17"><path d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z"></path></svg>
                         <span class="iborrainputfile">Seleccionar archivo</span>
                     </label>
                     <button type="button" onclick="chargeBooks()">Cargar Libros</button>
                 </div>
-                <div class="graphs" id="booksCharge"></div>
+                <div id="booksCharge" class="graphs"></div>
                 <script>booksChargeConfirm()</script>
             </div>
         </div>

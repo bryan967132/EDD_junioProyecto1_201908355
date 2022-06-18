@@ -1582,3 +1582,14 @@ function getNameAdmin() {
         }
     }
 }
+
+function getOffset(elemento) {
+    let _x = 0
+    let _y = 0
+    while(elemento && !isNaN(elemento.offsetLeft) && !isNaN(elemento.offsetTop)) {
+        _x += elemento.offsetLeft - elemento.scrollLeft
+        _y += elemento.offsetTop - elemento.scrollTop
+        elemento = elemento.offsetParent
+    }
+    return {top: _y,left: _x}
+}

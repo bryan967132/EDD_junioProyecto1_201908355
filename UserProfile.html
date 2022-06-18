@@ -17,7 +17,15 @@
             try {
                 let url = window.location.href
                 var dpi = url.match(/dpi=\d+$/)[0].split('=')[1]
-            } catch (error) {}
+            } catch (error) {
+                window.location.href = 'Login.html'
+            }
+        </script>
+        <script>
+            function header() {scroll(0,0)}
+            function libraries() {scroll(0,getOffset(document.getElementById('books')).top)}
+            function salesBooks() {scroll(0,getOffset(document.getElementById('buybooks')).top)}
+            function allAuthors() {scroll(0,getOffset(document.getElementById('authors')).top)}
         </script>
     </head>
     <body>
@@ -28,39 +36,39 @@
                         <h1 class="logo__nombre no-margin centrar-texto" id="usernameClient"></h1>
                     </a>
                     <nav class="navegacion">
-                        <a href="#header" class="navegacion__enlace">Mi Biblioteca</a>
-                        <a href="#books" class="navegacion__enlace">Libreras</a>
-                        <a href="#buybooks" class="navegacion__enlace">Compras</a>
-                        <a href="#authors" class="navegacion__enlace">Autores</a>
-                        <a href="./Login.html" class="navegacion__enlace">Cerrar Sesión</a>
+                        <a class="navegacion__enlace" onclick="header()">Mi Biblioteca</a>
+                        <a class="navegacion__enlace" onclick="libraries()">Libreras</a>
+                        <a class="navegacion__enlace" onclick="salesBooks()">Compras</a>
+                        <a class="navegacion__enlace" onclick="allAuthors()">Autores</a>
+                        <a class="navegacion__enlace" href="./UserProfile.html">Cerrar Sesión</a>
                     </nav>
                     <script>getNameClient()</script>
                 </div>
             </div>
         </header>
         <div class="bodyCharge">
-            <div class="mybooks" id="mybooks">
+            <div id="mybooks" class="mybooks">
                 <h2>Mi Biblioteca</h2>
-                <div class="mosaico" id="myBuyedBooks"></div>
+                <div id="myBuyedBooks" class="mosaico"></div>
                 <script>myBooks()</script>
             </div>
-            <div class="books" id="books">
+            <div id="books" class="books">
                 <h2>Libreras</h2>
                 <h3>Categoría: Fantasia</h3>
-                <div class="mosaico" id="fantasiabook"></div>
+                <div id="fantasiabook" class="mosaico"></div>
                 <script>booksFantasia()</script>
                 <script>ortogonalMatrix()</script>
                 <h3>Categoría: Thriller</h3>
-                <div class="mosaico" id="thrillerbook"></div>
+                <div id="thrillerbook" class="mosaico"></div>
                 <script>booksThriller()</script>
                 <script>disperseMatrix()</script>
             </div>
-            <div class="books" id="buybooks">
+            <div id="buybooks" class="books">
                 <h2>Compra de Libros</h2>
-                <div class="mosaico" id="saleBooks"></div>
+                <div id="saleBooks" class="mosaico"></div>
                 <script>saleBooks()</script>
             </div>
-            <div class="authors" id="authors">
+            <div id="authors" class="authors">
                 <h2>Autores</h2>
                 <div class="mosaico" id="authorsR"></div>
                 <script>authors()</script>
@@ -71,9 +79,9 @@
                     <div class="modal_cerrar">
                         <span>x</span>
                     </div>
-                    <div class="modal_titulo" id="titulomodal"></div>
-                    <div class="modal_mensaje" id="contenidomodal"></div>
-                    <div class="modal_botones" id="botones"></div>
+                    <div id="titulomodal" class="modal_titulo"></div>
+                    <div id="contenidomodal" class="modal_mensaje"></div>
+                    <div id="botones" class="modal_botones"></div>
                 </div>
             </div>
         </div>

@@ -10,26 +10,30 @@
         <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="./Style/Style.css">
         <script src="./Js/Script.js"></script>
+        <script>
+            function header() {scroll(0,0)}
+            function topBuys() {scroll(0,getOffset(document.getElementById('users')).top)}
+        </script>
     </head>
     <body>
         <header id="header" class="header">
             <div class="contenedor">
                 <div class="barra derecha">
                     <nav class="navegacion">
-                        <a href="#header" class="navegacion__enlace">Libros</a>
-                        <a href="#users" class="navegacion__enlace">Top Compras</a>
-                        <a href="./Login.html" class="navegacion__enlace">Iniciar Sesión</a>
+                        <a class="navegacion__enlace" onclick="header()">Libros</a>
+                        <a class="navegacion__enlace" onclick="topBuys()">Top Compras</a>
+                        <a class="navegacion__enlace" href="./Login.html">Iniciar Sesión</a>
                     </nav>
                 </div>
             </div>
         </header>
         <div class="bodyCharge">
-            <div class="mybooks" id="libros">
+            <div id="libros" class="mybooks">
                 <h2>Libros</h2>
                 <div class="mosaico" id="lookbooks"></div>
                 <script>booksHome()</script>
             </div>
-            <div class="authors" id="users">
+            <div id="users" class="authors">
                 <h2>Top Usuarios con más Compras</h2>
                 <div class="mosaicotop" id="topcom"></div>
                 <script>getTop()</script>
