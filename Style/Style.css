@@ -448,6 +448,14 @@ footer button:hover {
     height: 100%;
     text-align: center;
 }
+.autorH {
+    background-color: var(--morado);
+    border-radius: 0.4rem;
+    border: var(--morado1) solid 0.2rem;
+    padding: 1rem 1.2rem 1rem 1.5rem;
+    height: 100%;
+    text-align: center;
+}
 .libro {
     background-color: var(--naranja);
     border-radius: 0.4rem;
@@ -473,6 +481,8 @@ footer button:hover {
 }
 .autor h4,
 .autor h5,
+.autorH h4,
+.autorH h5,
 .libro h4,
 .libro h5,
 .mi-libro h4,
@@ -484,10 +494,12 @@ footer button:hover {
     text-align: center;
 }
 .autor h5,
+.autorH h5,
 .libro h5 {
     font-size: 1.8rem;
 }
 .autor p,
+.autorH p,
 .libro p,
 .mi-libro p,
 .vende-libro p {

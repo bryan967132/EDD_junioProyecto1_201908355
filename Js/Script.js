@@ -105,9 +105,9 @@ class ListaDoble {
     bubbleSortR2(nodoI,nodoX) {
         if(nodoX.indice < this.ultimo.indice - nodoI.indice) {
             if(nodoX.objeto.nombre_libro > nodoX.siguiente.objeto.nombre_libro) {
-                let temporal = nodoX.objeto.nombre_libro
-                nodoX.objeto.nombre_libro = nodoX.siguiente.objeto.nombre_libro
-                nodoX.siguiente.objeto.nombre_libro = temporal
+                let temporal = nodoX.objeto
+                nodoX.objeto = nodoX.siguiente.objeto
+                nodoX.siguiente.objeto = temporal
             }
             this.bubbleSortR2(nodoI,nodoX.siguiente)
         }
@@ -1049,7 +1049,7 @@ function getTop() {
             for(let i = 0; i < top; i ++) {
                 if(clients.get(i).ncompras > 0) {
                     code += `
-                    <div class="autor">
+                    <div class="autorH">
                         <h4 style="font-size: 2.2rem">No. ${i + 1}</h4>
                         <img src="./Images/author.png" width="50" height="50"/>
                         <h4 style="font-size: 1.8rem">${clients.get(i).nombre_completo}</h4>
@@ -1114,7 +1114,54 @@ function getBooksThriller() {
     return matrixDisperse
 }
 
+function getAuthors() {
+    let authors = new Arbol()
+    try {
+        let authorsCharged = JSON.parse(localStorage.getItem('authorsCharged'))
+        for(let i = 0; i < authorsCharged.length; i ++) {
+            let author = authorsCharged[i]
+            authors.insert(
+                new Autor(
+                    author['dpi'],
+                    author['nombre_autor'],
+                    author['correo'],
+                    author['telefono'],
+                    author['direccion'],
+                    author['biografia']
+                )
+            )
+        }
+    } catch (error) {}
+    return authors
+}
+
 //graficas de estructuras
+function doubleList() {
+    let clients = getClients()
+    if(clients.getSize() > 0) {
+        clients.quickSortCompras()
+        if(clients.get(0).ncompras > 0) {
+            let top = 5
+            if(clients.getSize() < 5) top = clients.getSize()
+            let dot = 'digraph g{node[shape=box width="2.9" height="1"];rankdir=LR;'
+            for(let i = 0; i < top; i ++) {
+                if(clients.get(i).ncompras > 0) {
+                    dot += `nodo${i}[label="${clients.get(i).nombre_completo}\nCantidad = ${clients.get(i).ncompras}"];`
+                    if(i > 0) {
+                        dot += `nodo${i - 1} -> nodo${i};nodo${i} -> nodo${i - 1};`
+                    }
+                }
+            }
+            dot += '}'
+            console.log(dot)
+            try {
+                d3.select('#doubleList').graphviz().renderDot(dot)
+            } catch(error) {}
+            return
+        }
+    }
+}
+
 function listOfLists(width) {
     let clients = getClients()
     if(clients.getSize() > 0) {
@@ -1162,27 +1209,6 @@ digraph G {
     document.getElementById('listoflists').innerHTML = '<h4 class="msg">¡No hay usuarios cargados!</h4>'
 }
 
-function getAuthors() {
-    let authors = new Arbol()
-    try {
-        let authorsCharged = JSON.parse(localStorage.getItem('authorsCharged'))
-        for(let i = 0; i < authorsCharged.length; i ++) {
-            let author = authorsCharged[i]
-            authors.insert(
-                new Autor(
-                    author['dpi'],
-                    author['nombre_autor'],
-                    author['correo'],
-                    author['telefono'],
-                    author['direccion'],
-                    author['biografia']
-                )
-            )
-        }
-    } catch (error) {}
-    return authors
-}
-
 function binaryTree(width,height) {
     let authors = getAuthors()
     try {
@@ -1220,6 +1246,7 @@ function disperseMatrix() {
     } catch (error) {}
 }
 
+//funciones vista usuarios
 function lookBook(titulo,cantidad) {
     document.getElementsByClassName('fondo_transparente')[0].style.display = 'block'
     document.getElementById('titulomodal').innerHTML = `Ejemplares: ${titulo}`
@@ -1603,7 +1630,7 @@ function getNameAdmin() {
     }
 }
 
-//obtener la posición de un elemento html
+//obtener la posición de un elemento html mediante su id
 function getOffset(id) {
     let elemento = document.getElementById(id)
     let _x = 0

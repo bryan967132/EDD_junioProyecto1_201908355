@@ -6,7 +6,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Admin</title>
         <link rel="stylesheet" href="./Style/normalize.css">
-        <link rel="stylesheet" href="">
         <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="./Style/Style.css">
         <script src="https://d3js.org/d3.v5.min.js"></script>
@@ -26,8 +25,8 @@
         <header id="header" class="header">
             <div class="contenedor">
                 <div class="barra">
-                    <a href="#" class="logo">
-                        <h1 class="logo__nombre no-margin centrar-texto" id="usernameAdmin"></h1>
+                    <a class="logo" style="cursor: pointer;" onclick="header()">
+                        <h1 id="usernameAdmin" class="logo__nombre no-margin centrar-texto"></h1>
                     </a>
                     <nav class="navegacion">
                         <a class="navegacion__enlace" onclick="header()">Carga de Usuarios</a>

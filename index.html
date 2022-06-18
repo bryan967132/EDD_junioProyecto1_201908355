@@ -6,15 +6,20 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Home</title>
         <link rel="stylesheet" href="./Style/normalize.css">
-        <link rel="stylesheet" href="">
         <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="./Style/Style.css">
+        <script src="https://d3js.org/d3.v5.min.js"></script>
+        <script src="https://unpkg.com/@hpcc-js/wasm@0.3.11/dist/index.min.js"></script>
+        <script src="https://unpkg.com/d3-graphviz@3.0.5/build/d3-graphviz.js"></script>
         <script src="./Js/Script.js"></script>
     </head>
     <body>
         <header id="header" class="header">
             <div class="contenedor">
-                <div class="barra derecha">
+                <div class="barra">
+                    <a class="logo" style="cursor: pointer;" onclick="header()">
+                        <h1 id="usernameAdmin" class="logo__nombre no-margin centrar-texto">CatsBooks</h1>
+                    </a>
                     <nav class="navegacion">
                         <a class="navegacion__enlace" onclick="header()">Libros</a>
                         <a class="navegacion__enlace" onclick="topBuys()">Top Compras</a>
@@ -26,13 +31,15 @@
         <div class="bodyCharge">
             <div id="libros" class="mybooks">
                 <h2>Libros</h2>
-                <div class="mosaico" id="lookbooks"></div>
+                <div id="lookbooks" class="mosaico"></div>
                 <script>booksHome()</script>
             </div>
             <div id="users" class="authors">
                 <h2>Top Usuarios con más Compras</h2>
-                <div class="mosaicotop" id="topcom"></div>
+                <div id="topcom" class="mosaicotop"></div>
+                <div id="doubleList" style="width: auto;padding: 2rem;"></div>
                 <script>getTop()</script>
+                <script>doubleList()</script>
             </div>
         </div>
         <footer></footer>
