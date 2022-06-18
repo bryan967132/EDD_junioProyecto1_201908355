@@ -133,6 +133,31 @@ class ListaDobleCircular {
             actual = actual.siguiente
         }
     }
+    quickSortCompras() {
+        this.quickSortR1(this.primero,this.ultimo)
+    }
+    quickSortR1(izquierda,derecha) {
+        if(izquierda.indice < derecha.indice) {
+            let indiceParticion = this.particion(izquierda.objeto.ncompras,izquierda,derecha)
+            this.quickSortR1(izquierda,indiceParticion)
+            this.quickSortR1(indiceParticion.siguiente,derecha)
+        }
+    }
+    particion(pivote,izquierda,derecha) {
+        while(izquierda.objeto.ncompras > pivote) {
+            izquierda = izquierda.siguiente
+        }
+        while(derecha.objeto.ncompras < pivote) {
+            derecha = derecha.anterior
+        }
+        if(izquierda.indice >= derecha.indice) {
+            return derecha
+        }
+        let temporal = izquierda.objeto
+        izquierda.objeto = derecha.objeto
+        derecha.objeto = temporal
+        return this.particion(pivote,izquierda.siguiente,derecha.anterior)
+    }
     swap(indice1,indice2) {
         let actual1 = this.primero
         while(actual1) {
@@ -952,13 +977,7 @@ function getClients() {
 function getTop() {
     let clients = getClients()
     if(clients.getSize() > 0) {
-        for(let i = 0; i < clients.getSize() - 1; i ++) {
-            for(let x = 0; x < clients.getSize() - i - 1; x ++){
-                if(clients.get(x).ncompras < clients.get(x + 1).ncompras) {
-                    clients.swap(x,x + 1)
-                }
-            }
-        }
+        clients.quickSortCompras()
         if(clients.get(0).ncompras > 0) {
             let top = 5
             if(clients.getSize() < 5) top = clients.getSize()
@@ -1264,7 +1283,7 @@ function authors() {
 }
 
 function getAllBooks() {
-    let books = new ListaSimple()
+    let books = new ListaDoble()
     try {
         let booksCharged = JSON.parse(localStorage.getItem('booksCharged'))
         for(let i = 0; i < booksCharged.length; i ++) {
