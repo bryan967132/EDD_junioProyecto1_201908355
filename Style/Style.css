@@ -436,9 +436,11 @@ h4{
 .books h4,
 .mi-libro h4 {
 	color: var(--blanco1);
-	margin: auto;
     font-family: var(--fontParrafo);
     font-size: 1.6rem;
+}
+.books .msg {
+    font-size: 2.4rem;
 }
 .autor h5,
 .autorH h5,
