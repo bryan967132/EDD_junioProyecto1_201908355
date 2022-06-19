@@ -332,6 +332,55 @@ class Arbol {
     }
 }
 
+//pila y cola
+class Pila {
+    constructor(n) {
+        this.n = n
+        this.indice = 0
+        this.primero = null
+        this.ultimo = null
+        for(let i = 1; i <= n; i ++) {
+            this.push(i)
+        }
+    }
+    push(nuevo) {
+        if(this.primero) {
+            this.primero = new NodoS(this.indice,nuevo)
+            this.primero.siguiente = this.ultimo
+            this.ultimo = this.primero
+            this.indice ++
+            return
+        }
+        this.primero = new NodoS(this.indice,nuevo)
+        this.ultimo = this.primero
+        this.indice ++
+    }
+    pop() {
+        if(this.primero) {
+            let primero = this.primero
+            this.primero = this.primero.siguiente
+            this.size --
+            return primero
+        }
+        return null
+    }
+    getDot() {
+        let dot = `digraph pila{node[shape=plaintext];label="Cantidad = ${this.n}";`
+        if(this.n > 0) {
+            dot += 'struct[label=<<table border="0" cellborder="1" cellspacing="0">'
+            let actual = this.primero
+            while(actual) {
+                dot += `<tr><td width="200" bgcolor="springgreen2" color="springgreen3"><font color="white">${actual.objeto}</font></td></tr>`
+                actual = actual.siguiente
+            }
+            dot += '</table>>];'
+        }
+        dot += '}'
+        return dot
+    }
+}
+
+//matrices
 class NodoEncabezado {
     constructor(id) {
         this.id = id
@@ -1250,25 +1299,8 @@ function disperseMatrix() {
 function lookBook(titulo,cantidad) {
     document.getElementsByClassName('fondo_transparente')[0].style.display = 'block'
     document.getElementById('titulomodal').innerHTML = `Ejemplares: ${titulo}`
-    let dot = `digraph pila{
-    node[shape=plaintext];
-    label="Cantidad = ${cantidad}";`
-    if(cantidad > 0) {
-        dot += `struct[
-            label=<
-                <table border="0" cellborder="1" cellspacing="0">`
-        for(let i = 1; i <= cantidad; i ++) {
-            dot += `
-                    <tr><td width="200" bgcolor="springgreen2" color="springgreen3"><font color="white">${i}</font></td></tr>`
-        }
-        dot += `
-                </table>
-            >
-        ];`
-    }
-    dot += `
-}`
-    d3.select('#contenidomodal').graphviz().renderDot(dot)
+    let pila = new Pila(cantidad)
+    d3.select('#contenidomodal').graphviz().renderDot(pila.getDot())
 }
 
 function booksFantasia() {
