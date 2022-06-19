@@ -1186,7 +1186,7 @@ function doubleList() {
     }
 }
 
-function listOfLists(width) {
+function listOfLists() {
     let clients = getClients()
     if(clients.getSize() > 0) {
         let nodos = ''
@@ -1227,18 +1227,21 @@ digraph G {
     }
 }`
         document.getElementById('listoflists').innerHTML = ''
-        d3.select('#listoflists').graphviz().width(width).renderDot(dot)
+        d3.select('#listoflists').graphviz().scale(0.5).width(document.getElementById('listoflists').clientWidth).height(800*0.7).renderDot(dot)
         return
     }
     document.getElementById('listoflists').innerHTML = '<h4 class="msg">¡No hay usuarios cargados!</h4>'
 }
 
-function binaryTree(width,height) {
+function binaryTree(height) {
     let authors = getAuthors()
+    if(height == null) {
+        height = document.getElementById('binarytree').clientHeight
+    }
     try {
         if(authors.raiz) {
             document.getElementById('binarytree').innerHTML = ''
-            d3.select('#binarytree').graphviz().width(width).height(height).renderDot(authors.getDot())
+            d3.select('#binarytree').graphviz().width(document.getElementById('binarytree').clientWidth).height(height).scale(0.5).renderDot(authors.getDot())
             return
         }
         document.getElementById('binarytree').innerHTML = '<h4 class="msg">¡No hay autores cargados!</h4>'
@@ -1257,7 +1260,7 @@ function booksChargeConfirm() {
 function ortogonalMatrix() {
     let booksFantasia = getBooksFantasia()
     try {
-        d3.select('#fantasia').graphviz().width(800).height(800).renderDot(booksFantasia.getDot())
+        d3.select('#fantasia').graphviz().width(document.getElementById('fantasia').clientWidth).height(document.getElementById('fantasia').clientHeight).scale(0.5).renderDot(booksFantasia.getDot())
         return
     } catch (error) {}
 }
@@ -1265,7 +1268,7 @@ function ortogonalMatrix() {
 function disperseMatrix() {
     let booksThriller = getBooksThriller()
     try {
-        d3.select('#thriller').graphviz().width(800).height(800).renderDot(booksThriller.getDot())
+        d3.select('#thriller').graphviz().width(document.getElementById('thriller').clientWidth).height(document.getElementById('thriller').clientHeight).scale(0.6).renderDot(booksThriller.getDot())
         return
     } catch (error) {}
 }
@@ -1443,7 +1446,7 @@ function saleBooks() {
         let fontsize
         if(orden) {
             orden = false
-            fontsize = 'font-size: 110%;'
+            fontsize = 'font-size: 82%;'
             algoritmo = `bubbleSortByName() {
     this.bubbleSortR1(this.primero)
 }
@@ -1467,7 +1470,7 @@ bubbleSortR2(nodoI,nodoX) {
             document.getElementById('ascdesc').innerHTML = '<button class="button1" onclick="saleBooks()">Descendente</button>'
         }else {
             orden = true
-            fontsize = 'font-size: 87%;'
+            fontsize = 'font-size: 62%;'
             algoritmo = `quickSortByName() {
     this.quickSortR1(this.primero,this.ultimo)
 }
@@ -1499,8 +1502,8 @@ partition(pivote,izquierda,derecha) {
         let code = ''
         for(let i = 0; i < books.getSize(); i ++) {
             let book = books.get(i)
-            let disponible = 'AGOTADO'
-            style = 'style="font-size: 1.6rem;"'
+            let disponible = '<strong>AGOTADO</strong>'
+            style = 'style="font-size: 1.2rem;color: cyan;"'
             if(book['cantidad'] > 0) {
                 disponible = `Cantidad Disponible: ${book['cantidad']}`
                 style = ''
@@ -1514,7 +1517,7 @@ partition(pivote,izquierda,derecha) {
             <p ${style}>${disponible}</p>
         </div>`
         }
-        document.getElementById('saleBooks').innerHTML = `${code}<textarea class="areatexto" style="${fontsize}" disabled="true">${algoritmo}</textarea>`
+        document.getElementById('saleBooks').innerHTML = `${code}<textarea class="areatexto" wrap="off" style="${fontsize}" disabled="true">${algoritmo}</textarea>`
         return
     }
     document.getElementById('saleBooks').innerHTML = '<h4 class="msg">¡No hay libros en venta!</h4>'

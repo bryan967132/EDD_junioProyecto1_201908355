@@ -69,7 +69,7 @@
                 <h2>Autores</h2>
                 <div class="mosaico" id="authorsR"></div>
                 <script>authors()</script>
-                <script>binaryTree(800,620)</script>
+                <script>binaryTree()</script>
             </div>
             <div class="fondo_transparente">
                 <div class="modal">
@@ -94,7 +94,7 @@
             )
             window.addEventListener(
                 'keydown',
-                function (event) {
+                function(event) {
                     if(event.keyCode == 27) {
                         document.getElementsByClassName('fondo_transparente')[0].style.display = 'none'
                         document.getElementById('contenidomodal').innerHTML = ''
