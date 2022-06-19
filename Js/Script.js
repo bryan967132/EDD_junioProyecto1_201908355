@@ -1286,6 +1286,10 @@ function binaryTree(height) {
     }
 }
 
+function queueBuys() {
+    console.log(localStorage.getItem('waitQueue'))
+}
+
 function booksChargeConfirm() {
     if(JSON.parse(JSON.stringify(localStorage.getItem('booksCharged')))) {
         document.getElementById('booksCharge').innerHTML = '<h4 class="msg">¡Libros cargados!</h4>'
@@ -1793,3 +1797,5 @@ function allAuthors() {scroll(0,getOffset('authors').top)}
 function chargeOfAuthors() {scroll(0,getOffset('authors').top)}
 
 function chargeOfBooks() {scroll(0,getOffset('books').top)}
+
+function lookQueueWait() {scroll(0,getOffset('queue').top)}

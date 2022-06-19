@@ -32,7 +32,7 @@
                         <a class="navegacion__enlace" onclick="header()">Carga de Usuarios</a>
                         <a class="navegacion__enlace" onclick="chargeOfAuthors()">Carga de Autores</a>
                         <a class="navegacion__enlace" onclick="chargeOfBooks()">Carga de Libros</a>
-                        <a class="navegacion__enlace" onclick="">Cola de Espera</a>
+                        <a class="navegacion__enlace" onclick="lookQueueWait()">Cola de Espera</a>
                         <a class="navegacion__enlace" href="./AdminProfile.html">Cerrar Sesión</a>
                     </nav>
                     <script>getNameAdmin()</script>
@@ -80,6 +80,11 @@
                 </div>
                 <div id="booksCharge" class="graphs"></div>
                 <script>booksChargeConfirm()</script>
+            </div>
+            <div id="queue" class="books">
+                <h2>Cola de Espera</h2>
+                <div id="waitQueueBuyG" style="width: 100%"></div>
+                <script>queueBuys()</script>
             </div>
         </div>
         <footer>
