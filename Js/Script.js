@@ -1074,9 +1074,9 @@ function getTop() {
                 if(clients.get(i).ncompras > 0) {
                     code += `
                     <div class="autorH">
-                        <h4 style="font-size: 2.2rem">No. ${i + 1}</h4>
-                        <img src="./Images/author.png" width="50" height="50"/>
-                        <h4 style="font-size: 1.8rem">${clients.get(i).nombre_completo}</h4>
+                        <h4>No. ${i + 1}</h4>
+                        <img src="./Images/author.png" width="30" height="30"/>
+                        <h5>${clients.get(i).nombre_completo}</h4>
                         <p>Cantidad: ${clients.get(i).ncompras}</p>
                     </div>`
                 }
@@ -1167,7 +1167,7 @@ function doubleList() {
         if(clients.get(0).ncompras > 0) {
             let top = 5
             if(clients.getSize() < 5) top = clients.getSize()
-            let dot = 'digraph g{node[shape=box width="2.9" height="1"];rankdir=LR;'
+            let dot = 'digraph g{node[shape=box width="2.14" height="1"];rankdir=LR;'
             for(let i = 0; i < top; i ++) {
                 if(clients.get(i).ncompras > 0) {
                     dot += `nodo${i}[label="${clients.get(i).nombre_completo}\nCantidad = ${clients.get(i).ncompras}"];`
@@ -1177,9 +1177,8 @@ function doubleList() {
                 }
             }
             dot += '}'
-            console.log(dot)
             try {
-                d3.select('#doubleList').graphviz().renderDot(dot)
+                d3.select('#doubleList').graphviz().width(document.getElementById('doubleList').clientWidth).renderDot(dot)
             } catch(error) {}
             return
         }
@@ -1260,7 +1259,7 @@ function booksChargeConfirm() {
 function ortogonalMatrix() {
     let booksFantasia = getBooksFantasia()
     try {
-        d3.select('#fantasia').graphviz().width(document.getElementById('fantasia').clientWidth).height(document.getElementById('fantasia').clientHeight).scale(0.5).renderDot(booksFantasia.getDot())
+        d3.select('#fantasia').graphviz().width(document.getElementById('fantasia').clientWidth).height(document.getElementById('fantasia').clientHeight).scale(0.45).renderDot(booksFantasia.getDot())
         return
     } catch (error) {}
 }
@@ -1268,7 +1267,7 @@ function ortogonalMatrix() {
 function disperseMatrix() {
     let booksThriller = getBooksThriller()
     try {
-        d3.select('#thriller').graphviz().width(document.getElementById('thriller').clientWidth).height(document.getElementById('thriller').clientHeight).scale(0.6).renderDot(booksThriller.getDot())
+        d3.select('#thriller').graphviz().width(document.getElementById('thriller').clientWidth).height(document.getElementById('thriller').clientHeight).scale(0.55).renderDot(booksThriller.getDot())
         return
     } catch (error) {}
 }
@@ -1376,8 +1375,8 @@ function authors() {
             let author = authors.get(i)
             code += `
             <div class="autor" onclick="lookAuthor(${author.dpi})">
-                <img src="./Images/author.png" width="50" height="50"/>
-                <h4 style="font-size: 1.8rem">${author.nombre_autor}</h4>
+                <img src="./Images/author.png" width="30" height="30"/>
+                <h4>${author.nombre_autor}</h4>
             </div>`
         }
         document.getElementById('authorsR').innerHTML = code + '<div class="grafo grafo--arbol-binario" id="binarytree"></div>'
@@ -1446,7 +1445,7 @@ function saleBooks() {
         let fontsize
         if(orden) {
             orden = false
-            fontsize = 'font-size: 82%;'
+            fontsize = 'font-size: 65%;'
             algoritmo = `bubbleSortByName() {
     this.bubbleSortR1(this.primero)
 }
@@ -1470,7 +1469,7 @@ bubbleSortR2(nodoI,nodoX) {
             document.getElementById('ascdesc').innerHTML = '<button class="button1" onclick="saleBooks()">Descendente</button>'
         }else {
             orden = true
-            fontsize = 'font-size: 62%;'
+            fontsize = 'font-size: 49.5%;'
             algoritmo = `quickSortByName() {
     this.quickSortR1(this.primero,this.ultimo)
 }
@@ -1575,6 +1574,7 @@ function confirmBuyBook(isbn,cantidad) {
     localStorage.setItem('booksCharged',JSON.stringify(booksCharged))
     document.getElementsByClassName('fondo_transparente')[0].style.display = 'none'
     document.getElementById('contenidomodal').innerHTML = ''
+    document.getElementById('botones').innerHTML = ''
     if(orden) {
         orden = false
     }else {
