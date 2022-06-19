@@ -1622,6 +1622,7 @@ function confirmBuyBook(isbn,cantidad) {
             }else {
                 addToQueue(getNameClient(dpi),cantidad,book)
                 booksCharged[i]['cantidad'] = 0
+                alert('Se agregó a la cola de espera')
                 myBooks()
             }
             break
