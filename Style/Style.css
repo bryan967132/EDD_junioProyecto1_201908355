@@ -309,8 +309,8 @@ h4{
         column-gap: 2rem;
     }
     .tres-columnas {
-        padding: 2rem;
         display: grid;
+        padding-bottom: 2rem;
         /*grid-template-columns: 50% 50%;
         grid-template-columns: repeat(2, 50%);
         grid-template-columns: 1fr 1fr;*/
@@ -335,6 +335,10 @@ h4{
         grid-template-columns: repeat(5,1fr);
         gap: 0.6rem;
         align-content: flex-start;
+    }
+    .binarytreeAdmin {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
     }
 }
 .grafo {
@@ -439,8 +443,11 @@ h4{
     font-family: var(--fontParrafo);
     font-size: 1.6rem;
 }
+.authors .msg,
+.binarytreeAdmin .msg,
+.users .msg,
 .books .msg {
-    font-size: 2.4rem;
+    font-size: 2rem;
 }
 .autor h5,
 .autorH h5,
@@ -625,9 +632,4 @@ footer button:hover {
 }
 .ordenAlfa .button1:hover {
     background: rgb(39, 146, 253);
-}
-
-.binarytreeAdmin {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
 }

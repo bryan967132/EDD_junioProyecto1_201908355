@@ -998,7 +998,7 @@ function login() {
                 }
             }
         }
-        alert('Usuario no registrado')
+        alert('Verifique sus credenciales')
         document.getElementById('user').value = ''
         document.getElementById('pass').value = ''
     }
@@ -1272,10 +1272,10 @@ digraph G {
 
 function binaryTree(height) {
     let authors = getAuthors()
-    if(height == null) {
-        height = document.getElementById('binarytree').clientHeight
-    }
     try {
+        if(height == null) {
+            height = document.getElementById('binarytree').clientHeight
+        }
         if(authors.raiz) {
             document.getElementById('binarytree').innerHTML = ''
             d3.select('#binarytree').graphviz().width(document.getElementById('binarytree').clientWidth).height(height).scale(0.5).renderDot(authors.getDot())
@@ -1594,6 +1594,22 @@ function addToLibrary(isbn,author,title,cuantity,pages,category) {
     }
 }
 
+function addToQueue(nombre_completo,cantidad,book) {
+    if(book['cantidad'] > 0) {
+        addToLibrary(book['isbn'],book['nombre_autor'],book['nombre_libro'],book['cantidad'],book['paginas'],book['categoria'])
+    }
+    if(localStorage.getItem('waitQueue') == null) {
+        localStorage.setItem('waitQueue',JSON.stringify([JSON.parse(JSON.stringify(new Espera(nombre_completo,book['nombre_libro'],cantidad - book['cantidad'])))]))
+        console.log(JSON.parse(localStorage.getItem('waitQueue')))
+        console.log('primero: se agregó a la cola')
+        return
+    }
+    let queueWait = JSON.parse(localStorage.getItem('waitQueue'))
+    queueWait.push(JSON.parse(JSON.stringify(new Espera(nombre_completo,book['nombre_libro'],cantidad - book['cantidad']))))
+    localStorage.setItem('waitQueue',JSON.stringify(queueWait))
+    console.log(JSON.parse(localStorage.getItem('waitQueue')))
+}
+
 function confirmBuyBook(isbn,cantidad) {
     let booksCharged = JSON.parse(localStorage.getItem('booksCharged'))
     for(let i = 0; i < booksCharged.length; i ++) {
@@ -1604,7 +1620,9 @@ function confirmBuyBook(isbn,cantidad) {
                 addToLibrary(book['isbn'],book['nombre_autor'],book['nombre_libro'],cantidad,book['paginas'],book['categoria'])
                 myBooks()
             }else {
-                //se agregará a cola de espera
+                addToQueue(getNameClient(dpi),cantidad,book)
+                booksCharged[i]['cantidad'] = 0
+                myBooks()
             }
             break
         }
@@ -1732,7 +1750,7 @@ function getNameClient() {
     for(let i = 0; i < users.getSize(); i ++) {
         if(parseInt(dpi) == users.get(i).dpi) {
             document.getElementById('usernameClient').innerHTML = users.get(i).nombre_completo
-            return
+            return users.get(i).nombre_completo
         }
     }
 }
