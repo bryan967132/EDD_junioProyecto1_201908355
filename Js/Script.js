@@ -61,17 +61,6 @@ class Libro {
     }
 }
 
-class Compra {
-    constructor(isbn,nombre_autor,nombre_libro,cantidad,paginas,categoria) {
-        this.isbn = isbn
-        this.nombre_autor = nombre_autor
-        this.nombre_libro = nombre_libro
-        this.cantidad = cantidad
-        this.paginas = paginas
-        this.categoria = categoria
-    }
-}
-
 class Autor {
     constructor(dpi,nombre_autor,correo,telefono,direccion,biografia) {
         this.dpi = dpi
@@ -94,6 +83,25 @@ class Usuario {
         this.telefono = telefono
         this.compras = compras
         this.ncompras = ncompras
+    }
+}
+
+class Compra {
+    constructor(isbn,nombre_autor,nombre_libro,cantidad,paginas,categoria) {
+        this.isbn = isbn
+        this.nombre_autor = nombre_autor
+        this.nombre_libro = nombre_libro
+        this.cantidad = cantidad
+        this.paginas = paginas
+        this.categoria = categoria
+    }
+}
+
+class Espera {
+    constructor(nombre_completo,nombre_libro,cantidad) {
+        this.nombre_completo = nombre_completo
+        this.nombre_libro = nombre_libro
+        this.cantidad = cantidad
     }
 }
 
@@ -442,7 +450,7 @@ class Pila {
         if(this.primero) {
             let primero = this.primero
             this.primero = this.primero.siguiente
-            this.size --
+            this.indice --
             return primero
         }
         return null
@@ -460,6 +468,35 @@ class Pila {
         }
         dot += '}'
         return dot
+    }
+}
+
+class Cola {
+    constructor() {
+        this.indice = 0
+        this.primero = null
+        this.ultimo = null
+    }
+    add(nuevo) {
+        if(this.primero) {
+            this.ultimo.siguiente = new NodoD(this.indice,nuevo)
+            this.ultimo.siguiente.anterior = this.ultimo
+            this.ultimo = this.ultimo.siguiente
+            this.indice ++
+            return
+        }
+        this.primero = new NodoD(this.indice,nuevo)
+        this.ultimo = this.primero
+        this.indice ++
+    }
+    remove() {
+        if(this.primero) {
+            let primero = this.primero
+            this.primero = this.primero.siguiente
+            this.indice --
+            return primero
+        }
+        return null
     }
 }
 
