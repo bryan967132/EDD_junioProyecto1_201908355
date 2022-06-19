@@ -1613,8 +1613,11 @@ function buyBook(isbn,titulo,autor,paginas,disponibles) {
         <label for="cant" style="margin: auto;font-size: 3rem;color: black;"><strong>Cantidad:</strong></label>
         <input id="cant" type="number" min="1" style="text-align: center;width: 25%;font-size: 3rem;border: 0rem solid;outline: none;" value="1"/>
     </div>`
-    document.getElementById('botones').innerHTML = `
-    <button type="buton" class="boton" onclick="confirmBuyBook(${isbn},parseInt(document.getElementById('cant').value))">Comprar</button>`
+    let button = `<button type="buton" class="boton" onclick="confirmBuyBook(${isbn},parseInt(document.getElementById('cant').value))">Comprar</button>`
+    if(disponibles == 0) {
+        button = `<button type="buton" class="boton" onclick="confirmBuyBook(${isbn},parseInt(document.getElementById('cant').value))">Reservar</button>`
+    }
+    document.getElementById('botones').innerHTML = button
 }
 
 //cargas masivas
