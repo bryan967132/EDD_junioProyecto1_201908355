@@ -1252,18 +1252,21 @@ function lookBook(titulo,cantidad) {
     document.getElementById('titulomodal').innerHTML = `Ejemplares: ${titulo}`
     let dot = `digraph pila{
     node[shape=plaintext];
-    label="Cantidad = ${cantidad}";
-    struct[
-        label=<
-            <table border="0" cellborder="1" cellspacing="0">`
-    for(let i = 1; i <= cantidad; i ++) {
+    label="Cantidad = ${cantidad}";`
+    if(cantidad > 0) {
+        dot += `struct[
+            label=<
+                <table border="0" cellborder="1" cellspacing="0">`
+        for(let i = 1; i <= cantidad; i ++) {
+            dot += `
+                    <tr><td width="200" bgcolor="springgreen2" color="springgreen3"><font color="white">${i}</font></td></tr>`
+        }
         dot += `
-                <tr><td width="200" bgcolor="springgreen2" color="springgreen3"><font color="white">${i}</font></td></tr>`
+                </table>
+            >
+        ];`
     }
     dot += `
-            </table>
-        >
-    ];
 }`
     d3.select('#contenidomodal').graphviz().renderDot(dot)
 }
