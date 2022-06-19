@@ -1572,6 +1572,11 @@ function confirmBuyBook(isbn,cantidad) {
     localStorage.setItem('booksCharged',JSON.stringify(booksCharged))
     document.getElementsByClassName('fondo_transparente')[0].style.display = 'none'
     document.getElementById('contenidomodal').innerHTML = ''
+    if(orden) {
+        orden = false
+    }else {
+        orden = true
+    }
     saleBooks()
 }
 
