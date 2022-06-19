@@ -13,6 +13,7 @@
         <script src="https://unpkg.com/d3-graphviz@3.0.5/build/d3-graphviz.js"></script>
         <script src="./Js/Script.js"></script>
         <script>
+            var orden = true
             try {
                 let url = window.location.href
                 var dpi = url.match(/dpi=\d+$/)[0].split('=')[1]
@@ -57,7 +58,10 @@
                 <script>disperseMatrix()</script>
             </div>
             <div id="buybooks" class="books">
-                <h2>Compra de Libros</h2>
+                <div class="ordenAlfa">
+                    <h2>Compra de Libros</h2>
+                    <div id="ascdesc"></div>
+                </div>
                 <div id="saleBooks" class="mosaico"></div>
                 <script>saleBooks()</script>
             </div>

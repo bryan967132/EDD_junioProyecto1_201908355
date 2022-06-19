@@ -1464,13 +1464,71 @@ function myBooks() {
 function saleBooks() {
     let books = getAllBooks()
     if(books.getSize() > 0) {
-        books.bubbleSortByName()
+        let algoritmo
+        let fontsize
+        if(orden) {
+            orden = false
+            fontsize = 'font-size: 110%;'
+            algoritmo = `bubbleSortByName() {
+    this.bubbleSortR1(this.primero)
+}
+bubbleSortR1(nodoI) {
+    if(nodoI.indice < this.ultimo.indice) {
+        this.bubbleSortR2(nodoI,this.primero)
+        this.bubbleSortR1(nodoI.siguiente)
+    }
+}
+bubbleSortR2(nodoI,nodoX) {
+    if(nodoX.indice < this.ultimo.indice - nodoI.indice) {
+        if(nodoX.objeto.nombre_libro > nodoX.siguiente.objeto.nombre_libro) {
+            let temporal = nodoX.objeto
+            nodoX.objeto = nodoX.siguiente.objeto
+            nodoX.siguiente.objeto = temporal
+        }
+        this.bubbleSortR2(nodoI,nodoX.siguiente)
+    }
+}`
+            books.bubbleSortByName()
+            document.getElementById('ascdesc').innerHTML = '<button class="button1" onclick="saleBooks()">Descendente</button>'
+        }else {
+            orden = true
+            fontsize = 'font-size: 87%;'
+            algoritmo = `quickSortByName() {
+    this.quickSortR1(this.primero,this.ultimo)
+}
+quickSortR1(izquierda,derecha) {
+    if(izquierda.indice < derecha.indice) {
+        let nodoParticion = this.partition(izquierda.objeto.nombre_libro,izquierda,derecha)
+        this.quickSortR1(izquierda,nodoParticion)
+        this.quickSortR1(nodoParticion.siguiente,derecha)
+    }
+}
+partition(pivote,izquierda,derecha) {
+    while(izquierda.objeto.nombre_libro > pivote) {
+        izquierda = izquierda.siguiente
+    }
+    while(derecha.objeto.nombre_libro < pivote) {
+        derecha = derecha.anterior
+    }
+    if(izquierda.indice >= derecha.indice) {
+        return derecha
+    }
+    let temporal = izquierda.objeto
+    izquierda.objeto = derecha.objeto
+    derecha.objeto = temporal
+    return this.partition(pivote,izquierda.siguiente,derecha.anterior)
+}`
+            books.quickSortByName()
+            document.getElementById('ascdesc').innerHTML = '<button class="button1" onclick="saleBooks()">Ascendente</button>'
+        }
         let code = ''
         for(let i = 0; i < books.getSize(); i ++) {
             let book = books.get(i)
-            let disponible = 'Agotado'
+            let disponible = 'AGOTADO'
+            style = 'style="font-size: 1.6rem;"'
             if(book['cantidad'] > 0) {
-                disponible = book['cantidad']
+                disponible = `Cantidad Disponible: ${book['cantidad']}`
+                style = ''
             }
             code += `
         <div class="vende-libro" onclick="buyBook(${book['isbn']},'${book['nombre_libro']}','${book['nombre_autor']}',${book['paginas']},${book['cantidad']})">
@@ -1478,10 +1536,10 @@ function saleBooks() {
             <p>Autor: ${book['nombre_autor']}</p>
             <p>Categoría: ${book['categoria']}</p>
             <p>ISBN: ${book['isbn']}</p>
-            <p>Cantidad Disponible: ${disponible}</p>
+            <p ${style}>${disponible}</p>
         </div>`
         }
-        document.getElementById('saleBooks').innerHTML = code
+        document.getElementById('saleBooks').innerHTML = `${code}<textarea class="areatexto" style="${fontsize}" disabled="true">${algoritmo}</textarea>`
         return
     }
     document.getElementById('saleBooks').innerHTML = '<h4 class="msg">¡No hay libros en venta!</h4>'
