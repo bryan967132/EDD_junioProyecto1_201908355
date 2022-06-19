@@ -841,12 +841,8 @@ class MatrizOrtogonal {
 }
 
 //inicialización
-if(localStorage.getItem('userMaster') == null) {
-    localStorage.setItem('userMaster',JSON.stringify(new Usuario(2354168452525,'Wilfred Perez','Wilfred','wilfred@bitrex.com','Administrador','123','+502 (123) 123-4567',0)))
-}
-
 if(localStorage.getItem('usersCharged') == null) {
-    localStorage.setItem('usersCharged','')
+    localStorage.setItem('usersCharged',JSON.stringify([JSON.parse(JSON.stringify(new Usuario(2354168452525,'Wilfred Perez','Wilfred','wilfred@bitrex.com','Administrador','123','+502 (123) 123-4567',0)))]))
 }
 
 if(localStorage.getItem('authorsCharged') == null) {
@@ -867,21 +863,7 @@ function reset() {
 
 //obtener lista de usuarios
 function getUsers() {
-    let master = JSON.parse(localStorage.getItem('userMaster'))
     let users = new ListaDobleCircular()
-    users.add(
-        new Usuario(
-            master['dpi'],
-            master['nombre_completo'],
-            master['nombre_usuario'],
-            master['correo'],
-            master['rol'],
-            master['contrasenia'],
-            master['telefono'],
-            master['compras'],
-            master['ncompras']
-        )
-    )
     try {
         let usersCharged = JSON.parse(localStorage.getItem('usersCharged'))
         for(let i = 0; i < usersCharged.length; i ++) {
@@ -927,16 +909,9 @@ function searchByDpi(dpi) {
 
 //crear
 function createUser(dpi,name,username,email,rol,password,phone) {
-    let usersCharged = localStorage.getItem('usersCharged')
-    usersCharged = usersCharged.replace('[','').replace(']','')
-    if(usersCharged == '') {
-        usersCharged += `[${JSON.stringify(new Usuario(dpi,name,username,email,rol,password,phone,null,0))}]`
-        localStorage.setItem('usersCharged',usersCharged)
-        return
-    }
-    usersCharged += `,${JSON.stringify(new Usuario(dpi,name,username,email,rol,password,phone,null,0))}`
-    usersCharged = `[${usersCharged}]`
-    localStorage.setItem('usersCharged',usersCharged)
+    let usersCharged = JSON.parse(localStorage.getItem('usersCharged'))
+    usersCharged.push(JSON.parse(JSON.stringify(new Usuario(dpi,name,username,email,rol,password,phone,null,0))))
+    localStorage.setItem('usersCharged',JSON.stringify(usersCharged))
 }
 
 function createAuthor(dpi,name,email,phone,adress,biographic) {
