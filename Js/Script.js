@@ -498,6 +498,31 @@ class Cola {
         }
         return null
     }
+    get(indice) {
+        let actual = this.primero
+        while(actual) {
+            if(actual.indice == indice) {
+                return actual.objeto
+            }
+            actual = actual.siguiente
+        }
+    }
+    getDot() {
+        let dot = `digraph pila{node[shape=box width="2" height="1"];rankdir=RL;`
+        let actual = this.primero
+        while(actual) {
+            dot += `nodo${actual.indice}[label="Cliente = ${actual.objeto.nombre_completo}\nLibro = ${actual.objeto.nombre_libro}\nCantidad = ${actual.objeto.cantidad}"];`
+            if(actual.anterior) {
+                dot += `nodo${actual.indice} -> nodo${actual.anterior.indice};`
+            }
+            actual = actual.siguiente
+        }
+        dot += '}'
+        return dot
+    }
+    getSize() {
+        return this.indice
+    }
 }
 
 //matrices
@@ -1286,8 +1311,20 @@ function binaryTree(height) {
     }
 }
 
+function getQueue() {
+    let queueW = JSON.parse(localStorage.getItem('waitQueue'))
+    let waitQueue = new Cola()
+    for(let i = 0; i < queueW.length; i ++) {
+        waitQueue.add(queueW[i])
+    }
+    return waitQueue
+}
+
 function queueBuys() {
-    console.log(localStorage.getItem('waitQueue'))
+    let waitQueue = getQueue()
+    if(waitQueue.getSize()) {
+        d3.select('#waitQueueBuyG').graphviz().width(document.getElementById('waitQueueBuyG').clientWidth).renderDot(waitQueue.getDot())
+    }
 }
 
 function booksChargeConfirm() {
