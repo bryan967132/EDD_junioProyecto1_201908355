@@ -1320,11 +1320,31 @@ function getQueue() {
     return waitQueue
 }
 
+function lookQueueAdmin() {
+    let queue = getQueue()
+    if(queue.getSize() > 0) {
+        let code = ''
+        for(let i = 0; i < queue.getSize(); i ++) {
+            let book = queue.get(i)
+            code += `
+        <div class="mi-libro"">
+            <h4>${book['nombre_completo']}</h4>
+            <p>Libro: ${book['nombre_libro']}</p>
+            <p>Cantidad: ${book['cantidad']}</p>
+        </div>`
+        }
+        document.getElementById('waitQueueBuyH').innerHTML = code
+        return
+    }
+    document.getElementById('waitQueueBuyH').innerHTML = '<h4 class="msg">¡No hay clientes en cola!</h4>'
+}
+
 function queueBuys() {
     let waitQueue = getQueue()
     if(waitQueue.getSize()) {
         d3.select('#waitQueueBuyG').graphviz().width(document.getElementById('waitQueueBuyG').clientWidth).renderDot(waitQueue.getDot())
     }
+    document.getElementById('waitQueueBuyG').innerHTML = ''
 }
 
 function booksChargeConfirm() {
