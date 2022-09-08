@@ -624,105 +624,100 @@ class MatrizOrtogonal {
         }
     }
     getDot() {
-        let grafo = 'digraph T{\nnode[shape=box fontname="Arial" fillcolor="white" style=filled]'
-        grafo += `\nroot[label = "Capa 0", group=1]\n`
-        grafo += 'fontname="Arial Black" \nfontsize="15pt"\n'
-        let x_fila = this.filas.primero
-        while(x_fila) {
-            grafo += `F${x_fila.id}[label="${x_fila.id}",fillcolor="plum",group=1];\n`
-            x_fila = x_fila.siguiente
+        let grafo = 'digraph T{\n\tnode[shape=box fontname="Arial" fillcolor="white" style=filled];'
+        grafo += '\n\tRoot[label = "Capa 0", group="0"];'
+        let currentR = this.filas.primero
+        while(currentR) {
+            grafo += `\n\tF${currentR.id}[group="0" fillcolor="plum"];`
+            currentR = currentR.siguiente
         }
-        x_fila = this.filas.primero
-        while(x_fila) {
-            if(x_fila.siguiente) {
-                grafo += `F${x_fila.id} -> F${x_fila.siguiente.id};\n`
-                grafo += `F${x_fila.siguiente.id} -> F${x_fila.id};\n`
-            }
-            x_fila = x_fila.siguiente
+        let currentC = this.columnas.primero
+        while(currentC) {
+            grafo += `\n\tC${currentC.id}[group="${currentC.id}" fillcolor="powderblue"];`
+            currentC = currentC.siguiente
         }
-        let y_columna = this.columnas.primero
-        while(y_columna) {
-            grafo += `C${y_columna.id}[label="${y_columna.id}",fillcolor="powderblue",group=${y_columna.id + 1}];\n`
-            y_columna = y_columna.siguiente
+        currentC = this.columnas.primero
+        let label = ''
+        while(currentC) {
+            currentR = currentC.acceso
+            while(currentR) {
+                label = ''
+                if(currentR.objeto) label = currentR.objeto.nombre_libro
+                grafo += `\n\tN${currentR.x}_${currentR.y}[group="${currentR.y}" label="${label}"];`
+                currentR = currentR.abajo
+            }
+            currentC = currentC.siguiente
         }
-        y_columna = this.columnas.primero
-        while(y_columna) {
-            if(y_columna.siguiente) {
-                grafo += `C${y_columna.id} -> C${y_columna.siguiente.id};\n`
-                grafo += `C${y_columna.siguiente.id} -> C${y_columna.id};\n`
-            }
-            y_columna = y_columna.siguiente
+        grafo += `\n\tsubgraph columnHeader {\n\t\trank = same;`
+        grafo += `\n\t\tRoot -> `
+        currentC = this.columnas.primero
+        while(currentC) {
+            grafo += `C${currentC.id}`
+            currentC = currentC.siguiente
+            if(currentC) grafo += ' -> '
         }
-        x_fila = this.filas.primero
-        y_columna = this.columnas.primero
-        grafo += `root -> F${x_fila.id};\nroot -> C${y_columna.id};\n`
-        grafo += '{rank=same;root;'
-        y_columna = this.columnas.primero
-        while(y_columna) {
-            grafo += `C${y_columna.id};`
-            y_columna = y_columna.siguiente
+        currentC = this.columnas.ultimo
+        grafo += ';\n\t\t'
+        while(currentC) {
+            grafo += `C${currentC.id}`
+            currentC = currentC.anterior
+            if(currentC) grafo += ' -> '
         }
-        grafo += '}\n'
-        let actual = this.filas.primero
-        let actual2 = actual.acceso
-        while(actual) {
-            while(actual2) {
-                let label = ''
-                if(actual2.objeto) label = actual2.objeto.nombre_libro
-                grafo += `N${actual2.x}_${actual2.y}[label="${label}",group="${actual2.y + 1}"];\n`
-                actual2 = actual2.derecha
+        grafo += ';\n\t}'
+        currentR = this.filas.primero
+        while(currentR) {
+            grafo += `\n\tsubgraph row${currentR.id} {\n\t\trank = same;\n\t\tF${currentR.id} -> `
+            currentC = currentR.acceso
+            while(currentC) {
+                grafo += `N${currentC.x}_${currentC.y}`
+                if(currentC.derecha) currentC = currentC.derecha
+                else break
+                if(currentC) grafo += ' -> '
             }
-            actual = actual.siguiente
-            if(actual) {
-                actual2 = actual.acceso
+            grafo += ';\n\t\t'
+            while(currentC) {
+                grafo += `N${currentC.x}_${currentC.y}`
+                currentC = currentC.izquierda
+                if(currentC) grafo += ' -> '
             }
+            grafo += `;\n\t}`
+            currentR = currentR.siguiente
         }
-        actual = this.filas.primero
-        actual2 = actual.acceso
-        while(actual) {
-            let rank = `{rank=same;F${actual.id};`
-            let cont = 0
-            while(actual2) {
-                if(cont == 0) {
-                    grafo += `F${actual.id} -> N${actual2.x}_${actual2.y};\n`
-                    grafo += `N${actual2.x}_${actual2.y} -> F${actual.id};\n`
-                    cont ++
-                }
-                if(actual2.derecha) {
-                    grafo += `N${actual2.x}_${actual2.y} -> N${actual2.derecha.x}_${actual2.derecha.y};\n`
-                    grafo += `N${actual2.derecha.x}_${actual2.derecha.y} -> N${actual2.x}_${actual2.y};\n`
-                }
-                rank += `N${actual2.x}_${actual2.y};`
-                actual2 = actual2.derecha
-            }
-            actual = actual.siguiente
-            if(actual) {
-                actual2 = actual.acceso
-            }
-            grafo += `${rank}}\n`
+        grafo += `\n\tsubgraph rowHeader {\n\t\tRoot -> `
+        currentR = this.filas.primero
+        while(currentR) {
+            grafo += `F${currentR.id}`
+            currentR = currentR.siguiente
+            if(currentR) grafo += ' -> '
         }
-        actual = this.columnas.primero
-        actual2 = actual.acceso
-        while(actual) {
-            let cont = 0
-            while(actual2) {
-                if(cont == 0) {
-                    grafo += `C${actual.id} -> N${actual2.x}_${actual2.y};\n`
-                    grafo += `N${actual2.x}_${actual2.y} -> C${actual.id};\n`
-                    cont ++
-                }
-                if(actual2.abajo) {
-                    grafo += `N${actual2.x}_${actual2.y} -> N${actual2.abajo.x}_${actual2.abajo.y};\n`
-                    grafo += `N${actual2.abajo.x}_${actual2.abajo.y} -> N${actual2.x}_${actual2.y};\n`
-                }
-                actual2 = actual2.abajo
-            }
-            actual = actual.siguiente
-            if(actual) {
-                actual2 = actual.acceso
-            }
+        grafo += ';\n\t\tedge[dir=back];\n\t\t'
+        currentR = this.filas.primero
+        while(currentR) {
+            grafo += `F${currentR.id}`
+            currentR = currentR.siguiente
+            if(currentR) grafo += ' -> '
         }
-        grafo += '}'
+        grafo += ';\n\t}'
+        currentC = this.columnas.primero
+        while(currentC) {
+            grafo += `\n\tsubgraph column${currentC.id} {\n\t\tC${currentC.id} -> `
+            currentR = currentC.acceso
+            while(currentR) {
+                grafo += `N${currentR.x}_${currentR.y}`
+                if(currentR.abajo) currentR = currentR.abajo
+                else break
+                if(currentR) grafo += ' -> '
+            }
+            grafo += ';\n\t\t'
+            while(currentR) {
+                grafo += `N${currentR.x}_${currentR.y}`
+                currentR = currentR.arriba
+                if(currentR) grafo += ' -> '
+            }
+            grafo += `;\n\t}`
+            currentC = currentC.siguiente
+        }
+        grafo += '\n}'
         return grafo
     }
 }
@@ -802,103 +797,97 @@ class MatrizDispersa {
         }
     }
     getDot() {
-        let grafo = 'digraph T{\nnode[shape=box fontname="Arial" fillcolor="white" style=filled]'
-        grafo += `\nroot[label = "Capa 0", group=1]\n`
-        grafo += 'fontname="Arial Black" \nfontsize="15pt"\n'
-        let x_fila = this.filas.primero
-        while(x_fila) {
-            grafo += `F${x_fila.id}[label="${x_fila.id}",fillcolor="plum",group=1];\n`
-            x_fila = x_fila.siguiente
+        let grafo = 'digraph T{\n\tnode[shape=box fontname="Arial" fillcolor="white" style=filled];'
+        grafo += '\n\tRoot[label = "Capa 0", group="0"];'
+        let currentR = this.filas.primero
+        while(currentR) {
+            grafo += `\n\tF${currentR.id}[group="0" fillcolor="plum"];`
+            currentR = currentR.siguiente
         }
-        x_fila = this.filas.primero
-        while(x_fila) {
-            if(x_fila.siguiente) {
-                grafo += `F${x_fila.id} -> F${x_fila.siguiente.id};\n`
-                grafo += `F${x_fila.siguiente.id} -> F${x_fila.id};\n`
-            }
-            x_fila = x_fila.siguiente
+        let currentC = this.columnas.primero
+        while(currentC) {
+            grafo += `\n\tC${currentC.id}[group="${currentC.id}" fillcolor="powderblue"];`
+            currentC = currentC.siguiente
         }
-        let y_columna = this.columnas.primero
-        while(y_columna) {
-            grafo += `C${y_columna.id}[label="${y_columna.id}",fillcolor="powderblue",group=${y_columna.id + 1}];\n`
-            y_columna = y_columna.siguiente
+        currentC = this.columnas.primero
+        while(currentC) {
+            currentR = currentC.acceso
+            while(currentR) {
+                grafo += `\n\tN${currentR.x}_${currentR.y}[group="${currentR.y}" label="${currentR.objeto.nombre_libro}"];`
+                currentR = currentR.abajo
+            }
+            currentC = currentC.siguiente
         }
-        y_columna = this.columnas.primero
-        while(y_columna) {
-            if(y_columna.siguiente) {
-                grafo += `C${y_columna.id} -> C${y_columna.siguiente.id};\n`
-                grafo += `C${y_columna.siguiente.id} -> C${y_columna.id};\n`
-            }
-            y_columna = y_columna.siguiente
+        grafo += `\n\tsubgraph columnHeader {\n\t\trank = same;`
+        grafo += `\n\t\tRoot -> `
+        currentC = this.columnas.primero
+        while(currentC) {
+            grafo += `C${currentC.id}`
+            currentC = currentC.siguiente
+            if(currentC) grafo += ' -> '
         }
-        x_fila = this.filas.primero
-        y_columna = this.columnas.primero
-        grafo += `root -> F${x_fila.id};\nroot -> C${y_columna.id};\n`
-        grafo += '{rank=same;root;'
-        y_columna = this.columnas.primero
-        while(y_columna) {
-            grafo += `C${y_columna.id};`
-            y_columna = y_columna.siguiente
+        currentC = this.columnas.ultimo
+        grafo += ';\n\t\t'
+        while(currentC) {
+            grafo += `C${currentC.id}`
+            currentC = currentC.anterior
+            if(currentC) grafo += ' -> '
         }
-        grafo += '}\n'
-        let actual = this.filas.primero
-        let actual2 = actual.acceso
-        while(actual) {
-            while(actual2) {
-                grafo += `N${actual2.x}_${actual2.y}[label="${actual2.objeto.nombre_libro}",group="${actual2.y + 1}"];\n`
-                actual2 = actual2.derecha
+        grafo += ';\n\t}'
+        currentR = this.filas.primero
+        while(currentR) {
+            grafo += `\n\tsubgraph row${currentR.id} {\n\t\trank = same;\n\t\tF${currentR.id} -> `
+            currentC = currentR.acceso
+            while(currentC) {
+                grafo += `N${currentC.x}_${currentC.y}`
+                if(currentC.derecha) currentC = currentC.derecha
+                else break
+                if(currentC) grafo += ' -> '
             }
-            actual = actual.siguiente
-            if(actual) {
-                actual2 = actual.acceso
+            grafo += ';\n\t\t'
+            while(currentC) {
+                grafo += `N${currentC.x}_${currentC.y}`
+                currentC = currentC.izquierda
+                if(currentC) grafo += ' -> '
             }
+            grafo += `;\n\t}`
+            currentR = currentR.siguiente
         }
-        actual = this.filas.primero
-        actual2 = actual.acceso
-        while(actual) {
-            let rank = `{rank=same;F${actual.id};`
-            let cont = 0
-            while(actual2) {
-                if(cont == 0) {
-                    grafo += `F${actual.id} -> N${actual2.x}_${actual2.y};\n`
-                    grafo += `N${actual2.x}_${actual2.y} -> F${actual.id};\n`
-                    cont ++
-                }
-                if(actual2.derecha) {
-                    grafo += `N${actual2.x}_${actual2.y} -> N${actual2.derecha.x}_${actual2.derecha.y};\n`
-                    grafo += `N${actual2.derecha.x}_${actual2.derecha.y} -> N${actual2.x}_${actual2.y};\n`
-                }
-                rank += `N${actual2.x}_${actual2.y};`
-                actual2 = actual2.derecha
-            }
-            actual = actual.siguiente
-            if(actual) {
-                actual2 = actual.acceso
-            }
-            grafo += `${rank}}\n`
+        grafo += `\n\tsubgraph rowHeader {\n\t\tRoot -> `
+        currentR = this.filas.primero
+        while(currentR) {
+            grafo += `F${currentR.id}`
+            currentR = currentR.siguiente
+            if(currentR) grafo += ' -> '
         }
-        actual = this.columnas.primero
-        actual2 = actual.acceso
-        while(actual) {
-            let cont = 0
-            while(actual2) {
-                if(cont == 0) {
-                    grafo += `C${actual.id} -> N${actual2.x}_${actual2.y};\n`
-                    grafo += `N${actual2.x}_${actual2.y} -> C${actual.id};\n`
-                    cont ++
-                }
-                if(actual2.abajo) {
-                    grafo += `N${actual2.x}_${actual2.y} -> N${actual2.abajo.x}_${actual2.abajo.y};\n`
-                    grafo += `N${actual2.abajo.x}_${actual2.abajo.y} -> N${actual2.x}_${actual2.y};\n`
-                }
-                actual2 = actual2.abajo
-            }
-            actual = actual.siguiente
-            if(actual) {
-                actual2 = actual.acceso
-            }
+        grafo += ';\n\t\tedge[dir=back];\n\t\t'
+        currentR = this.filas.primero
+        while(currentR) {
+            grafo += `F${currentR.id}`
+            currentR = currentR.siguiente
+            if(currentR) grafo += ' -> '
         }
-        grafo += '}'
+        grafo += ';\n\t}'
+        currentC = this.columnas.primero
+        while(currentC) {
+            grafo += `\n\tsubgraph column${currentC.id} {\n\t\tC${currentC.id} -> `
+            currentR = currentC.acceso
+            while(currentR) {
+                grafo += `N${currentR.x}_${currentR.y}`
+                if(currentR.abajo) currentR = currentR.abajo
+                else break
+                if(currentR) grafo += ' -> '
+            }
+            grafo += ';\n\t\t'
+            while(currentR) {
+                grafo += `N${currentR.x}_${currentR.y}`
+                currentR = currentR.arriba
+                if(currentR) grafo += ' -> '
+            }
+            grafo += `;\n\t}`
+            currentC = currentC.siguiente
+        }
+        grafo += '\n}'
         return grafo
     }
 }
