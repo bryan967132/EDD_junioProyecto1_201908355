@@ -1,0 +1,672 @@
+[
+  {
+    "isbn": 1667070650951,
+    "nombre_autor": "Taylor Booker",
+    "nombre_libro": "El Libro Negro de las Horas",
+    "cantidad": 10,
+    "fila": 6,
+    "columna": 10,
+    "paginas": 188,
+    "categoria": "Thriller"
+  },
+  {
+    "isbn": 1642589427354,
+    "nombre_autor": "Reina",
+    "nombre_libro": "Reina Roja",
+    "cantidad": 2,
+    "fila": 6,
+    "columna": 8,
+    "paginas": 156,
+    "categoria": "Thriller"
+  },
+  {
+    "isbn": 8325712904634,
+    "nombre_autor": "La paciente silenciosa",
+    "nombre_libro": "Bolax",
+    "cantidad": 3,
+    "fila": 8,
+    "columna": 10,
+    "paginas": 213,
+    "categoria": "Thriller"
+  },
+  {
+    "isbn": 5759566406490,
+    "nombre_autor": "Vicky Mcconnell",
+    "nombre_libro": "Se lo que estas pensando",
+    "cantidad": 3,
+    "fila": 2,
+    "columna": 10,
+    "paginas": 190,
+    "categoria": "Thriller"
+  },
+  {
+    "isbn": 2582637332792,
+    "nombre_autor": "Cecelia Foley",
+    "nombre_libro": "Vestido de novia",
+    "cantidad": 4,
+    "fila": 4,
+    "columna": 9,
+    "paginas": 165,
+    "categoria": "Thriller"
+  },
+  {
+    "isbn": 1576662758867,
+    "nombre_autor": "Velma Perkins",
+    "nombre_libro": "El mentiroso",
+    "cantidad": 6,
+    "fila": 9,
+    "columna": 10,
+    "paginas": 163,
+    "categoria": "Thriller"
+  },
+  {
+    "isbn": 1849431672096,
+    "nombre_autor": "Sharron Glenn",
+    "nombre_libro": "El juego del alma",
+    "cantidad": 6,
+    "fila": 10,
+    "columna": 9,
+    "paginas": 220,
+    "categoria": "Thriller"
+  },
+  {
+    "isbn": 7713307845356,
+    "nombre_autor": "Kathryn Salinas",
+    "nombre_libro": "A fuego lento",
+    "cantidad": 7,
+    "fila": 3,
+    "columna": 8,
+    "paginas": 239,
+    "categoria": "Thriller"
+  },
+  {
+    "isbn": 1473344155066,
+    "nombre_autor": "Hart Henson",
+    "nombre_libro": "Nunca: por el autor ...",
+    "cantidad": 6,
+    "fila": 7,
+    "columna": 1,
+    "paginas": 185,
+    "categoria": "Thriller"
+  },
+  {
+    "isbn": 6256574390061,
+    "nombre_autor": "Frye Le",
+    "nombre_libro": "El caso Hartung",
+    "cantidad": 8,
+    "fila": 6,
+    "columna": 3,
+    "paginas": 216,
+    "categoria": "Thriller"
+  },
+  {
+    "isbn": 5868119704830,
+    "nombre_autor": "Goodwin Moore",
+    "nombre_libro": "La novia gitana",
+    "cantidad": 2,
+    "fila": 9,
+    "columna": 1,
+    "paginas": 234,
+    "categoria": "Thriller"
+  },
+  {
+    "isbn": 4988343362017,
+    "nombre_autor": "Raquel Case",
+    "nombre_libro": "La comunidad",
+    "cantidad": 5,
+    "fila": 1,
+    "columna": 4,
+    "paginas": 183,
+    "categoria": "Thriller"
+  },
+  {
+    "isbn": 7156312514833,
+    "nombre_autor": "Farrell Hardy",
+    "nombre_libro": "La verdad sobre el caso Harry Quebert",
+    "cantidad": 1,
+    "fila": 6,
+    "columna": 4,
+    "paginas": 187,
+    "categoria": "Thriller"
+  },
+  {
+    "isbn": 1548664553086,
+    "nombre_autor": "Strickland Blevins",
+    "nombre_libro": "La primesa de Julia",
+    "cantidad": 10,
+    "fila": 7,
+    "columna": 5,
+    "paginas": 234,
+    "categoria": "Thriller"
+  },
+  {
+    "isbn": 8322568749043,
+    "nombre_autor": "Gillespie Peterson",
+    "nombre_libro": "La violinista roja",
+    "cantidad": 5,
+    "fila": 4,
+    "columna": 5,
+    "paginas": 255,
+    "categoria": "Thriller"
+  },
+  {
+    "isbn": 4093377432743,
+    "nombre_autor": "Mcguire Osborn",
+    "nombre_libro": "La psicologa",
+    "cantidad": 8,
+    "fila": 5,
+    "columna": 2,
+    "paginas": 278,
+    "categoria": "Thriller"
+  },
+  {
+    "isbn": 3026264551628,
+    "nombre_autor": "Price Cantrell",
+    "nombre_libro": "IT",
+    "cantidad": 6,
+    "fila": 5,
+    "columna": 8,
+    "paginas": 277,
+    "categoria": "Thriller"
+  },
+  {
+    "isbn": 2908923444998,
+    "nombre_autor": "Farley Terry",
+    "nombre_libro": "Luna Roja",
+    "cantidad": 8,
+    "fila": 4,
+    "columna": 4,
+    "paginas": 220,
+    "categoria": "Thriller"
+  },
+  {
+    "isbn": 4320503972423,
+    "nombre_autor": "Marquez Mcmillan",
+    "nombre_libro": "El señor de los anillos",
+    "cantidad": 10,
+    "fila": 5,
+    "columna": 4,
+    "paginas": 231,
+    "categoria": "Fantasia"
+  },
+  {
+    "isbn": 1669498432165,
+    "nombre_autor": "Thomas Campbell",
+    "nombre_libro": "El hobbit",
+    "cantidad": 8,
+    "fila": 1,
+    "columna": 4,
+    "paginas": 152,
+    "categoria": "Fantasia"
+  },
+  {
+    "isbn": 3590944282177,
+    "nombre_autor": "Rosanna Sandoval",
+    "nombre_libro": "El nombre del viento",
+    "cantidad": 9,
+    "fila": 5,
+    "columna": 6,
+    "paginas": 177,
+    "categoria": "Fantasia"
+  },
+  {
+    "isbn": 4898145352176,
+    "nombre_autor": "Lester Moreno",
+    "nombre_libro": "Las aventauras de Alicia",
+    "cantidad": 7,
+    "fila": 1,
+    "columna": 1,
+    "paginas": 289,
+    "categoria": "Fantasia"
+  },
+  {
+    "isbn": 3699639771618,
+    "nombre_autor": "Marion Holman",
+    "nombre_libro": "Harry Potter y la piedra filosofal",
+    "cantidad": 7,
+    "fila": 6,
+    "columna": 3,
+    "paginas": 179,
+    "categoria": "Fantasia"
+  },
+  {
+    "isbn": 1470888645577,
+    "nombre_autor": "Colleen Gomez",
+    "nombre_libro": "El camino de los reyes",
+    "cantidad": 7,
+    "fila": 5,
+    "columna": 8,
+    "paginas": 262,
+    "categoria": "Fantasia"
+  },
+  {
+    "isbn": 7684411130796,
+    "nombre_autor": "Mona Kirkland",
+    "nombre_libro": "Seis de cuervos",
+    "cantidad": 7,
+    "fila": 2,
+    "columna": 3,
+    "paginas": 268,
+    "categoria": "Fantasia"
+  },
+  {
+    "isbn": 2565490250707,
+    "nombre_autor": "Stephenson Gould",
+    "nombre_libro": "El ojo del mundo",
+    "cantidad": 2,
+    "fila": 3,
+    "columna": 1,
+    "paginas": 260,
+    "categoria": "Fantasia"
+  },
+  {
+    "isbn": 6395952411398,
+    "nombre_autor": "Atkinson Rivers",
+    "nombre_libro": "American Gods",
+    "cantidad": 9,
+    "fila": 2,
+    "columna": 8,
+    "paginas": 269,
+    "categoria": "Fantasia"
+  },
+  {
+    "isbn": 8132356115181,
+    "nombre_autor": "Hancock Raymond",
+    "nombre_libro": "El retorno de los dragones",
+    "cantidad": 6,
+    "fila": 2,
+    "columna": 7,
+    "paginas": 273,
+    "categoria": "Fantasia"
+  },
+  {
+    "isbn": 9661724660201,
+    "nombre_autor": "Acevedo Glass",
+    "nombre_libro": "El rey malvado",
+    "cantidad": 1,
+    "fila": 2,
+    "columna": 2,
+    "paginas": 210,
+    "categoria": "Fantasia"
+  },
+  {
+    "isbn": 8920360142668,
+    "nombre_autor": "Hendricks Irwin",
+    "nombre_libro": "El Silmarillion",
+    "cantidad": 6,
+    "fila": 8,
+    "columna": 8,
+    "paginas": 161,
+    "categoria": "Fantasia"
+  },
+  {
+    "isbn": 8442086123115,
+    "nombre_autor": "Beck Arnold",
+    "nombre_libro": "Una Corono de Huesos",
+    "cantidad": 8,
+    "fila": 2,
+    "columna": 6,
+    "paginas": 196,
+    "categoria": "Fantasia"
+  },
+  {
+    "isbn": 1615058263356,
+    "nombre_autor": "Sellers Hurley",
+    "nombre_libro": "Los jardines de la luna",
+    "cantidad": 6,
+    "fila": 5,
+    "columna": 2,
+    "paginas": 174,
+    "categoria": "Fantasia"
+  },
+  {
+    "isbn": 9744671989068,
+    "nombre_autor": "Ramsey Russo",
+    "nombre_libro": "Un reino de carne y fuego",
+    "cantidad": 7,
+    "fila": 5,
+    "columna": 3,
+    "paginas": 242,
+    "categoria": "Fantasia"
+  },
+  {
+    "isbn": 6840858273685,
+    "nombre_autor": "Beverly Watson",
+    "nombre_libro": "El imperio final",
+    "cantidad": 3,
+    "fila": 8,
+    "columna": 2,
+    "paginas": 159,
+    "categoria": "Fantasia"
+  },
+  {
+    "isbn": 1716548450265,
+    "nombre_autor": "Buckley Rocha",
+    "nombre_libro": "Harry Potter y el prisionero de Azkaban",
+    "cantidad": 22,
+    "fila": 13,
+    "columna": 10,
+    "paginas": 241,
+    "categoria": "Fantasia"
+  },
+  {
+    "isbn": 5449597123705,
+    "nombre_autor": "Nannie Petty",
+    "nombre_libro": "La tumba de Huma",
+    "cantidad": 19,
+    "fila": 11,
+    "columna": 10,
+    "paginas": 284,
+    "categoria": "Fantasia"
+  },
+  {
+    "isbn": 7830937049893,
+    "nombre_autor": "Grimes Aguirre",
+    "nombre_libro": "La historia interminable",
+    "cantidad": 16,
+    "fila": 16,
+    "columna": 1,
+    "paginas": 209,
+    "categoria": "Fantasia"
+  },
+  {
+    "isbn": 8643859817468,
+    "nombre_autor": "Allison Goodman",
+    "nombre_libro": "La casa en el mar más azul",
+    "cantidad": 15,
+    "fila": 16,
+    "columna": 3,
+    "paginas": 225,
+    "categoria": "Fantasia"
+  },
+  {
+    "isbn": 4007339290195,
+    "nombre_autor": "Carlene Gray",
+    "nombre_libro": "La reina de la Oscuridad",
+    "cantidad": 11,
+    "fila": 15,
+    "columna": 3,
+    "paginas": 219,
+    "categoria": "Fantasia"
+  },
+  {
+    "isbn": 2310629716765,
+    "nombre_autor": "Navarro White",
+    "nombre_libro": "La ultima mision Gwendy",
+    "cantidad": 9,
+    "fila": 6,
+    "columna": 5,
+    "paginas": 227,
+    "categoria": "Fantasia"
+  },
+  {
+    "isbn": 5423763681981,
+    "nombre_autor": "Lynette Alford",
+    "nombre_libro": "Harry Potter y el cáliz de fuego",
+    "cantidad": 7,
+    "fila": 14,
+    "columna": 1,
+    "paginas": 246,
+    "categoria": "Fantasia"
+  },
+  {
+    "isbn": 4036822674878,
+    "nombre_autor": "Pierce Kennedy",
+    "nombre_libro": "Elric de Melniboné",
+    "cantidad": 5,
+    "fila": 10,
+    "columna": 5,
+    "paginas": 261,
+    "categoria": "Fantasia"
+  },
+  {
+    "isbn": 8498787657396,
+    "nombre_autor": "Silvia Walsh",
+    "nombre_libro": "El guerrero Alado",
+    "cantidad": 15,
+    "fila": 17,
+    "columna": 7,
+    "paginas": 276,
+    "categoria": "Fantasia"
+  },
+  {
+    "isbn": 9196984818021,
+    "nombre_autor": "Lucas Ford",
+    "nombre_libro": "La colina de Watership",
+    "cantidad": 13,
+    "fila": 13,
+    "columna": 9,
+    "paginas": 207,
+    "categoria": "Fantasia"
+  },
+  {
+    "isbn": 5257547609810,
+    "nombre_autor": "Rogers Sampson",
+    "nombre_libro": "El ultimo unicornio",
+    "cantidad": 14,
+    "fila": 21,
+    "columna": 2,
+    "paginas": 234,
+    "categoria": "Fantasia"
+  },
+  {
+    "isbn": 3120453059867,
+    "nombre_autor": "Mccoy Mosley",
+    "nombre_libro": "words of Radiance",
+    "cantidad": 14,
+    "fila": 19,
+    "columna": 6,
+    "paginas": 189,
+    "categoria": "Fantasia"
+  },
+  {
+    "isbn": 7927812318300,
+    "nombre_autor": "Elvia Norton",
+    "nombre_libro": "El maravilloso mago de Oz",
+    "cantidad": 16,
+    "fila": 21,
+    "columna": 5,
+    "paginas": 260,
+    "categoria": "Fantasia"
+  },
+  {
+    "isbn": 2026607524726,
+    "nombre_autor": "Randall Smith",
+    "nombre_libro": "El ultimo deseo",
+    "cantidad": 23,
+    "fila": 24,
+    "columna": 7,
+    "paginas": 153,
+    "categoria": "Fantasia"
+  },
+  {
+    "isbn": 7739954703363,
+    "nombre_autor": "Grace Arnold",
+    "nombre_libro": "Harry Potter y las reliquias de la muerte",
+    "cantidad": 13,
+    "fila": 22,
+    "columna": 6,
+    "paginas": 228,
+    "categoria": "Fantasia"
+  },
+  {
+    "isbn": 8196891264424,
+    "nombre_autor": "Bowman Horn",
+    "nombre_libro": "Animales fantasticos",
+    "cantidad": 7,
+    "fila": 15,
+    "columna": 7,
+    "paginas": 159,
+    "categoria": "Fantasia"
+  },
+  {
+    "isbn": 5849307282312,
+    "nombre_autor": "Karina Melendez",
+    "nombre_libro": "Harry Potter y la camara de los secretos",
+    "cantidad": 11,
+    "fila": 8,
+    "columna": 10,
+    "paginas": 172,
+    "categoria": "Fantasia"
+  },
+  {
+    "isbn": 3611850216834,
+    "nombre_autor": "Rene Lara",
+    "nombre_libro": "El mentalisata",
+    "cantidad": 21,
+    "fila": 12,
+    "columna": 7,
+    "paginas": 228,
+    "categoria": "Thriller"
+  },
+  {
+    "isbn": 7573026389414,
+    "nombre_autor": "Pitts Hawkins",
+    "nombre_libro": "El instituto",
+    "cantidad": 17,
+    "fila": 15,
+    "columna": 6,
+    "paginas": 157,
+    "categoria": "Thriller"
+  },
+  {
+    "isbn": 2141499531041,
+    "nombre_autor": "Bridget Page",
+    "nombre_libro": "La verdad sobre el caso Harry Quebert",
+    "cantidad": 23,
+    "fila": 11,
+    "columna": 7,
+    "paginas": 173,
+    "categoria": "Thriller"
+  },
+  {
+    "isbn": 9667377586937,
+    "nombre_autor": "Leola Swanson",
+    "nombre_libro": "El codigo de Vinci",
+    "cantidad": 23,
+    "fila": 17,
+    "columna": 8,
+    "paginas": 232,
+    "categoria": "Thriller"
+  },
+  {
+    "isbn": 5909885253716,
+    "nombre_autor": "Cynthia Whitley",
+    "nombre_libro": "Siete mentiras",
+    "cantidad": 24,
+    "fila": 26,
+    "columna": 4,
+    "paginas": 261,
+    "categoria": "Thriller"
+  },
+  {
+    "isbn": 7309815562160,
+    "nombre_autor": "Evangelina Bryant",
+    "nombre_libro": "The Beirut",
+    "cantidad": 9,
+    "fila": 21,
+    "columna": 1,
+    "paginas": 213,
+    "categoria": "Thriller"
+  },
+  {
+    "isbn": 4887782670690,
+    "nombre_autor": "Laverne Burns",
+    "nombre_libro": "1795 Niklas Natt",
+    "cantidad": 10,
+    "fila": 20,
+    "columna": 5,
+    "paginas": 292,
+    "categoria": "Thriller"
+  },
+  {
+    "isbn": 8399691741057,
+    "nombre_autor": "Margo Snider",
+    "nombre_libro": "Affluex",
+    "cantidad": 13,
+    "fila": 14,
+    "columna": 1,
+    "paginas": 234,
+    "categoria": "Thriller"
+  },
+  {
+    "isbn": 4829416019583,
+    "nombre_autor": "Soto Holden",
+    "nombre_libro": "Amigo imaginario",
+    "cantidad": 13,
+    "fila": 18,
+    "columna": 20,
+    "paginas": 193,
+    "categoria": "Thriller"
+  },
+  {
+    "isbn": 2356350219292,
+    "nombre_autor": "Garrison Roth",
+    "nombre_libro": "The paris Apartmennt",
+    "cantidad": 18,
+    "fila": 23,
+    "columna": 20,
+    "paginas": 299,
+    "categoria": "Thriller"
+  },
+  {
+    "isbn": 6940598143419,
+    "nombre_autor": "Rodriguez Mitchell",
+    "nombre_libro": "El silencio de los inocentes",
+    "cantidad": 8,
+    "fila": 12,
+    "columna": 19,
+    "paginas": 175,
+    "categoria": "Thriller"
+  },
+  {
+    "isbn": 3528932286914,
+    "nombre_autor": "Rose Greene",
+    "nombre_libro": "La sombra del viento",
+    "cantidad": 9,
+    "fila": 8,
+    "columna": 5,
+    "paginas": 207,
+    "categoria": "Thriller"
+  },
+  {
+    "isbn": 9051936615011,
+    "nombre_autor": "Austin Clemons",
+    "nombre_libro": "Ciudad negra",
+    "cantidad": 5,
+    "fila": 24,
+    "columna": 5,
+    "paginas": 206,
+    "categoria": "Thriller"
+  },
+  {
+    "isbn": 9384934904912,
+    "nombre_autor": "Traci Jefferson",
+    "nombre_libro": "La bestia Madrid",
+    "cantidad": 21,
+    "fila": 24,
+    "columna": 6,
+    "paginas": 263,
+    "categoria": "Thriller"
+  },
+  {
+    "isbn": 8811792712216,
+    "nombre_autor": "Kate Terry",
+    "nombre_libro": "Seis Cuatro",
+    "cantidad": 18,
+    "fila": 30,
+    "columna": 30,
+    "paginas": 293,
+    "categoria": "Thriller"
+  },
+  {
+    "isbn": 4670013824180,
+    "nombre_autor": "Dudley Black",
+    "nombre_libro": "El campamento",
+    "cantidad": 18,
+    "fila": 100,
+    "columna": 100,
+    "paginas": 166,
+    "categoria": "Thriller"
+  }  
+]
