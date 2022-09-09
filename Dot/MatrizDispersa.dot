@@ -1,0 +1,56 @@
+digraph G {
+    node[shape=box fontname="Arial" fillcolor="white" style=filled]
+    
+    Root[group="0" label="Capa 0"];
+    F1[group="0" fillcolor="powderblue"];
+    F2[group="0" fillcolor="powderblue"];
+    F3[group="0" fillcolor="powderblue"];
+    
+    C2[group="2" fillcolor="plum"];
+    C3[group="3" fillcolor="plum"];
+    C4[group="4" fillcolor="plum"];
+    
+    N12[group="2" label="Don Quijote"];
+    N22[group="2" label="El Señor de Los Anillos"];
+    
+    N23[group="3" label="Harry Potter"];
+    
+    N14[group="4" label="Historia de 2 Ciudades"];
+    N34[group="4" label="El Principito"];
+    
+    subgraph columnHeader {
+        rank = same;
+        Root -> C2 -> C3 -> C4;
+        C4 -> C3 -> C2;
+    }
+    subgraph row1 {
+        rank = same;
+        F1 -> N12 -> N14;
+        N14 -> N12;
+    }
+    subgraph row2 {
+        rank = same;
+        F2 -> N22 -> N23;
+        N23 -> N22;
+    }
+    subgraph row3 {
+        rank = same;
+        F3 -> N34;
+    }
+    subgraph rowHeader {
+        Root -> F1 -> F2 -> F3;
+        edge[dir=back];
+        F1 -> F2 -> F3;
+    }
+    subgraph column2 {
+        C2 -> N12 -> N22;
+        N22 -> N12;
+    }
+    subgraph column3 {
+        C3 -> N23;
+    }
+    subgraph column4 {
+        C4 -> N14 -> N34;
+        N34 -> N14;
+    }
+}
