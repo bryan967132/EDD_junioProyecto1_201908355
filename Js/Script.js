@@ -649,72 +649,49 @@ class MatrizOrtogonal {
             currentC = currentC.siguiente
         }
         grafo += `\n\tsubgraph columnHeader {\n\t\trank = same;`
-        grafo += `\n\t\tRoot -> `
+        let enlace = '\n\t\tRoot -> '
         currentC = this.columnas.primero
         while(currentC) {
-            grafo += `C${currentC.id}`
+            enlace += `C${currentC.id}`
             currentC = currentC.siguiente
-            if(currentC) grafo += ' -> '
+            if(currentC) enlace += ' -> '
         }
-        currentC = this.columnas.ultimo
-        grafo += ';\n\t\t'
-        while(currentC) {
-            grafo += `C${currentC.id}`
-            currentC = currentC.anterior
-            if(currentC) grafo += ' -> '
-        }
-        grafo += ';\n\t}'
+        grafo += enlace + ';' + enlace + '[dir=back];\n\t}'
         currentR = this.filas.primero
         while(currentR) {
-            grafo += `\n\tsubgraph row${currentR.id} {\n\t\trank = same;\n\t\tF${currentR.id} -> `
+            grafo += `\n\tsubgraph row${currentR.id} {\n\t\trank = same;`
+            enlace = `\n\t\tF${currentR.id} -> `
             currentC = currentR.acceso
             while(currentC) {
-                grafo += `N${currentC.x}_${currentC.y}`
+                enlace += `N${currentC.x}_${currentC.y}`
                 if(currentC.derecha) currentC = currentC.derecha
                 else break
-                if(currentC) grafo += ' -> '
+                if(currentC) enlace += ' -> '
             }
-            grafo += ';\n\t\t'
-            while(currentC) {
-                grafo += `N${currentC.x}_${currentC.y}`
-                currentC = currentC.izquierda
-                if(currentC) grafo += ' -> '
-            }
-            grafo += `;\n\t}`
+            grafo += enlace + ';' + enlace +'[dir=back];\n\t}'
             currentR = currentR.siguiente
         }
-        grafo += `\n\tsubgraph rowHeader {\n\t\tRoot -> `
+        grafo += `\n\tsubgraph rowHeader {`
+        enlace = '\n\t\tRoot -> '
         currentR = this.filas.primero
         while(currentR) {
-            grafo += `F${currentR.id}`
+            enlace += `F${currentR.id}`
             currentR = currentR.siguiente
-            if(currentR) grafo += ' -> '
+            if(currentR) enlace += ' -> '
         }
-        grafo += ';\n\t\tedge[dir=back];\n\t\t'
-        currentR = this.filas.primero
-        while(currentR) {
-            grafo += `F${currentR.id}`
-            currentR = currentR.siguiente
-            if(currentR) grafo += ' -> '
-        }
-        grafo += ';\n\t}'
+        grafo += enlace + ';' + enlace + '[dir=back];\n\t}'
         currentC = this.columnas.primero
         while(currentC) {
-            grafo += `\n\tsubgraph column${currentC.id} {\n\t\tC${currentC.id} -> `
+            grafo += `\n\tsubgraph column${currentC.id} {`
+            enlace = `\n\t\tC${currentC.id} -> `
             currentR = currentC.acceso
             while(currentR) {
-                grafo += `N${currentR.x}_${currentR.y}`
+                enlace += `N${currentR.x}_${currentR.y}`
                 if(currentR.abajo) currentR = currentR.abajo
                 else break
-                if(currentR) grafo += ' -> '
+                if(currentR) enlace += ' -> '
             }
-            grafo += ';\n\t\t'
-            while(currentR) {
-                grafo += `N${currentR.x}_${currentR.y}`
-                currentR = currentR.arriba
-                if(currentR) grafo += ' -> '
-            }
-            grafo += `;\n\t}`
+            grafo += enlace + ';' + enlace + '[dir=back];\n\t}'
             currentC = currentC.siguiente
         }
         grafo += '\n}'
@@ -819,72 +796,49 @@ class MatrizDispersa {
             currentC = currentC.siguiente
         }
         grafo += `\n\tsubgraph columnHeader {\n\t\trank = same;`
-        grafo += `\n\t\tRoot -> `
+        let enlace = '\n\t\tRoot -> '
         currentC = this.columnas.primero
         while(currentC) {
-            grafo += `C${currentC.id}`
+            enlace += `C${currentC.id}`
             currentC = currentC.siguiente
-            if(currentC) grafo += ' -> '
+            if(currentC) enlace += ' -> '
         }
-        currentC = this.columnas.ultimo
-        grafo += ';\n\t\t'
-        while(currentC) {
-            grafo += `C${currentC.id}`
-            currentC = currentC.anterior
-            if(currentC) grafo += ' -> '
-        }
-        grafo += ';\n\t}'
+        grafo += enlace + ';' + enlace + '[dir=back];\n\t}'
         currentR = this.filas.primero
         while(currentR) {
-            grafo += `\n\tsubgraph row${currentR.id} {\n\t\trank = same;\n\t\tF${currentR.id} -> `
+            grafo += `\n\tsubgraph row${currentR.id} {\n\t\trank = same;`
+            enlace = `\n\t\tF${currentR.id} -> `
             currentC = currentR.acceso
             while(currentC) {
-                grafo += `N${currentC.x}_${currentC.y}`
+                enlace += `N${currentC.x}_${currentC.y}`
                 if(currentC.derecha) currentC = currentC.derecha
                 else break
-                if(currentC) grafo += ' -> '
+                if(currentC) enlace += ' -> '
             }
-            grafo += ';\n\t\t'
-            while(currentC) {
-                grafo += `N${currentC.x}_${currentC.y}`
-                currentC = currentC.izquierda
-                if(currentC) grafo += ' -> '
-            }
-            grafo += `;\n\t}`
+            grafo += enlace + ';' + enlace +'[dir=back];\n\t}'
             currentR = currentR.siguiente
         }
-        grafo += `\n\tsubgraph rowHeader {\n\t\tRoot -> `
+        grafo += `\n\tsubgraph rowHeader {`
+        enlace = '\n\t\tRoot -> '
         currentR = this.filas.primero
         while(currentR) {
-            grafo += `F${currentR.id}`
+            enlace += `F${currentR.id}`
             currentR = currentR.siguiente
-            if(currentR) grafo += ' -> '
+            if(currentR) enlace += ' -> '
         }
-        grafo += ';\n\t\tedge[dir=back];\n\t\t'
-        currentR = this.filas.primero
-        while(currentR) {
-            grafo += `F${currentR.id}`
-            currentR = currentR.siguiente
-            if(currentR) grafo += ' -> '
-        }
-        grafo += ';\n\t}'
+        grafo += enlace + ';' + enlace + '[dir=back];\n\t}'
         currentC = this.columnas.primero
         while(currentC) {
-            grafo += `\n\tsubgraph column${currentC.id} {\n\t\tC${currentC.id} -> `
+            grafo += `\n\tsubgraph column${currentC.id} {`
+            enlace = `\n\t\tC${currentC.id} -> `
             currentR = currentC.acceso
             while(currentR) {
-                grafo += `N${currentR.x}_${currentR.y}`
+                enlace += `N${currentR.x}_${currentR.y}`
                 if(currentR.abajo) currentR = currentR.abajo
                 else break
-                if(currentR) grafo += ' -> '
+                if(currentR) enlace += ' -> '
             }
-            grafo += ';\n\t\t'
-            while(currentR) {
-                grafo += `N${currentR.x}_${currentR.y}`
-                currentR = currentR.arriba
-                if(currentR) grafo += ' -> '
-            }
-            grafo += `;\n\t}`
+            grafo += enlace + ';' + enlace + '[dir=back];\n\t}'
             currentC = currentC.siguiente
         }
         grafo += '\n}'
